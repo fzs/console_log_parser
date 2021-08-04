@@ -1,0 +1,19 @@
+[?2004h]0;/c/Users/florian
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian[0m
+$ [K$ [K$ cd dev
+[?2004l[?2004h]0;/c/Users/florian/dev
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev[0m
+$ cd gitex-remote/
+[?2004l[?2004h]0;/c/Users/florian/dev/gitex-remote
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev/gitex-remote[0m
+$ git e[Kcheckout master
+[?2004lSwitched to branch 'master'
+[?2004h]0;/c/Users/florian/dev/gitex-remote
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev/gitex-remote[0m
+$ git staus[K[Ktus
+[?2004lOn branch master
+nothing to commit, working tree clean
+[?2004h]0;/c/Users/florian/dev/gitex-remote
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev/gitex-remote[0m
+$ 
+[?2004l
