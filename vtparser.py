@@ -519,11 +519,12 @@ def main():
         exit()
 
     with open(sys.argv[1], 'rb') as logfile:
+        LOG.info("Parsing file %s", sys.argv[1])
         parse(logfile)
 
 
 if __name__ == '__main__':
-    LOG_FORMAT = "%(levelname)s %(module)s - %(message)s"
+    LOG_FORMAT = "%(levelname)s :%(module)s - %(message)s"
     logging.basicConfig(filename="parser.log",
                         level=logging.DEBUG,
                         format=LOG_FORMAT,
