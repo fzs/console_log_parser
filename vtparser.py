@@ -4,6 +4,9 @@ from enum import Enum
 
 
 class States(Enum):
+    """
+    VT500 Parser state machine state ids.
+    """
     GROUND = 'ground'
     ESCAPE = 'escape'
     ESCAPE_INTERMEDIATE = 'escape_intermediate'
@@ -21,6 +24,9 @@ class States(Enum):
 
 
 class Actions(Enum):
+    """
+    Vt500 parser state machine action ids.
+    """
     IGNORE = 'ignore'
     PRINT = 'print'
     EXECUTE = 'execute'
@@ -38,6 +44,10 @@ class Actions(Enum):
 
 
 class State:
+    """
+    VT500Parser state machine state. It defines a mapping from an input code to a action and/or new state
+    for each defined state of the state machine.
+    """
     states = {}
 
     def __init__(self, id):
@@ -347,6 +357,8 @@ class State:
 
 
 class VT500Parser:
+    """An implementation of a state machine for a parser for escape and control sequences,
+     suitable for use in a VT emulator. Modeled after https://vt100.net/emu/dec_ansi_parser"""
     def __init__(self):
         self.input_code = None
         self.private_flag = ''
@@ -393,23 +405,35 @@ class VT500Parser:
 
     # Implementation of the Actions
     def ignore(self, code=None):
+        """The character or control is not processed.
+         No observable difference in the terminal’s state would occur if the character that caused this action
+         was not present in the input stream."""
         pass
 
     def print(self, code):
+        """The current code should be mapped to a glyph according to the character set mappings and shift states
+         in effect, and that glyph should be displayed."""
         #sys.stdout.write(code)
         pass
 
     def execute(self, code):
+        """The C0 or C1 control function should be executed, which may have any one of a variety of effects,
+         including changing the cursor position, suspending or resuming communications or changing the
+         shift states in effect. There are no parameters to this action."""
         #sys.stdout.write(code)
         pass
 
     def clear(self, _code=None):
+        """This action causes the current private flag, intermediate characters, final character
+         and parameters to be forgotten."""
         self.private_flag = ''
         self.intermediate_char = ''
         self.final_char = ''
         self.parameter_string = ''
 
     def collect(self, code):
+        """The private marker or intermediate character should be stored for later use in selecting
+         a control function to be executed when a final character arrives. """
         # We want to differentiate between private markers and
         # intermediate characters. Not sure why.
         if 0x3c <= code <= 0x3f:
@@ -418,14 +442,22 @@ class VT500Parser:
             self.intermediate_char += chr(code)
 
     def param(self, code):
+        """This action collects the characters of a parameter string for a control sequence or device control sequence
+         and builds a list of parameters. The characters processed by this action are the digits 0-9 (codes 30-39) and
+         the semicolon (code 3B). The semicolon separates parameters."""
         self.parameter_string += chr(code)
 
     def esc_dispatch(self, code):
+        """The final character of an escape sequence has arrived, so determined the control function to be executed
+         from the intermediate character(s) and final character, and execute it. The intermediate characters are
+         available because collect stored them as they arrived."""
         self.final_char += chr(code)
         LOG.info("execute escape sequence: {}_{}_{}_{}".format(self.private_flag, self.parameter_string,
                                                                self.intermediate_char, self.final_char))
 
     def csi_dispatch(self, code):
+        """A final character has arrived, so determine the control function to be executed from private marker,
+         intermediate character(s) and final character, and execute it, passing in the parameter list."""
         self.final_char += chr(code)
         LOG.info("determine control function from {}_{}_{}".format(self.private_flag,
                                                                    self.intermediate_char,
@@ -433,6 +465,11 @@ class VT500Parser:
         LOG.info("execute with parameters: {}".format(self.parameter_string))
 
     def hook(self, code=None):
+        """This action is invoked when a final character arrives in the first part of a device control string.
+         It determines the control function from the private marker, intermediate character(s) and final character,
+         and executes it, passing in the parameter list. It also selects a handler function for the rest of the
+         characters in the control string. This handler function will be called by the put action for every character
+         in the control string as it arrives."""
         self.final_char += chr(code)
         LOG.info("determine control function from {}_{}_{}".format(self.private_flag,
                                                                    self.intermediate_char,
@@ -441,22 +478,34 @@ class VT500Parser:
         LOG.info("Select handler function for following put actions")
 
     def put(self, code=None):
+        """This action passes characters from the data string part of a device control string to a handler that
+         has previously been selected by the hook action. C0 controls are also passed to the handler."""
         pass
 
     def unhook(self, _code=None):
+        """When a device control string is terminated by ST, CAN, SUB or ESC, this action calls the previously
+         selected handler function with an “end of data” parameter. This allows the handler to finish neatly."""
         LOG.info("Signal EOD to handler function")
 
     def osc_start(self, _code=None):
+        """When the control function OSC (Operating System Command) is recognised, this action initializes
+         an external parser (the “OSC Handler”) to handle the characters from the control string. OSC control strings
+        are not structured in the same way as device control strings, so there is no choice of parsers."""
         LOG.info("Initialize OSC handler")
 
     def osc_put(self, code):
+        """This action passes characters from the control string to the OSC Handler as they arrive.
+         There is therefore no need to buffer characters until the end of the control string is recognised."""
         pass
 
     def osc_end(self, _code=None):
+        """This action is called when the OSC string is terminated by ST, CAN, SUB or ESC,
+         to allow the OSC handler to finish neatly."""
         LOG.info("Finish OSC handler")
 
 
 def parse(logfile):
+    """Read the input file byte by byte and input the bytes to a VT500Parser instance"""
     parser = VT500Parser()
     c = logfile.read(1)
     while c:
