@@ -469,7 +469,7 @@ def main():
         print("Log file missing. Specify log file to parse.")
         exit()
 
-    with open(sys.argv[1], 'r') as logfile:
+    with open(sys.argv[1], 'rb') as logfile:
         parse(logfile)
 
 
