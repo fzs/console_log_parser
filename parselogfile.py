@@ -1,3 +1,4 @@
+import logging
 import sys
 from enum import Enum
 
@@ -359,19 +360,20 @@ class VT500Parser:
         if action is None:
             return
 
-        print("{:02x} -> run action {}".format(code, action))
+        LOG.debug("{:02x} -> run action {}".format(code, action))
         method = getattr(self, action.value, self.default_action)
         method(code)
 
     def default_action(self, code=None):
-        print("ENCOUNTERED AN UNIMPLEMENTED ACTION")
+        LOG.warning("ENCOUNTERED AN UNIMPLEMENTED ACTION")
 
     def transition_to(self, new_state):
-        print("Transition to new state", new_state.id)
+        LOG.info("Entering new state %s", new_state.id)
         self.state = new_state
 
     def input(self, code: int):
         # Send event to state
+        LOG.debug("> %02x %s", code, "("+chr(code)+")" if 0x20 <= code <= 0x7E else '')
         action, new_state = self.state.event(code)
 
         # If a new state is returned,
@@ -420,38 +422,38 @@ class VT500Parser:
 
     def esc_dispatch(self, code):
         self.final_char += chr(code)
-        print("execute escape sequence: {}_{}_{}_{}".format(self.private_flag, self.parameter_string,
-                                                            self.intermediate_char, self.final_char))
+        LOG.info("execute escape sequence: {}_{}_{}_{}".format(self.private_flag, self.parameter_string,
+                                                               self.intermediate_char, self.final_char))
 
     def csi_dispatch(self, code):
         self.final_char += chr(code)
-        print("determine control function from {}_{}_{}".format(self.private_flag,
-                                                                self.intermediate_char,
-                                                                self.final_char))
-        print("execute with parameters: {}".format(self.parameter_string))
+        LOG.info("determine control function from {}_{}_{}".format(self.private_flag,
+                                                                   self.intermediate_char,
+                                                                   self.final_char))
+        LOG.info("execute with parameters: {}".format(self.parameter_string))
 
     def hook(self, code=None):
         self.final_char += chr(code)
-        print("determine control function from {}_{}_{}".format(self.private_flag,
-                                                                self.intermediate_char,
-                                                                self.final_char))
-        print("execute with parameters: {}".format(self.parameter_string))
-        print("Select handler function for following put actions")
+        LOG.info("determine control function from {}_{}_{}".format(self.private_flag,
+                                                                   self.intermediate_char,
+                                                                   self.final_char))
+        LOG.info("execute with parameters: {}".format(self.parameter_string))
+        LOG.info("Select handler function for following put actions")
 
     def put(self, code=None):
         pass
 
     def unhook(self, _code=None):
-        print("Signal EOD to handler function")
+        LOG.info("Signal EOD to handler function")
 
     def osc_start(self, _code=None):
-        print("Initialize OSC handler")
+        LOG.info("Initialize OSC handler")
 
     def osc_put(self, code):
         pass
 
     def osc_end(self, _code=None):
-        print("Finish OSC handler")
+        LOG.info("Finish OSC handler")
 
 
 def parse(logfile):
@@ -472,4 +474,10 @@ def main():
 
 
 if __name__ == '__main__':
+    LOG_FORMAT = "%(levelname)s %(module)s - %(message)s"
+    logging.basicConfig(filename="parser.log",
+                        level=logging.DEBUG,
+                        format=LOG_FORMAT,
+                        filemode='w')
+    LOG = logging.getLogger()
     main()
