@@ -50,9 +50,9 @@ class State:
     """
     states = {}
 
-    def __init__(self, id):
-        # Textual id in case someone wants to find out who we are
-        self.id = id
+    def __init__(self, state_id: States):
+        # State id. In case someone wants to find out who we are.
+        self.id = state_id
         # The event map defines for each input code a (action,state) tuple.
         # The tuple has an action if the event, i.e. input code, results
         # in an action, and it has a state if the event results in a
@@ -126,9 +126,9 @@ class State:
         return None
 
     @staticmethod
-    def generate_state(name):
-        if name == States.GROUND:
-            state = State(name.value)
+    def generate_state(state_id):
+        if state_id == States.GROUND:
+            state = State(state_id)
             state.event_map[(0x00, 0x17)] = (Actions.EXECUTE, None)
             state.event_map[0x19]         = (Actions.EXECUTE, None)
             state.event_map[(0x1C, 0x1F)] = (Actions.EXECUTE, None)
@@ -136,8 +136,8 @@ class State:
             state.event_map[(0x20, 0x7F)] = (Actions.PRINT, None)
             return state
 
-        if name == States.ESCAPE:
-            state = State(name.value)
+        if state_id == States.ESCAPE:
+            state = State(state_id)
             state.event_map['entry'] = (Actions.CLEAR,)
 
             state.event_map[(0x00, 0x17)] = (Actions.EXECUTE, None)
@@ -164,8 +164,8 @@ class State:
             state.event_map[0x7F] = (Actions.IGNORE, None)
             return state
 
-        if name == States.ESCAPE_INTERMEDIATE:
-            state = State(name.value)
+        if state_id == States.ESCAPE_INTERMEDIATE:
+            state = State(state_id)
             state.event_map[(0x00, 0x17)] = (Actions.EXECUTE, None)
             state.event_map[0x19]         = (Actions.EXECUTE, None)
             state.event_map[(0x1C, 0x1F)] = (Actions.EXECUTE, None)
@@ -177,8 +177,8 @@ class State:
             state.event_map[0x7F] = (Actions.IGNORE, None)
             return state
 
-        if name == States.CSI_ENTRY:
-            state = State(name.value)
+        if state_id == States.CSI_ENTRY:
+            state = State(state_id)
             state.event_map['entry'] = (Actions.CLEAR,)
 
             state.event_map[(0x00, 0x17)] = (Actions.EXECUTE, None)
@@ -199,8 +199,8 @@ class State:
             state.event_map[0x7F]         = (Actions.IGNORE, None)
             return state
 
-        if name == States.CSI_PARAM:
-            state = State(name.value)
+        if state_id == States.CSI_PARAM:
+            state = State(state_id)
             state.event_map[(0x00, 0x17)] = (Actions.EXECUTE, None)
             state.event_map[0x19]         = (Actions.EXECUTE, None)
             state.event_map[(0x1C, 0x1F)] = (Actions.EXECUTE, None)
@@ -218,8 +218,8 @@ class State:
             state.event_map[0x7F]         = (Actions.IGNORE, None)
             return state
 
-        if name == States.CSI_INTERMEDIATE:
-            state = State(name.value)
+        if state_id == States.CSI_INTERMEDIATE:
+            state = State(state_id)
             state.event_map[(0x00, 0x17)] = (Actions.EXECUTE, None)
             state.event_map[0x19]         = (Actions.EXECUTE, None)
             state.event_map[(0x1C, 0x1F)] = (Actions.EXECUTE, None)
@@ -233,8 +233,8 @@ class State:
             state.event_map[0x7F]         = (Actions.IGNORE, None)
             return state
 
-        if name == States.CSI_IGNORE:
-            state = State(name.value)
+        if state_id == States.CSI_IGNORE:
+            state = State(state_id)
             state.event_map[(0x00, 0x17)] = (Actions.EXECUTE, None)
             state.event_map[0x19]         = (Actions.EXECUTE, None)
             state.event_map[(0x1C, 0x1F)] = (Actions.EXECUTE, None)
@@ -246,8 +246,8 @@ class State:
             state.event_map[0x7F]         = (Actions.IGNORE, None)
             return state
 
-        if name == States.DCS_ENTRY:
-            state = State(name.value)
+        if state_id == States.DCS_ENTRY:
+            state = State(state_id)
             state.event_map['entry'] = (Actions.CLEAR,)
 
             state.event_map[(0x00, 0x17)] = (Actions.IGNORE, None)
@@ -268,8 +268,8 @@ class State:
             state.event_map[0x7F]         = (Actions.IGNORE, None)
             return state
 
-        if name == States.DCS_PARAM:
-            state = State(name.value)
+        if state_id == States.DCS_PARAM:
+            state = State(state_id)
             state.event_map[(0x00, 0x17)] = (Actions.IGNORE, None)
             state.event_map[0x19]         = (Actions.IGNORE, None)
             state.event_map[(0x1C, 0x1F)] = (Actions.IGNORE, None)
@@ -287,8 +287,8 @@ class State:
             state.event_map[0x7F]         = (Actions.IGNORE, None)
             return state
 
-        if name == States.DCS_INTERMEDIATE:
-            state = State(name.value)
+        if state_id == States.DCS_INTERMEDIATE:
+            state = State(state_id)
             state.event_map[(0x00, 0x17)] = (Actions.IGNORE, None)
             state.event_map[0x19]         = (Actions.IGNORE, None)
             state.event_map[(0x1C, 0x1F)] = (Actions.IGNORE, None)
@@ -302,8 +302,8 @@ class State:
             state.event_map[0x7F]         = (Actions.IGNORE, None)
             return state
 
-        if name == States.DCS_PASSTHROUGH:
-            state = State(name.value)
+        if state_id == States.DCS_PASSTHROUGH:
+            state = State(state_id)
             state.event_map['entry'] = (Actions.HOOK,)
 
             state.event_map[(0x00, 0x17)] = (Actions.PUT, None)
@@ -316,8 +316,8 @@ class State:
             state.event_map['exit'] = (Actions.UNHOOK,)
             return state
 
-        if name == States.DCS_IGNORE:
-            state = State(name.value)
+        if state_id == States.DCS_IGNORE:
+            state = State(state_id)
             state.event_map['entry'] = (Actions.HOOK,)
 
             state.event_map[(0x00, 0x17)] = (Actions.IGNORE, None)
@@ -326,8 +326,8 @@ class State:
             state.event_map[(0x20, 0x7F)] = (Actions.IGNORE, None)
             return state
 
-        if name == States.OSC_STRING:
-            state = State(name.value)
+        if state_id == States.OSC_STRING:
+            state = State(state_id)
             state.event_map['entry'] = (Actions.OSC_START,)
 
             state.event_map[(0x00, 0x06)] = (Actions.IGNORE, None)
@@ -344,8 +344,8 @@ class State:
             state.event_map['exit'] = (Actions.OSC_END,)
             return state
 
-        if name == States.SOS_PM_APC_STRING:
-            state = State(name.value)
+        if state_id == States.SOS_PM_APC_STRING:
+            state = State(state_id)
             state.event_map[(0x00, 0x17)] = (Actions.IGNORE, None)
             state.event_map[0x19]         = (Actions.IGNORE, None)
             state.event_map[(0x1C, 0x1F)] = (Actions.IGNORE, None)
