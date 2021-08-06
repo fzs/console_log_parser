@@ -368,13 +368,29 @@ class VT500Parser:
 
         self.state = State.get(States.GROUND)
 
-    def run_action(self, action, code):
+        # Device control string. Buffered for statistics, because we can.
+        self.device_control_string = ''
+        # Operating system command. Buffered for statistics, because we can.
+        self.operating_system_command = ''
+
+        # We keep some statistics to see what we are dealing with in a file.
+        self.states_visited = {States.GROUND: 1}
+        self.actions_performed = {}
+        self.control_functions_seen = {}
+        self.escape_sequences_seen = {}
+        self.control_sequences_seen = {}
+        self.device_control_functions_seen = {}
+        self.device_control_strings = set()
+        self.os_commands = set()
+
+    def perform_action(self, action, code):
         if action is None:
             return
 
         LOG.debug("{:02x} -> run action {}".format(code, action))
         method = getattr(self, action.value, self.default_action)
         method(code)
+        self.stats_dict_inc(self.actions_performed, action)
 
     def default_action(self, code=None):
         LOG.warning("ENCOUNTERED AN UNIMPLEMENTED ACTION")
@@ -382,6 +398,7 @@ class VT500Parser:
     def transition_to(self, new_state):
         LOG.info("Entering new state %s", new_state.id)
         self.state = new_state
+        self.stats_dict_inc(self.states_visited, self.state.id)
 
     def input(self, code: int):
         # Send event to state
@@ -394,14 +411,14 @@ class VT500Parser:
         #  - set current state to new state
         #  - run entry action of new event, if any
         if isinstance(new_state, State):
-            self.run_action(self.state.exit(), code)
-            self.run_action(action, code)
+            self.perform_action(self.state.exit(), code)
+            self.perform_action(action, code)
             self.transition_to(new_state)
-            self.run_action(self.state.entry(), code)
+            self.perform_action(self.state.entry(), code)
 
         # If only an action was returned, execute the action
         elif action is not None:
-            self.run_action(action, code)
+            self.perform_action(action, code)
 
     # Implementation of the Actions
     def ignore(self, code=None):
@@ -420,6 +437,7 @@ class VT500Parser:
         """The C0 or C1 control function should be executed, which may have any one of a variety of effects,
          including changing the cursor position, suspending or resuming communications or changing the
          shift states in effect. There are no parameters to this action."""
+        self.stats_dict_inc(self.control_functions_seen, code)
         #sys.stdout.write(code)
         pass
 
@@ -452,6 +470,8 @@ class VT500Parser:
          from the intermediate character(s) and final character, and execute it. The intermediate characters are
          available because collect stored them as they arrived."""
         self.final_char += chr(code)
+        self.stats_dict_inc(self.escape_sequences_seen, 'Esc' + self.private_flag + self.parameter_string
+                                                        + self.intermediate_char + self.final_char)
         LOG.info("execute escape sequence: {}_{}_{}_{}".format(self.private_flag, self.parameter_string,
                                                                self.intermediate_char, self.final_char))
 
@@ -459,18 +479,23 @@ class VT500Parser:
         """A final character has arrived, so determine the control function to be executed from private marker,
          intermediate character(s) and final character, and execute it, passing in the parameter list."""
         self.final_char += chr(code)
+        self.stats_dict_inc(self.control_sequences_seen, 'Esc[' + self.private_flag + self.parameter_string
+                                                         + self.intermediate_char + self.final_char)
         LOG.info("determine control function from {}_{}_{}".format(self.private_flag,
                                                                    self.intermediate_char,
                                                                    self.final_char))
         LOG.info("execute with parameters: {}".format(self.parameter_string))
 
-    def hook(self, code=None):
+    def hook(self, code):
         """This action is invoked when a final character arrives in the first part of a device control string.
          It determines the control function from the private marker, intermediate character(s) and final character,
          and executes it, passing in the parameter list. It also selects a handler function for the rest of the
          characters in the control string. This handler function will be called by the put action for every character
          in the control string as it arrives."""
         self.final_char += chr(code)
+        self.device_control_string = ''
+        self.stats_dict_inc(self.device_control_functions_seen, 'EscP' + self.private_flag + self.parameter_string
+                                                                + self.intermediate_char + self.final_char)
         LOG.info("determine control function from {}_{}_{}".format(self.private_flag,
                                                                    self.intermediate_char,
                                                                    self.final_char))
@@ -480,28 +505,77 @@ class VT500Parser:
     def put(self, code=None):
         """This action passes characters from the data string part of a device control string to a handler that
          has previously been selected by the hook action. C0 controls are also passed to the handler."""
-        pass
+        self.device_control_string += chr(code)
 
     def unhook(self, _code=None):
         """When a device control string is terminated by ST, CAN, SUB or ESC, this action calls the previously
          selected handler function with an “end of data” parameter. This allows the handler to finish neatly."""
+        self.device_control_strings.add(self.device_control_string)
         LOG.info("Signal EOD to handler function")
 
     def osc_start(self, _code=None):
         """When the control function OSC (Operating System Command) is recognised, this action initializes
          an external parser (the “OSC Handler”) to handle the characters from the control string. OSC control strings
         are not structured in the same way as device control strings, so there is no choice of parsers."""
+        self.operating_system_command = ''
         LOG.info("Initialize OSC handler")
 
     def osc_put(self, code):
         """This action passes characters from the control string to the OSC Handler as they arrive.
          There is therefore no need to buffer characters until the end of the control string is recognised."""
-        pass
+        self.operating_system_command += chr(code)
 
     def osc_end(self, _code=None):
         """This action is called when the OSC string is terminated by ST, CAN, SUB or ESC,
          to allow the OSC handler to finish neatly."""
+        self.os_commands.add(self.operating_system_command)
         LOG.info("Finish OSC handler")
+
+    # Private helper functions
+    def stats_dict_inc(self, stats_dict, code):
+        """Increase count in map, or create new entry with count 0 if it doesn't exist yet."""
+        if code in stats_dict:
+            stats_dict[code] += 1
+        else:
+            stats_dict[code] = 1
+
+    def log_statistics(self):
+        """Gather statistics and dump to log"""
+        LOG.info("##########################################################################")
+        LOG.info("######                      S T A T I S T I C S                    #######")
+        LOG.info("##########################################################################")
+
+        LOG.info("-- Visited States:")
+        for state in sorted(self.states_visited, key=self.states_visited.get, reverse=True):
+            LOG.info(f"{state.name} : {self.states_visited[state]}")
+
+        LOG.info("-- Executed Actions:")
+        for action in sorted(self.actions_performed, key=self.actions_performed.get, reverse=True):
+            LOG.info(f"{action.name} : {self.actions_performed[action]}")
+
+        LOG.info("-- Control Functions:")
+        for cf in sorted(self.control_functions_seen, key=self.control_functions_seen.get, reverse=True):
+            LOG.info(f"{cf:02x} : {self.control_functions_seen[cf]}")
+
+        LOG.info("-- Escape Sequences:")
+        for key in sorted(self.escape_sequences_seen, key=self.escape_sequences_seen.get, reverse=True):
+            LOG.info(f"{key} : {self.escape_sequences_seen[key]}")
+
+        LOG.info("-- Control Sequences:")
+        for key in sorted(self.control_sequences_seen, key=self.control_sequences_seen.get, reverse=True):
+            LOG.info(f"{key} : {self.control_sequences_seen[key]}")
+
+        LOG.info("-- Device Control Functions:")
+        for key in sorted(self.device_control_functions_seen, key=self.device_control_functions_seen.get, reverse=True):
+            LOG.info(f"{key} : {self.device_control_functions_seen[key]}")
+
+        LOG.info("-- Device Control strings:")
+        for dcs in self.device_control_strings:
+            LOG.info(f"   {dcs}")
+
+        LOG.info("-- Operating System Commands:")
+        for osc in self.os_commands:
+            LOG.info(f"   {osc}")
 
 
 def parse(logfile):
@@ -511,6 +585,9 @@ def parse(logfile):
     while c:
         parser.input(ord(c))
         c = logfile.read(1)
+
+    # Gather statistics and dump to log
+    parser.log_statistics()
 
 
 def main():
