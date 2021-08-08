@@ -367,7 +367,58 @@ class State:
 class VT500Parser:
     """An implementation of a state machine for a parser for escape and control sequences,
      suitable for use in a VT emulator. Modeled after https://vt100.net/emu/dec_ansi_parser"""
+
+    # Default NOP implementation of a terminal driver concerned with how codes are to be displayed
+    class DefaultTerminalOutputHandler:
+        def print(self, code):
+            pass
+
+        def execute(self, code):
+            pass
+
+    # Default NOP implementation of a ESC and CSI handler
+    class DefaultControlSequenceHandler:
+        def esc_dispatch(self, intermediate, final_code):
+            pass
+
+        def csi_dispatch(self, private_marker, parameters, intermediate, final_code):
+            pass
+
+    # Default NOP implementation of a Device Control dispatcher and handler
+    # We do not differentiate between an dispatcher and multiple handler.
+    # If the application requires that, it can pass different derived classes for that to the parser.
+    class DefaultDcsHandler:
+        def hook(self, private_marker, parameters, intermediate, final_code):
+            return self
+
+        def put(self, code):
+            pass
+
+        def end_of_data(self, code=None):
+            pass
+
+    # Default NOP implementation of a Operation System Control string handler
+    class DefaultOscHandler:
+        def start(self, code):
+            pass
+
+        def put(self, code):
+            pass
+
+        def end_of_data(self, code=None):
+            pass
+
     def __init__(self):
+        # Initialize handlers with default NOP implementations
+        # These should be set by derived parsers with variants that do actual work
+        self.terminal_output_handler = self.DefaultTerminalOutputHandler()
+        self.control_sequence_handler = self.DefaultControlSequenceHandler()
+        self.dc_control_handler = self.DefaultDcsHandler()
+        self.osc_handler = self.DefaultOscHandler()
+
+        # This is returned by the dc_control_handler.hook function
+        self.dc_string_handler = self.dc_control_handler
+
         self.input_code = None
         self.private_flag = ''
         self.intermediate_char = ''
@@ -438,16 +489,16 @@ class VT500Parser:
     def print(self, code):
         """The current code should be mapped to a glyph according to the character set mappings and shift states
          in effect, and that glyph should be displayed."""
-        #sys.stdout.write(code)
-        pass
+
+        self.terminal_output_handler.print(code)
 
     def execute(self, code):
         """The C0 or C1 control function should be executed, which may have any one of a variety of effects,
          including changing the cursor position, suspending or resuming communications or changing the
          shift states in effect. There are no parameters to this action."""
         self.stats_dict_inc(self.control_functions_seen, code)
-        #sys.stdout.write(code)
-        pass
+
+        self.terminal_output_handler.execute(code)
 
     def clear(self, _code=None):
         """This action causes the current private flag, intermediate characters, final character
@@ -480,8 +531,9 @@ class VT500Parser:
         self.final_char += chr(code)
         self.stats_dict_inc(self.escape_sequences_seen, 'Esc' + self.private_flag + self.parameter_string
                                                         + self.intermediate_char + self.final_char)
-        LOG.info("execute escape sequence: {}_{}_{}_{}".format(self.private_flag, self.parameter_string,
-                                                               self.intermediate_char, self.final_char))
+        LOG.info("execute escape sequence: {}_{}".format(self.intermediate_char, self.final_char))
+
+        self.control_sequence_handler.esc_dispatch(self.intermediate_char, self.final_char)
 
     def csi_dispatch(self, code):
         """A final character has arrived, so determine the control function to be executed from private marker,
@@ -493,6 +545,9 @@ class VT500Parser:
                                                                    self.intermediate_char,
                                                                    self.final_char))
         LOG.info("execute with parameters: {}".format(self.parameter_string))
+
+        self.control_sequence_handler.csi_dispatch(self.private_flag, self.parameter_string,
+                                                   self.intermediate_char, self.final_char)
 
     def hook(self, code):
         """This action is invoked when a final character arrives in the first part of a device control string.
@@ -510,16 +565,23 @@ class VT500Parser:
         LOG.info("execute with parameters: {}".format(self.parameter_string))
         LOG.info("Select handler function for following put actions")
 
+        self.dc_string_handler = self.dc_control_handler.hook(self.private_flag, self.parameter_string,
+                                                              self.intermediate_char, self.final_char)
+
     def put(self, code=None):
         """This action passes characters from the data string part of a device control string to a handler that
          has previously been selected by the hook action. C0 controls are also passed to the handler."""
         self.device_control_string += chr(code)
+
+        self.dc_string_handler.put(code)
 
     def unhook(self, _code=None):
         """When a device control string is terminated by ST, CAN, SUB or ESC, this action calls the previously
          selected handler function with an “end of data” parameter. This allows the handler to finish neatly."""
         self.device_control_strings.add(self.device_control_string)
         LOG.info("Signal EOD to handler function")
+
+        self.dc_string_handler.end_of_data()
 
     def osc_start(self, _code=None):
         """When the control function OSC (Operating System Command) is recognised, this action initializes
@@ -528,16 +590,22 @@ class VT500Parser:
         self.operating_system_command = ''
         LOG.info("Initialize OSC handler")
 
+        self.osc_handler.start(_code)
+
     def osc_put(self, code):
         """This action passes characters from the control string to the OSC Handler as they arrive.
          There is therefore no need to buffer characters until the end of the control string is recognised."""
         self.operating_system_command += chr(code)
+
+        self.osc_handler.put(code)
 
     def osc_end(self, _code=None):
         """This action is called when the OSC string is terminated by ST, CAN, SUB or ESC,
          to allow the OSC handler to finish neatly."""
         self.os_commands.add(self.operating_system_command)
         LOG.info("Finish OSC handler")
+
+        self.osc_handler.end_of_data()
 
     # Private helper functions
     def stats_dict_inc(self, stats_dict, code):
