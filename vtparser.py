@@ -99,21 +99,29 @@ class State:
 
     def event(self, code):
         entry = None
+        # All codes A0-ff (GR area) are treated identically
+        # to codes 20-7F (GL area). So for these codes search the
+        # mapping table  for the GL counterpart
+        s_code = code
+        if 0xA0 <= code <= 0xff:
+            s_code = code - 0x80
+
         # First check if the code is in the map as a single key
-        if code in self.event_map:
-            entry = self.event_map[code]
+        if s_code in self.event_map:
+            entry = self.event_map[s_code]
         else:
             # Otherwise find a range in the keys in which the code does fit
             for key in self.event_map:
                 if isinstance(key, tuple):
-                    if key[0] <= code <= key[1]:
+                    if key[0] <= s_code <= key[1]:
                         entry = self.event_map[key]
 
         if entry is not None:
             action, state_id = entry
             return (action, None if state_id is None else self.get(state_id))
 
-        return None
+        raise NotImplementedError("The input 0x{:02x} has no mapping defined.".format(code))
+        #return None
 
     def entry(self):
         if 'entry' in self.event_map:
