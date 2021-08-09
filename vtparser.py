@@ -2,6 +2,8 @@ import logging
 import sys
 from enum import Enum
 
+LOG = logging.getLogger()
+
 
 class States(Enum):
     """
@@ -682,5 +684,4 @@ if __name__ == '__main__':
                         level=logging.DEBUG,
                         format=LOG_FORMAT,
                         filemode='w')
-    LOG = logging.getLogger()
     main()
