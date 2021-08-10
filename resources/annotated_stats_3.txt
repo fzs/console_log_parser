@@ -1,0 +1,183 @@
+INFO :terminalreplay - PlainOut:: Parsing file /home/florian/Nextcloud/GitTraining/GitTraining-2107/local/ConEmu-0-00-00-p7932.log
+
+##########################################################################
+######                      S T A T I S T I C S                 #####
+##########################################################################
+-- Visited States:
+GROUND : 2761
+ESCAPE : 2760
+CSI_ENTRY : 2655
+CSI_PARAM : 1969
+INFO :vtparser - OSC_STRING : 79
+DCS_ENTRY : 3
+DCS_PASSTHROUGH : 3
+CSI_INTERMEDIATE : 3
+-- Executed Actions:
+PRINT : 33547
+CLEAR : 5418
+PARAM : 4740
+OSC_PUT : 3412
+CSI_DISPATCH : 2655
+EXECUTE : 1403
+COLLECT : 974
+OSC_START : 79
+OSC_END : 79
+ESC_DISPATCH : 23
+HOOK : 3
+PUT : 3
+UNHOOK : 3
+-- Control Functions:
+0a : 566    LF
+0d : 458    CR
+08 : 353    BS
+09 : 22     HT Tab
+96 : 3      ESC V - Start of Guarded Area SPA
+07 : 1      BEL
+-- Escape Sequences:
+Esc= : 10   Application Keypad
+Esc> : 10   Normal Keypad
+Esc\ : 3    ST
+-- Control Sequences:
+Esc[?25l : 385      Hide Cursor (DECTCEM)
+Esc[?25h : 385      Show Cursor (DECTCEM)
+Esc[K : 303         Erase in line to right (EL)
+Esc[m : 263         Character Attribute Normal  (SGR)
+Esc[0m : 173        Character Attribute Normal  (SGR)
+Esc[33m : 168       Character Attribute Set foreground color Yellow  (SGR)
+Esc[C : 111         Cursor forward 1 times (CUF)
+Esc[32m : 87        Character Attribute Set foreground color Green  (SGR)
+Esc[35m : 86        Character Attribute Set foreground color Magenta  (SGR)
+Esc[?2004l : 84     Reset bracketed paster mode, xterm
+Esc[?2004h : 82     Set bracketed paste mode, xterm
+Esc[31m : 32        Character Attribute Set foreground color Red  (SGR)
+Esc[1;31m : 22      Character Attribute Bold ; Set foreground color Red  (SGR)
+Esc[1P : 21         Delete 1 character (DCH)
+Esc[2;1H : 21       Cursor Position row;column CUP
+Esc[3;1H : 17       Cursor Position row;column CUP
+Esc[1;1H : 13       Cursor Position row;column CUP
+Esc[39;1H : 12      Cursor Position row;column CUP
+Esc[01;34m : 11     Character Attribute Bold ; Set foreground color Blue  (SGR)
+Esc[?1h : 10        Application cursor keys (DECCKM)
+Esc[?1l : 10        Normal cursor keys (DECCKM)
+Esc[4;1H : 10       Cursor Position row;column CUP
+Esc[5;1H : 10       Cursor Position row;column CUP
+Esc[34m : 10        Character Attribute Set foreground color Blue  (SGR)
+Esc[1;39r : 9       Set Scrolling Region top:bottom  (DECSTBM)
+Esc[1;36m : 7       Character Attribute Bold ; Set foreground color Cyan  (SGR)
+Esc[38;5;130m : 7   Character Attribute Set foreground color indexd color 130  (SGR)
+Esc[1;32m : 6       Character Attribute Bold ; Set foreground color Green  (SGR)
+Esc[6n : 6          Device Status Report  Report Cursor Position  (DSR)
+Esc[2;38r : 6       Set Scrolling Region top:bottom  (DECSTBM)
+Esc[T : 6           Scroll down 1 line (SD)
+Esc[3;38r : 6       Set Scrolling Region top:bottom  (DECSTBM)
+Esc[1;39H : 6       Cursor Position row;column CUP
+Esc[1;38H : 6       Cursor Position row;column CUP
+Esc[5P : 5          Delete 5 characters (DCH)
+Esc[27m : 4         Character Attribute Positive (not inverse)  (SGR)
+Esc[6;1H : 4        Cursor Position row;column CUP
+Esc[3;20H : 4       Cursor Position row;column CUP
+Esc[3;19H : 4       Cursor Position row;column CUP
+Esc[1;37H : 4       Cursor Position row;column CUP
+Esc[1;36H : 4       Cursor Position row;column CUP
+Esc[1;43H : 4       Cursor Position row;column CUP
+Esc[1;42H : 4       Cursor Position row;column CUP
+Esc[1;41H : 4       Cursor Position row;column CUP
+Esc[1;40H : 4       Cursor Position row;column CUP
+Esc[?1004h : 3      Send FocusIn/FocusOut events, xterm
+Esc[?12h : 3        Start blinking cursor (AT&T 610)
+Esc[?12l : 3        Stop blinking cursor (AT&T 610)
+Esc[22;2t : 3       Window Manipulation  Save xterm window title on stack  (XTWINOPS)
+Esc[22;1t : 3       Window Manipulation  Save xterm icon title on stack  (XTWINOPS)
+Esc[23m : 3         Character Attribute Not italicized  (SGR)
+Esc[29m : 3         Character Attribute Not crossed-out  (SGR)
+Esc[H : 3           Cursor Position 1;1 CUP
+Esc[2J : 3          Erase in Display: All (ED)
+Esc[0%m : 3
+Esc[>c : 3          Request terminal's identification (Send Device Attributes; Secondary DA)
+Esc[94m : 3         Character Attribute Set foreground color Blue Bright  (SGR)
+Esc[12;1H : 3       Cursor Position row;column CUP
+Esc[13;1H : 3       Cursor Position row;column CUP
+Esc[14;1H : 3       Cursor Position row;column CUP
+Esc[15;1H : 3       Cursor Position row;column CUP
+Esc[16;1H : 3       Cursor Position row;column CUP
+Esc[17;1H : 3       Cursor Position row;column CUP
+Esc[18;1H : 3       Cursor Position row;column CUP
+Esc[19;1H : 3       Cursor Position row;column CUP
+Esc[20;1H : 3       Cursor Position row;column CUP
+Esc[21;1H : 3       Cursor Position row;column CUP
+Esc[22;1H : 3       Cursor Position row;column CUP
+Esc[23;1H : 3       Cursor Position row;column CUP
+Esc[24;1H : 3       Cursor Position row;column CUP
+Esc[25;1H : 3       Cursor Position row;column CUP
+Esc[26;1H : 3       Cursor Position row;column CUP
+Esc[27;1H : 3       Cursor Position row;column CUP
+Esc[28;1H : 3       Cursor Position row;column CUP
+Esc[29;1H : 3       Cursor Position row;column CUP
+Esc[30;1H : 3       Cursor Position row;column CUP
+Esc[31;1H : 3       Cursor Position row;column CUP
+Esc[32;1H : 3       Cursor Position row;column CUP
+Esc[33;1H : 3       Cursor Position row;column CUP
+Esc[34;1H : 3       Cursor Position row;column CUP
+Esc[35;1H : 3       Cursor Position row;column CUP
+Esc[36;1H : 3       Cursor Position row;column CUP
+Esc[37;1H : 3       Cursor Position row;column CUP
+Esc[38;1H : 3       Cursor Position row;column CUP
+Esc[1m : 3          Character Attribute Bold  (SGR)
+Esc[1;6H : 3        Cursor Position row;column CUP
+Esc[23;2t : 3       Window Manipulation  Restore xterm window title from stack  (XTWINOPS)
+Esc[23;1t : 3       Window Manipulation  Restore xterm icon title from stack  (XTWINOPS)
+Esc[?1004l : 3      Don't send FocusIn/FocusOut events, xterm
+Esc[1;19H : 3       Cursor Position row;column CUP
+Esc[106m : 3        Character Attribute Set background color Cyan Bright  (SGR)
+Esc[4;38r : 3       Set Scrolling Region top:bottom  (DECSTBM)
+Esc[5;38r : 3       Set Scrolling Region top:bottom  (DECSTBM)
+Esc[7;1H : 2        Cursor Position row;column CUP
+Esc[8;1H : 2        Cursor Position row;column CUP
+Esc[9;1H : 2        Cursor Position row;column CUP
+Esc[10;1H : 2       Cursor Position row;column CUP
+Esc[11;1H : 2       Cursor Position row;column CUP
+Esc[39;13H : 2      Cursor Position row;column CUP
+Esc[1;7H : 2        Cursor Position row;column CUP
+Esc[1;5H : 2        Cursor Position row;column CUP
+Esc[1;20H : 2       Cursor Position row;column CUP
+Esc[1;18H : 2       Cursor Position row;column CUP
+Esc[1;17H : 2       Cursor Position row;column CUP
+Esc[1;16H : 2       Cursor Position row;column CUP
+Esc[1;15H : 2       Cursor Position row;column CUP
+Esc[1;14H : 2       Cursor Position row;column CUP
+Esc[10C : 2         Cursor forward 10 times (CUF)
+Esc[10P : 2         Delete 10 characters (DCH)
+Esc[1;29H : 2       Cursor Position row;column CUP
+Esc[1;28H : 2       Cursor Position row;column CUP
+Esc[1;27H : 2       Cursor Position row;column CUP
+Esc[1;26H : 2       Cursor Position row;column CUP
+Esc[1;25H : 2       Cursor Position row;column CUP
+Esc[1;24H : 2       Cursor Position row;column CUP
+Esc[1;23H : 2       Cursor Position row;column CUP
+Esc[1;44H : 2       Cursor Position row;column CUP
+Esc[3;26H : 2       Cursor Position row;column CUP
+Esc[3;25H : 2       Cursor Position row;column CUP
+Esc[3;24H : 2       Cursor Position row;column CUP
+Esc[3;23H : 2       Cursor Position row;column CUP
+Esc[3;22H : 2       Cursor Position row;column CUP
+Esc[3;21H : 2       Cursor Position row;column CUP
+Esc[7m : 1          Character Attribute Inverse  (SGR)
+Esc[6P : 1          Delete 6 characters (DCH)
+Esc[39;14H : 1      Cursor Position row;column CUP
+Esc[2;3H : 1        Cursor Position row;column CUP
+Esc[8C : 1          Cursor forward 8 times (CUF)
+Esc[4;2H : 1        Cursor Position row;column CUP
+Esc[3;2H : 1        Cursor Position row;column CUP
+Esc[1;2H : 1        Cursor Position row;column CUP
+Esc[1;10H : 1       Cursor Position row;column CUP
+Esc[1@ : 1          Insert 1 blank characters (ICH)
+Esc[4P : 1          Delete 4 characters (DCH)
+Esc[11P : 1         Delete 11 characters (DCH)
+Esc[2;67H : 1       Cursor Position row;column CUP
+Esc[3;68H : 1       Cursor Position row;column CUP
+Esc[5;11H : 1       Cursor Position row;column CUP
+-- Device Control Functions:
+EscPz : 3       Invalid. Vim testing for xterm
+-- Device Control strings:
+   z
+-- Operating System Commands:
