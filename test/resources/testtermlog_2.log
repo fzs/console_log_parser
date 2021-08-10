@@ -1,0 +1,44 @@
+[?2004h]0;/c/Users/florian
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian[0m
+$ [K$ [K$ cd dev
+[?2004l[?2004h]0;/c/Users/florian/dev
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev[0m
+$ cd gitex-remote/
+[?2004l[?2004h]0;/c/Users/florian/dev/gitex-remote
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev/gitex-remote[0m
+$ git e[Kcheckout master
+[?2004lSwitched to branch 'master'
+[?2004h]0;/c/Users/florian/dev/gitex-remote
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev/gitex-remote[0m
+$ git staus[K[Ktus
+[?2004lOn branch master
+nothing to commit, working tree clean
+[?2004h]0;/c/Users/florian/dev/gitex-remote
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev/gitex-remote[0m
+$ git godlog -n 10
+[?2004l[?1h=* [33m8cd9265[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m Split out messages from hello.c[m
+* [33m52d3b8e[m Add file header to hello.c[m
+* [33m5fe2375[m[33m ([m[1;33mtag: v2.0[m[33m)[m Add good bye message to the hello program.[m
+* [33m208d3a2[m Add Readme section for remote repositories[m
+* [33m8d1696e[m Update Readme: Tags and The Index[m
+* [33m47678cb[m[33m ([m[1;33mtag: v1.0[m[33m, [m[1;32mb4[m[33m)[m Hello World of course needs to be written with an exclamation mark.[m
+* [33m37cc6a5[m Improve mention that this course includes real code.[m
+* [33m498da84[m[33m ([m[1;33mtag: someTagC[m[33m)[m Readme: remove unnecessary line about having code.[m
+* [33mbee5738[m Add line break to terminal output.[m
+* [33mc0394b3[m Add new topic 'Rebasing' to Readme.[m
+[K[?1l>[?2004h]0;/c/Users/florian/dev/gitex-remote
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev/gitex-remote[0m
+$ gcc hello.c
+[?2004lhello.c:7:10: fatal error: messages.h: No such file or directory
+    7 | #include "messages.h"
+      |          ^~~~~~~~~~~~
+compilation terminated.
+[?2004h]0;/c/Users/florian/dev/gitex-remote
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev/gitex-remote[0m
+$ ll
+[?2004ltotal 2.0K
+-rw-r--r-- 1 florian None 171 Jul 29 15:51 hello.c
+-rw-r--r-- 1 florian None 335 Jul 29 15:51 Readme.md
+[?2004h]0;/c/Users/florian/dev/gitex-remote
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev/gitex-remote[0m
+$ 

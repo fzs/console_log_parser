@@ -1,0 +1,567 @@
+[?2004h]0;/c/Users/florian
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian[0m
+$ [K$ mkdir dev[K[K[Kdev2
+[?2004l[?2004h]0;/c/Users/florian
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian[0m
+$ cd dev2
+[?2004l[?2004h]0;/c/Users/florian/dev2
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2[0m
+$ git clones [7mgit@github.com:fzs/golden_blockchain.git[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[Cgit@github.com:fzs/golden_blockchain.git
+[?2004lgit: 'clones' is not a git command. See 'git --help'.
+
+The most similar command is
+	clone
+[?2004h]0;/c/Users/florian/dev2
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2[0m
+$ git clones git@github.com:fzs/golden_blockchain.git[C[C[C[C[C[C[C[C[C[C[C[1P git@github.com:fzs/golden_blockchain.git[C[C[C[C[C[C[C[C[C[C[C
+[?2004lCloning into 'golden_blockchain'...
+remote: Enumerating objects: 27, done.[K
+remote: Counting objects:   3% (1/27)[Kremote: Counting objects:   7% (2/27)[Kremote: Counting objects:  11% (3/27)[Kremote: Counting objects:  14% (4/27)[Kremote: Counting objects:  18% (5/27)[Kremote: Counting objects:  22% (6/27)[Kremote: Counting objects:  25% (7/27)[Kremote: Counting objects:  29% (8/27)[Kremote: Counting objects:  33% (9/27)[Kremote: Counting objects:  37% (10/27)[Kremote: Counting objects:  40% (11/27)[Kremote: Counting objects:  44% (12/27)[Kremote: Counting objects:  48% (13/27)[Kremote: Counting objects:  51% (14/27)[Kremote: Counting objects:  55% (15/27)[Kremote: Counting objects:  59% (16/27)[Kremote: Counting objects:  62% (17/27)[Kremote: Counting objects:  66% (18/27)[Kremote: Counting objects:  70% (19/27)[Kremote: Counting objects:  74% (20/27)[Kremote: Counting objects:  77% (21/27)[Kremote: Counting objects:  81% (22/27)[Kremote: Counting objects:  85% (23/27)[Kremote: Counting objects:  88% (24/27)[Kremote: Counting objects:  92% (25/27)[Kremote: Counting objects:  96% (26/27)[Kremote: Counting objects: 100% (27/27)[Kremote: Counting objects: 100% (27/27), done.[K
+remote: Compressing objects:   6% (1/16)[Kremote: Compressing objects:  12% (2/16)[Kremote: Compressing objects:  18% (3/16)[Kremote: Compressing objects:  25% (4/16)[Kremote: Compressing objects:  31% (5/16)[Kremote: Compressing objects:  37% (6/16)[Kremote: Compressing objects:  43% (7/16)[Kremote: Compressing objects:  50% (8/16)[Kremote: Compressing objects:  56% (9/16)[Kremote: Compressing objects:  62% (10/16)[Kremote: Compressing objects:  68% (11/16)[Kremote: Compressing objects:  75% (12/16)[Kremote: Compressing objects:  81% (13/16)[Kremote: Compressing objects:  87% (14/16)[Kremote: Compressing objects:  93% (15/16)[Kremote: Compressing objects: 100% (16/16)[Kremote: Compressing objects: 100% (16/16), done.[K
+remote: Total 27 (delta 8), reused 26 (delta 7), pack-reused 0[K
+Receiving objects:   3% (1/27)Receiving objects:   7% (2/27)Receiving objects:  11% (3/27)Receiving objects:  14% (4/27)Receiving objects:  18% (5/27)Receiving objects:  22% (6/27)Receiving objects:  25% (7/27)Receiving objects:  29% (8/27)Receiving objects:  33% (9/27)Receiving objects:  37% (10/27)Receiving objects:  40% (11/27)Receiving objects:  44% (12/27)Receiving objects:  48% (13/27)Receiving objects:  51% (14/27)Receiving objects:  55% (15/27)Receiving objects:  59% (16/27)Receiving objects:  62% (17/27)Receiving objects:  66% (18/27)Receiving objects:  70% (19/27)Receiving objects:  74% (20/27)Receiving objects:  77% (21/27)Receiving objects:  81% (22/27)Receiving objects:  85% (23/27)Receiving objects:  88% (24/27)Receiving objects:  92% (25/27)Receiving objects:  96% (26/27)Receiving objects: 100% (27/27)Receiving objects: 100% (27/27), done.
+Resolving deltas:   0% (0/8)Resolving deltas:  12% (1/8)Resolving deltas:  37% (3/8)Resolving deltas:  50% (4/8)Resolving deltas:  62% (5/8)Resolving deltas:  87% (7/8)Resolving deltas: 100% (8/8)Resolving deltas: 100% (8/8), done.
+[?2004h]0;/c/Users/florian/dev2
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2[0m
+$ cd glo[K[Kolden_blockchain/
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ ll
+[?2004ltotal 2.0K
+-rw-r--r-- 1 florian None 142 Jul 30 15:48 bling.c
+drwxr-xr-x 1 florian None   0 Jul 30 15:48 [0m[01;34mblocknicator[0m/
+drwxr-xr-x 1 florian None   0 Jul 30 15:48 [01;34mll.c[0m/
+-rw-r--r-- 1 florian None  42 Jul 30 15:48 Readme
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ ll blocknicator/
+[?2004ltotal 0
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ gcc bling.c
+[?2004lbling.c:5:10: fatal error: blocknicator/include/blocknicator.h: No such file or directory
+    5 | #include "blocknicator/include/blocknicator.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ cd blocknicator/
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ ls -la
+[?2004ltotal 4.0K
+drwxr-xr-x 1 florian None 0 Jul 30 15:48 [0m[01;34m.[0m/
+drwxr-xr-x 1 florian None 0 Jul 30 15:48 [01;34m..[0m/
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ cd ..
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ ls -la
+[?2004ltotal 12K
+drwxr-xr-x 1 florian None   0 Jul 30 15:48 [0m[01;34m.[0m/
+drwxr-xr-x 1 florian None   0 Jul 30 15:48 [01;34m..[0m/
+drwxr-xr-x 1 florian None   0 Jul 30 15:48 [01;34m.git[0m/
+-rw-r--r-- 1 florian None   6 Jul 30 15:48 .gitignore
+-rw-r--r-- 1 florian None 166 Jul 30 15:48 .gitmodules
+-rw-r--r-- 1 florian None 142 Jul 30 15:48 bling.c
+drwxr-xr-x 1 florian None   0 Jul 30 15:48 [01;34mblocknicator[0m/
+drwxr-xr-x 1 florian None   0 Jul 30 15:48 [01;34mll.c[0m/
+-rw-r--r-- 1 florian None  42 Jul 30 15:48 Readme
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule init
+[?2004lSubmodule 'blocknicator' (git@github.com:fzs/blocknicator.git) registered for path 'blocknicator'
+Submodule 'll.c' (https://github.com/clehner/ll.c.git) registered for path 'll.c'
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ ls -la blocknicator/
+[?2004ltotal 4.0K
+drwxr-xr-x 1 florian None 0 Jul 30 15:48 [0m[01;34m.[0m/
+drwxr-xr-x 1 florian None 0 Jul 30 15:48 [01;34m..[0m/
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git status
+[?2004lOn branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule status
+[?2004l-2edea9e4a105ffe9b7c98e7dab7c71b919dc1cd5 blocknicator
+-b179da9bf876d80170818bbd296656b4d1a42288 ll.c
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule update[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcat .gitsub[K[K[Kmodules 
+[?2004l[submodule "ll.c"]
+	path = ll.c
+	url = https://github.com/clehner/ll.c.git
+[submodule "blocknicator"]
+	path = blocknicator
+	url = git@github.com:fzs/blocknicator.git
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git config --local --list
+[?2004l[?1h=core.repositoryformatversion=0[m
+core.filemode=false[m
+core.bare=false[m
+core.logallrefupdates=true[m
+core.symlinks=false[m
+core.ignorecase=true[m
+remote.origin.url=git@github.com:fzs/golden_blockchain.git[m
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*[m
+branch.master.remote=origin[m
+branch.master.merge=refs/heads/master[m
+submodule.blocknicator.active=true[m
+submodule.blocknicator.url=git@github.com:fzs/blocknicator.git[m
+submodule.ll.c.active=true[m
+submodule.ll.c.url=https://github.com/clehner/ll.c.git[m
+[K[?1l>[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule update
+[?2004lCloning into '/c/Users/florian/dev2/golden_blockchain/blocknicator'...
+Cloning into '/c/Users/florian/dev2/golden_blockchain/ll.c'...
+Submodule path 'blocknicator': checked out '2edea9e4a105ffe9b7c98e7dab7c71b919dc1cd5'
+Submodule path 'll.c': checked out 'b179da9bf876d80170818bbd296656b4d1a42288'
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git ls-file -s
+[?2004lgit: 'ls-file' is not a git command. See 'git --help'.
+
+The most similar command is
+	ls-files
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git ls-file -s[Cs -s
+[?2004l100644 b883f1fdc6d69146f477bba77c117fbbd33714af 0	.gitignore
+100644 c6327c145acbe895dbc113c026b83822182b1322 0	.gitmodules
+100644 3870369af2c84df66f8af99ff055352b468b8054 0	Readme
+100644 2dd07404078098ebf1f315054795a823e3698b1f 0	bling.c
+160000 2edea9e4a105ffe9b7c98e7dab7c71b919dc1cd5 0	blocknicator
+160000 b179da9bf876d80170818bbd296656b4d1a42288 0	ll.c
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule update --init
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule update --init --recursive[C[C[Kgit fetch
+[?2004lremote: Enumerating objects: 5, done.[K
+remote: Counting objects:  20% (1/5)[Kremote: Counting objects:  40% (2/5)[Kremote: Counting objects:  60% (3/5)[Kremote: Counting objects:  80% (4/5)[Kremote: Counting objects: 100% (5/5)[Kremote: Counting objects: 100% (5/5), done.[K
+remote: Compressing objects:  50% (1/2)[Kremote: Compressing objects: 100% (2/2)[Kremote: Compressing objects: 100% (2/2), done.[K
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0[K
+Unpacking objects:  33% (1/3)Unpacking objects:  66% (2/3)Unpacking objects: 100% (3/3)Unpacking objects: 100% (3/3), 471 bytes | 13.00 KiB/s, done.
+From github.com:fzs/golden_blockchain
+   4d4703f..70f44c1  master     -> origin/master
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git godlog --all
+[?2004l[?1h=* [33m70f44c1[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Create initial chain with a first block[m [33m[m[33m[m[1;31m[m[33m[m[1;31m[m[33m[m.[m
+* [33m4d4703f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m Add .gitignore file to ignore build output.[m
+* [33m66c3f95[m Include blocknicator library API[m
+* [33mbcb7ed4[m Add submodule for blocknicator library[m
+* [33m967f267[m Start the ultimate blockhain program.[m
+[31m|[m * [33m48dfa20[m[33m ([m[1;31morigin/GitTraining_R1[m[33m)[m Add library BlockniCatOr as submodule[m
+[31m|[m * [33m511b504[m Switch openssl submodule to OpenSSL_1_0_2-stable branch[m
+[31m|[m * [33m807d7d8[m Add premium blockchain app to make us rich.[m
+[31m|[m * [33m68d8c12[m Add library OpenSSL as submodule[m
+[31m|[m[31m/[m  [m
+* [33m2cb714c[m Initial commit. Open repo with readme file.[m
+[K[?1l>[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git merge origin/master
+[?2004lUpdating 4d4703f..70f44c1
+Fast-forward
+ bling.c | 5 [32m+++++[m
+ 1 file changed, 5 insertions(+)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ gcc -c bling.c
+[?2004lbling.c: In function 'main':
+bling.c:13:16: warning: implicit declaration of function 'chain_block'; did you mean 'create_block'? [-Wimplicit-function-declaration]
+   13 |  void* chain = chain_block(block, NULL);
+      |                ^~~~~~~~~~~
+      |                create_block
+bling.c:13:16: warning: initialization of 'void *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule update
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule update[C[C[C[6Pcc -c bling.c[C[C[Cit submodule update[K[K[K[K[K[Kstatus
+[?2004l 2edea9e4a105ffe9b7c98e7dab7c71b919dc1cd5 blocknicator (heads/main)
+ b179da9bf876d80170818bbd296656b4d1a42288 ll.c (heads/master)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git pull --[K[K[K[K[K[K[K[K[K[K[Kcd blocknicator/
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ git fetch
+[?2004lremote: Enumerating objects: 7, done.[K
+remote: Counting objects:  14% (1/7)[Kremote: Counting objects:  28% (2/7)[Kremote: Counting objects:  42% (3/7)[Kremote: Counting objects:  57% (4/7)[Kremote: Counting objects:  71% (5/7)[Kremote: Counting objects:  85% (6/7)[Kremote: Counting objects: 100% (7/7)[Kremote: Counting objects: 100% (7/7), done.[K
+remote: Compressing objects:  50% (1/2)[Kremote: Compressing objects: 100% (2/2)[Kremote: Compressing objects: 100% (2/2), done.[K
+remote: Total 4 (delta 1), reused 4 (delta 1), pack-reused 0[K
+Unpacking objects:  25% (1/4)Unpacking objects:  50% (2/4)Unpacking objects:  75% (3/4)Unpacking objects: 100% (4/4)Unpacking objects: 100% (4/4), 373 bytes | 10.00 KiB/s, done.
+From github.com:fzs/blocknicator
+   2edea9e..637b4b2  main       -> origin/main
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ cd ..
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git status[K[K[K[K[K[Kgodlog
+[?2004l[?1h=* [33m70f44c1[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Create initial chain wi[m [33m[m[33m[m[1;36m[m[1;32m[m[33m[m[1;31m[m[33m[m[1;31m[m[33m[mth a first block.[m
+* [33m4d4703f[m Add .gitignore file to ignore build output.[m
+* [33m66c3f95[m Include blocknicator library API[m
+* [33mbcb7ed4[m Add submodule for blocknicator library[m
+* [33m967f267[m Start the ultimate blockhain program.[m
+* [33m2cb714c[m Initial commit. Open repo with readme file.[m
+[K[?1l>[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git pull [K[K[K[K[Kfetch
+[?2004lremote: Enumerating objects: 3, done.[K
+remote: Counting objects:  33% (1/3)[Kremote: Counting objects:  66% (2/3)[Kremote: Counting objects: 100% (3/3)[Kremote: Counting objects: 100% (3/3), done.[K
+remote: Compressing objects: 100% (1/1)[Kremote: Compressing objects: 100% (1/1), done.[K
+remote: Total 2 (delta 1), reused 2 (delta 1), pack-reused 0[K
+Unpacking objects:  50% (1/2)Unpacking objects: 100% (2/2)Unpacking objects: 100% (2/2), 333 bytes | 19.00 KiB/s, done.
+From github.com:fzs/golden_blockchain
+   70f44c1..1247c05  master     -> origin/master
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git gdolog [K[K[K[K[K[Kodlog --all
+[?2004l[?1h=* [33m1247c05[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Update blocknicator library to the late[m [33m[m[33m[m[1;31m[m[33m[m[1;31m[m[33m[mst version[m
+* [33m70f44c1[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m Create initial chain with a first block.[m
+* [33m4d4703f[m Add .gitignore file to ignore build output.[m
+* [33m66c3f95[m Include blocknicator library API[m
+* [33mbcb7ed4[m Add submodule for blocknicator library[m
+* [33m967f267[m Start the ultimate blockhain program.[m
+[31m|[m * [33m48dfa20[m[33m ([m[1;31morigin/GitTraining_R1[m[33m)[m Add library BlockniCatOr as submodule[m
+[31m|[m * [33m511b504[m Switch openssl submodule to OpenSSL_1_0_2-stable branch[m
+[31m|[m * [33m807d7d8[m Add premium blockchain app to make us rich.[m
+[31m|[m * [33m68d8c12[m Add library OpenSSL as submodule[m
+[31m|[m[31m/[m  [m
+* [33m2cb714c[m Initial commit. Open repo with readme file.[m
+[K[?1l>[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git status
+[?2004lOn branch master
+Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	[31mbling.o[m
+
+nothing added to commit but untracked files present (use "git add" to track)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git merge origin/master
+[?2004lUpdating 70f44c1..1247c05
+Fast-forward
+ blocknicator | 2 [32m+[m[31m-[m
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git status
+[?2004lOn branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	[31mmodified:   blocknicator[m (new commits)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	[31mbling.o[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule status
+[?2004l+2edea9e4a105ffe9b7c98e7dab7c71b919dc1cd5 blocknicator (heads/main)
+ b179da9bf876d80170818bbd296656b4d1a42288 ll.c (heads/master)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ cd blok[Kcknicator/
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ git status
+[?2004l[31mHEAD detached at [m2edea9e
+nothing to commit, working tree clean
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ cd ..
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule update
+[?2004lSubmodule path 'blocknicator': checked out '637b4b28f37bf8597a1d0e15e24c41edadb1464b'
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git status
+[?2004lOn branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	[31mbling.o[m
+
+nothing added to commit but untracked files present (use "git add" to track)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ vi .gitgno[K[K[K[K[K[K[K[K[K[Kgcc -c bling.c
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ vim .gitignore
+[?2004l[?1h=[?2004h[?1004h[1;39r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[39;1H".gitignore" [unix] 1L, 6B[2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c[1;1H*.exe
+[94m~                                                                             [3;1H~                                                                             [4;1H~                                                                             [5;1H~                                                                             [6;1H~                                                                             [7;1H~                                                                             [8;1H~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [1;1H[?25h[?25l[m[39;1H[1m-- INSERT --[m[39;14H[K[1;6H[?25h
+[?25l[2;1H[K[2;1H[?25h[?25l*[?25h[?25l.[?25h[?25lo[?25h[39;1H[K[2;3H[?25l[?25h[?25l[39;1H:[?25hx
+[?25l[?2004l".gitignore" [unix] 2L, 10B written[23;2t[23;1t[?1004l[?2004l[?1l>[?25h
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git commit - [Ka -m "Ignore compiler output .o files"
+[?2004l[master ed6367e] Ignore compiler output .o files
+ 1 file changed, 1 insertion(+)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git push
+[?2004lEnumerating objects: 5, done.
+Counting objects:  20% (1/5)Counting objects:  40% (2/5)Counting objects:  60% (3/5)Counting objects:  80% (4/5)Counting objects: 100% (5/5)Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects:  50% (1/2)Compressing objects: 100% (2/2)Compressing objects: 100% (2/2), done.
+Writing objects:  33% (1/3)Writing objects:  66% (2/3)Writing objects: 100% (3/3)Writing objects: 100% (3/3), 306 bytes | 76.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas:   0% (0/1)[Kremote: Resolving deltas: 100% (1/1)[Kremote: Resolving deltas: 100% (1/1), completed with 1 local object.[K
+To github.com:fzs/golden_blockchain.git
+   1247c05..ed6367e  master -> master
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ cd blocknicator/
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ git status
+[?2004l[31mHEAD detached at [m637b4b2
+nothing to commit, working tree clean
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ git gdolog[K[K[K[K[Kodlog
+[?2004l[?1h=* [33m637b4b2[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Add new API function to add blocks [m [33m[m[33m[m[1;36m[m[33m[m[1;31m[m[33m[m[1;31m[m[33m[mto a chain.[m
+* [33m2edea9e[m[33m ([m[1;32mmain[m[33m)[m Add blocknicator interface definition.[m
+* [33mb612676[m Update README.md[m
+* [33mab5edc7[m Initial commit[m
+[K[?1l>[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ vim [K[K[K[Kmkdir src
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ vim src/blocks.c
+[?2004l[?1h=[?2004h[?1004h[1;39r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[39;1H"src/blocks.c" [New][2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c[2;1H[94m~                                                                             [3;1H~                                                                             [4;1H~                                                                             [5;1H~                                                                             [6;1H~                                                                             [7;1H~                                                                             [8;1H~                                                                             [9;1H~                                                                             [10;1H~                                                                             [11;1H~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [1;1H[?25h[?25l[m[39;1H[1m-- INSERT --[m[39;13H[K[1;1H[?25h[?25l#[?25h[?25li[?25h[?25ln[?25h[?25lc[?25h[?25ll[?25h[?25ld[?25h[?25lu[?25h[?25l[1;7H[K[1;7H[?25h[?25l[1;6H[K[1;6H[?25h[?25l[1;5H[K[1;5H[?25h[?25ll[?25h[?25lu[?25h[?25ld[?25h[?25le[?25h[?25l [?25h[?25l[35m#include [m[31m"[?25h[?25l.[?25h[?25l.[?25h[?25l/[?25h[?25lI[?25h[?25ln[?25h[?25llc[?25h[?25lu[?25h[?25ld[?25h[?25le[?25h[?25l[m[1;20H[K[1;20H[?25h[?25l[1;19H[K[1;19H[?25h[?25l[1;18H[K[1;18H[?25h[?25l[1;17H[K[1;17H[?25h[?25l[1;16H[K[1;16H[?25h[?25l[1;15H[K[1;15H[?25h[?25l[1;14H[K[1;14H[?25h[?25l[31mi[?25h[?25ln[?25h[?25lc[?25h[?25ll[?25h[?25lu[?25h[?25ld[?25h[?25le[?25h[?25l/[?25h[?25lb[?25h[?25ll[?25h[?25lo[?25h[?25lc[?25h[?25lk[?25h[?25ln[?25h[?25li[?25h[?25lc[?25h[?25la[?25h[?25lt[?25h[?25lo[?25h[?25lr[?25h[?25l.[?25h[?25lh[?25h[?25l"[?25h
+[?25l[m[2;1H[K[2;1H[?25h
+[?25l[3;1H[K[3;1H[?25h[?25lv[?25h[?25lo[?25h[?25li[?25h[?25l[32mvoid[?25h[?25l[m*[?25h[?25l [?25h[?25lc[?25h[?25lr[?25h[?25le[?25h[?25la[?25h[?25lt[?25h[?25le[?25h[?25l_[?25h[?25lb[?25h[?25ll[?25h[?25lo[?25h[?25lc[?25h[?25lk[?25h[?25l([?25h[?25lb[?25h[?25l[3;20H[K[3;20H[?25h[?25lv[?25h[?25lo[?25h[?25li[?25h[?25l[32mvoid[?25h[?25l[m*[?25h[?25l [?25h[?25ld[?25h[?25la[?25h[?25lt[?25h[?25la[?25h[?25l)[3;19H[106m([10C)[?25h
+[?25l[m[4;1H[K[3;19H([10C)
+[?25h[?25l{[?25h
+[?25l[5;1H[K[5;1H[?25h[?25lr[?25h[?25l[5;1H[K[5;1H[?25h[?25l [?25h[?25l [?25h[?25l [?25h[?25l[?25h[?25l[?25h[?25l[?25h[?25l[8C[?25h[?25lr[?25h[?25le[?25h[?25lt[?25h[?25lu[?25h[?25lr[?25h[?25l[38;5;130mreturn[?25h[?25l[m [?25h[?25lN[?25h[?25lU[?25h[?25lL[?25h[?25l[31mNULL[?25h[?25l[m;[?25h
+[?25l[6;1H[K[6;1H[?25h[?25l}[4;1H[106m{
+
+}[?25h[?25l[m[4;1H{
+
+}[5;1H[?25h[?25l[4;1H[106m{
+
+}[4;2H[?25h[?25l[m{
+
+}[3;2H[?25h[2;1H[1;2H
+[?25l[2;38r[2;1H[2;38r[T[2;38r[2;1H[1;39r[1;1H[K[2;1H[35m#include [m[31m"../include/blocknicator.h"[?25h
+[?25l[3;38r[m[3;1H[3;38r[T[3;38r[3;1H[1;39r[2;1H[K[3;1H[35m#include [m[31m"../include/blocknicator.h"[?25h[2;1H[1;1H[?25l[m#[?25h[?25li[?25h[?25ln[?25h[?25lc[?25h[?25ll[?25h[?25lu[?25h[?25ld[?25h[?25le[?25h[?25l [?25h[?25l[35m#include <[?25h[?25l[ms[?25h[?25lt[?25h[?25ld[?25h[?25ld[?25h[?25le[?25h[?25lf[?25h[?25l.[?25h[?25lh[?25h[?25l[1;10H[31m<stddef.h>[?25h[m[39;1H[K[1;19H[?25l[?25h[?25l[39;1H:[?25hx
+[?25l[?2004l"src/blocks.c" [New][unix] 8L, 108B written[23;2t[23;1t[?1004l[?2004l[?1l>[?25h
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ git add src/blocks.c 
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ git commit -m "Start implementation of the 'create_block' function"
+[?2004l[detached HEAD 67ac483] Start implementation of the 'create_block' function
+ 1 file changed, 8 insertions(+)
+ create mode 100644 src/blocks.c
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ git gdolog[K[K[K[K[Kodlog --all
+[?2004l[?1h=* [33m67ac483[m[33m ([m[1;36mHEAD[m[33m)[m Start implementation of the 'create_block' function[m
+* [33m637b4b2[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Add new API function to add blocks to a c[m [33m[m[33m[m[1;31m[m[33m[m[1;31m[m[33m[mhain.[m
+* [33m2edea9e[m[33m ([m[1;32mmain[m[33m)[m Add blocknicator interface definition.[m
+* [33mb612676[m Update README.md[m
+* [33mab5edc7[m Initial commit[m
+[K[?1l>[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ git status
+[?2004l[31mHEAD detached from [m637b4b2
+nothing to commit, working tree clean
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ cd ..
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git status
+[?2004lOn branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	[31mmodified:   blocknicator[m (new commits)
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodulke[K[K[Ke[K[Kule status
+[?2004l+67ac48381939d02377ab810567e7bf34f3bdb5b5 blocknicator (remotes/origin/HEAD-1-g67ac483)
+ b179da9bf876d80170818bbd296656b4d1a42288 ll.c (heads/master)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ cd blocknicator/
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ gitre[K[K remote -v
+[?2004lorigin	git@github.com:fzs/blocknicator.git (fetch)
+origin	git@github.com:fzs/blocknicator.git (push)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ git piu[K[Kush [K[K[K[K[Kbanche[K -v -v
+[?2004lgit: 'banch' is not a git command. See 'git --help'.
+
+The most similar command is
+	branch
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ git banch -v -v[1@r
+[?2004l[?1h=* [32m(HEAD detached from 637b4b2)[m 67ac483 Start implementation of the 'create_blo[m [32m[mck' function[m
+  main                        [m 2edea9e [[34morigin/main[m: behind 1] Add blocknicato[m [m[34m[mr interface definition.[m
+[K[?1l>[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ git branch -f main[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kgit push origin HEAD:main
+[?2004lEnumerating objects: 5, done.
+Counting objects:  20% (1/5)Counting objects:  40% (2/5)Counting objects:  60% (3/5)Counting objects:  80% (4/5)Counting objects: 100% (5/5)Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects:  33% (1/3)Compressing objects:  66% (2/3)Compressing objects: 100% (3/3)Compressing objects: 100% (3/3), done.
+Writing objects:  25% (1/4)Writing objects:  50% (2/4)Writing objects:  75% (3/4)Writing objects: 100% (4/4)Writing objects: 100% (4/4), 437 bytes | 48.00 KiB/s, done.
+Total 4 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas:   0% (0/1)[Kremote: Resolving deltas: 100% (1/1)[Kremote: Resolving deltas: 100% (1/1), completed with 1 local object.[K
+To github.com:fzs/blocknicator.git
+   637b4b2..67ac483  HEAD -> main
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ git status
+[?2004l[31mHEAD detached from [m637b4b2
+nothing to commit, working tree clean
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain/blocknicator
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain/blocknicator[0m
+$ cd ..
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git [C[Ccd ..[C[Cgit statuspush origin HEAD:main[1P:main[1P:main[1P:main[1P:main[1Pmain[C[C[C[C[C[C[10Pstatus[C[C[5Pcd ..[C[C[1Pgit status
+[?2004lOn branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	[31mmodified:   blocknicator[m (new commits)
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git status[C[C[5Pcd ..[C[Cgit statuspush origin main[C[C[C[C[C[C[10Pstatus[C[C[5Pcd ..[C[Cgit status[C[C[5Pcd ..[C[Cgit statuspush origin main[C[C[C[C[C[C[4Pbranch -v -v[C[C[C[C[C[Cpush origin main[C:main[1Pmain-main-maindmainemaintmainemain[1Pmain[1Pmain[1Pmainemainlmainemaintmainemain main[1Pmain[1Pmain[1Pmain[1Pmain[1Pmain[1Pmain[1Pmain[1Pmain[1Pmain:main[C[C[C[C[C[C[11Pstatus[C[C[5Pcd ..[C[Cgit status[C[C[Krm -rf . *[1P*[C[K[K[K[K[K[K[K[K[Kgit add blocknicator/
+[?2004l[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git commit
+[?2004lhint: Waiting for your editor to close the file... [?1h=[?2004h[?1004h[1;39r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[39;1H"/c/Users/florian/dev2/golden_blockchain/.git/COMMIT_EDITMSG"<c/Users/florian/dev2/golden_blockchain/.git/COMMIT_EDITMSG" [unix] 10L, 265B[2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c[2;1H[34m# Please enter the commit message for your changes. Lines starting[m[2;67H[K[3;1H[34m# with '#' will be ignored, and an empty message aborts the commit.[m[3;68H[K[4;1H[34m#
+# On branch [m[35mmaster[m
+[34m# Your branch is up to date with '[m[35morigin/master[m[34m'.
+#
+# [m[35mChanges to be committed:[m
+[34m#       [m[32mmodified[m[34m: [m[31m  blocknicator[m
+[34m#[m
+[94m~                                                                             [12;1H~                                                                             [13;1H~                                                                             [14;1H~                                                                             [15;1H~                                                                             [16;1H~                                                                             [17;1H~                                                                             [18;1H~                                                                             [19;1H~                                                                             [20;1H~                                                                             [21;1H~                                                                             [22;1H~                                                                             [23;1H~                                                                             [24;1H~                                                                             [25;1H~                                                                             [26;1H~                                                                             [27;1H~                                                                             [28;1H~                                                                             [29;1H~                                                                             [30;1H~                                                                             [31;1H~                                                                             [32;1H~                                                                             [33;1H~                                                                             [34;1H~                                                                             [35;1H~                                                                             [36;1H~                                                                             [37;1H~                                                                             [38;1H~                                                                             [1;1H[?25h[?25l[m[39;1H[1m-- INSERT --[m[39;13H[K[1;1H[?25h[?25l[38;5;130mA[?25h[?25l[m[1;1H[K[1;1H[?25h[?25l[38;5;130mU[?25h[?25lp[?25h[?25ld[?25h[?25la[?25h[?25lt[?25h[?25le[?25h[?25l [?25h[?25ls[?25h[?25lu[?25h[?25lb[?25h[?25lm[?25h[?25lo[?25h[?25ld[?25h[?25lu[?25h[?25ll[?25h[?25le[?25h[?25l [?25h[?25lb[?25h[?25ll[?25h[?25lo[?25h[?25lc[?25h[?25lk[?25h[?25li[?25h[?25ln[?25h[?25la[?25h[?25lc[?25h[?25lt[?25h[?25lo[?25h[?25lr[?25h[?25l[m[1;29H[K[1;29H[?25h[?25l[1;28H[K[1;28H[?25h[?25l[1;27H[K[1;27H[?25h[?25l[1;26H[K[1;26H[?25h[?25l[1;25H[K[1;25H[?25h[?25l[1;24H[K[1;24H[?25h[?25l[1;23H[K[1;23H[?25h[?25l[38;5;130mn[?25h[?25li[?25h[?25lc[?25h[?25la[?25h[?25lt[?25h[?25lo[?25h[?25lr[?25h[?25l [?25h[?25lw[?25h[?25li[?25h[?25lt[?25h[?25lh[?25h[?25l [?25h[?25ln[?25h[?25le[?25h[?25lw[?25h[?25l [?25h[?25l[m[1;39H[K[1;39H[?25h[?25l[1;38H[K[1;38H[?25h[?25l[1;37H[K[1;37H[?25h[?25l[1;36H[K[1;36H[?25h[?25l[38;5;130mf[?25h[?25lu[?25h[?25lc[?25h[?25ln[?25h[?25li[?25h[?25lo[?25h[?25ln[?25h[?25l [?25h[?25l[m[1;43H[K[1;43H[?25h[?25l[1;42H[K[1;42H[?25h[?25l[1;41H[K[1;41H[?25h[?25l[1;40H[K[1;40H[?25h[?25l[1;39H[K[1;39H[?25h[?25l[1;38H[K[1;38H[?25h[?25l[38;5;130mn[?25h[?25lc[?25h[?25lt[?25h[?25li[?25h[?25lo[?25h[?25ln[?25h[?25l [?25h[?25l[m[1;44H[K[1;44H[?25h[?25l[1;43H[K[1;43H[?25h[?25l[1;42H[K[1;42H[?25h[?25l[1;41H[K[1;41H[?25h[?25l[1;40H[K[1;40H[?25h[?25l[1;39H[K[1;39H[?25h[?25l[1;38H[K[1;38H[?25h[?25l[1;37H[K[1;37H[?25h[?25l[1;36H[K[1;36H[?25h[?25l[38;5;130mi[?25h[?25lm[?25h[?25lp[?25h[?25ll[?25h[?25le[?25h[?25lm[?25h[?25le[?25h[?25ln[?25h[?25lt[?25h[?25la[?25h[?25lt[?25h[?25li[?25h[?25lo[?25h[?25ln[?25h
+[?25l[2;38r[m[2;1H[2;38r[T[2;38r[2;1H[1;39r[2;1H[?25h
+[?25l[3;38r[3;1H[3;38r[T[3;38r[3;1H[1;39r[3;1H[?25h[?25lI[?25h[?25lm[?25h[?25lp[?25h[?25ll[?25h[?25le[?25h[?25lm[?25h[?25le[?25h[?25ln[?25h[?25lt[?25h[?25l [?25h[?25lt[?25h[?25lh[?25h[?25le[?25h[?25l [?25h[?25l`[?25h[?25lc[?25h[?25lr[?25h[?25le[?25h[?25lt[?25h[?25le[?25h[?25l_[?25h[?25lb[?25h[?25ll[?25h[?25lo[?25h[?25lc[?25h[?25lk[?25h[?25l[3;26H[K[3;26H[?25h[?25l[3;25H[K[3;25H[?25h[?25l[3;24H[K[3;24H[?25h[?25l[3;23H[K[3;23H[?25h[?25l[3;22H[K[3;22H[?25h[?25l[3;21H[K[3;21H[?25h[?25l[3;20H[K[3;20H[?25h[?25l[3;19H[K[3;19H[?25h[?25la[?25h[?25lt[?25h[?25le[?25h[?25l_[?25h[?25lb[?25h[?25ll[?25h[?25lo[?25h[?25lc[?25h[?25lk[?25h[?25l`[?25h[?25l [?25h[?25lm[?25h[?25le[?25h[?25lt[?25h[?25lh[?25h[?25lo[?25h[?25ld[?25h[?25l.[?25h
+[?25l[4;38r[4;1H[4;38r[T[4;38r[4;1H[1;39r[4;1H[?25h[?25lW[?25h[?25le[?25h[?25ll[?25h[?25ll[?25h[?25l,[?25h[?25l [?25h[?25la[?25h[?25lt[?25h[?25l [?25h[?25ll[?25h[?25le[?25h[?25la[?25h[?25ls[?25h[?25lt[?25h[?25l [?25h[?25li[?25h[?25lt[?25h[?25l [?25h[?25li[?25h[?25ls[?25h[?25l [?25h[?25lt[?25h[?25lh[?25h[?25le[?25h[?25lr[?25h[?25le[?25h[?25l,[?25h[?25l [?25h[?25li[?25h[?25lt[?25h[?25l [?25h[?25ld[?25h[?25lo[?25h[?25le[?25h[?25ls[?25h[?25ln[?25h[?25l'[?25h[?25lt[?25h[?25l [?25h[?25lr[?25h[?25le[?25h[?25la[?25h[?25ll[?25h[?25ll[?25h[?25ly[?25h[?25l [?25h[?25ld[?25h[?25lo[?25h[?25l [?25h[?25la[?25h[?25ln[?25h[?25ly[?25h[?25lt[?25h[?25lh[?25h[?25li[?25h[?25ln[?25h[?25lg[?25h
+[?25l[5;38r[5;1H[5;38r[T[5;38r[5;1H[1;39r[5;1H[?25h[?25lu[?25h[?25ls[?25h[?25le[?25h[?25lf[?25h[?25lu[?25h[?25ll[?25h[?25l [?25h[?25ly[?25h[?25le[?25h[?25lt[?25h[?25l.[?25h[39;1H[K[5;11H[?25l[?25h[?25l[39;1H:[?25hx
+[?25l[?2004l".git/COMMIT_EDITMSG" [unix] 14L, 422B written[23;2t[23;1t[?1004l[?2004l[?1l>[?25h
+[K[master 976bf99] Update submodule blocknicator with implementation
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git push
+[?2004lEnumerating objects: 3, done.
+Counting objects:  33% (1/3)Counting objects:  66% (2/3)Counting objects: 100% (3/3)Counting objects: 100% (3/3), done.
+Delta compression using up to 4 threads
+Compressing objects:  50% (1/2)Compressing objects: 100% (2/2)Compressing objects: 100% (2/2), done.
+Writing objects:  50% (1/2)Writing objects: 100% (2/2)Writing objects: 100% (2/2), 355 bytes | 177.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas:   0% (0/1)[Kremote: Resolving deltas: 100% (1/1)[Kremote: Resolving deltas: 100% (1/1), completed with 1 local object.[K
+To github.com:fzs/golden_blockchain.git
+   ed6367e..976bf99  master -> master
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ gitst[K[K[K status
+[?2004lbash: gi: command not found
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ gi status[C[C[C[Ct status[C[C[C[C[C
+[?2004lOn branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule status
+[?2004l 67ac48381939d02377ab810567e7bf34f3bdb5b5 blocknicator (remotes/origin/HEAD)
+ b179da9bf876d80170818bbd296656b4d1a42288 ll.c (heads/master)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git pull --ff-only
+[?2004lremote: Enumerating objects: 3, done.[K
+remote: Counting objects:  33% (1/3)[Kremote: Counting objects:  66% (2/3)[Kremote: Counting objects: 100% (3/3)[Kremote: Counting objects: 100% (3/3), done.[K
+remote: Compressing objects: 100% (1/1)[Kremote: Compressing objects: 100% (1/1), done.[K
+remote: Total 2 (delta 1), reused 2 (delta 1), pack-reused 0[K
+Unpacking objects:  50% (1/2)Unpacking objects: 100% (2/2)Unpacking objects: 100% (2/2), 261 bytes | 13.00 KiB/s, done.
+From github.com:fzs/golden_blockchain
+   976bf99..a584e53  master     -> origin/master
+Fetching submodule blocknicator
+From github.com:fzs/blocknicator
+   67ac483..cae3244  main       -> origin/main
+Updating 976bf99..a584e53
+Fast-forward
+ blocknicator | 2 [32m+[m[31m-[m
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git status
+[?2004lOn branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	[31mmodified:   blocknicator[m (new commits)
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule update
+[?2004lSubmodule path 'blocknicator': checked out 'cae32449d8295946f99a1fdaffe0080b38237548'
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git status
+[?2004lOn branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ git submodule status
+[?2004l cae32449d8295946f99a1fdaffe0080b38237548 blocknicator (remotes/origin/HEAD)
+ b179da9bf876d80170818bbd296656b4d1a42288 ll.c (heads/master)
+[?2004h]0;/c/Users/florian/dev2/golden_blockchain
+[32mflorian@Susie [35mMINGW64[0m [33m/c/Users/florian/dev2/golden_blockchain[0m
+$ 
