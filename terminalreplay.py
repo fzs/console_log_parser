@@ -14,17 +14,28 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
     It suppresses vim's terminal query control functions that would trigger terminal responses.
     The output of commands entered at the prompt are printed out simulating typing with delays.
     """
-    in_prompt = False
-    speed = 0.5
+
+    def __init__(self):
+        self.speed = 0.5
+        self.cleanup_cmdline = True
+        self.command_line = []
+        self.cmd_line_pos = 0
+        self.in_prompt = False
+
 
     def print(self, code):
         """The current code should be mapped to a glyph according to the character set mappings and shift states
          in effect, and that glyph should be displayed.
          We print normal output to stdout. Only delayed when in the prompt."""
-        sys.stdout.write(chr(code))
-        if VT2Output.in_prompt:
-            sleep(0.2 * VT2Output.speed)
-            sys.stdout.flush()
+        if not self.in_prompt:
+            sys.stdout.write(chr(code))
+        else:
+            if self.cleanup_cmdline:
+                self.build_cmd_line_print(code)
+            else:
+                sleep(0.2 * self.speed)
+                sys.stdout.write(chr(code))
+                sys.stdout.flush()
 
     def execute(self, code):
         """The C0 or C1 control function should be executed, which may have any one of a variety of effects,
@@ -32,14 +43,17 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
          shift states in effect. There are no parameters to this action.
          We print control directly to stdout. Except when in the prompt of when ending the prompt. Then
          a delay is added."""
-        if VT2Output.in_prompt and code == 0x0d:
-            sleep(0.8)
-
-        sys.stdout.write(chr(code))
-
-        if VT2Output.in_prompt:
-            sleep(0.1 * VT2Output.speed)
-            sys.stdout.flush()
+        if not self.in_prompt:
+            sys.stdout.write(chr(code))
+        else:
+            if self.cleanup_cmdline:
+                self.build_cmd_line_ctrl(code)
+            else:
+                if code == 0x0d: # Wait at CR, because this might be the end of the command input
+                    sleep(0.8)
+                sys.stdout.write(chr(code))
+                sleep(0.1 * self.speed)
+                sys.stdout.flush()
 
     def esc_dispatch(self, intermediate, final):
         """Execute all control sequences"""
@@ -60,28 +74,97 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
 
         ctrlstring = f"\x1b[{private}{param}{interm}{final}"
         LOG.info("Emit to stdout full CSI control function: %s", ctrlstring)
-        sys.stdout.write(ctrlstring)
+
+        if not self.in_prompt:
+            sys.stdout.write(ctrlstring)
+        else:
+            if self.cleanup_cmdline:
+                self.build_cmd_line_csi(private, param, interm, final)
+            else:
+                sleep(0.1 * self.speed)
+                sys.stdout.write(ctrlstring)
+                sys.stdout.flush()
 
 
-class EventListener(TermLogParser.DefaultEventListener):
-    output_handler = None
+    def build_cmd_line_print(self, code):
+        if self.cmd_line_pos >= len(self.command_line):
+            self.command_line.insert(self.cmd_line_pos, code)
+        else:
+            self.command_line[self.cmd_line_pos] = code
+        self.cmd_line_pos += 1
 
-    def prompt_start(self):
+    def build_cmd_line_ctrl(self, code):
+        if code == 0x08:  # BS
+            self.cmd_line_pos -= (1 if self.cmd_line_pos > 0 else 0)  # Go back one character
+        elif code == 0x0D:  # CR
+            self.cmd_line_pos = 0  # Back to start of line
+        elif code == 0x0A:  # LF
+            # This should terminate the command line. Add it so it gets printed.
+            self.command_line.insert(len(self.command_line), code)
+            self.cmd_line_pos +=1
+
+        # Everything else is discarded, as we do not need it to build the command line
+
+    def build_cmd_line_csi(self, private, param, interm, final):
+        # Now it get's interesting.
+        # Filter out the codes that effect the command line and discard all the rest.
+        if final == '@' and interm == '':  # Insert blank characters
+            self.command_line.insert(self.cmd_line_pos, ' ' if param == '' else ' ' * int(param))
+        elif final == 'C':  # Cursor forward
+            self.cmd_line_pos += 1 if param == '' else int(param)
+        elif final == 'D':  # Cursor backward
+            p = 1 if param == '' else int(param)
+            while self.cmd_line_pos >= 0 and p:
+                self.cmd_line_pos -= 1
+                p -= 1
+        elif final == 'K':  # Erase in line
+            if param == '' or param == '0':
+                del self.command_line[self.cmd_line_pos:]
+            else:
+                # We need to handle this somehow should it appear
+                raise NotImplementedError("Control sequence for Erase in Line not implemented: " + param + final)
+        elif final == 'P':  # Delete Character
+            p = 1 if param == '' else int(param)
+            self.command_line[self.cmd_line_pos:self.cmd_line_pos+p] = []
+
+    def print_cmd_line(self):
+        # Start with the prompt and pause
+        i = self.command_line.index(ord(' '))
+        for code in self.command_line[:i+1]:
+            sys.stdout.write(chr(code))
         sys.stdout.flush()
         sleep(0.8)
-        VT2Output.in_prompt = True
+
+        for code in self.command_line[i+1:]:
+            if code == 0x0A:
+                # Pause before we end the line
+                sleep(0.8)
+            sys.stdout.write(chr(code))
+            sleep(0.2 * self.speed)
+            sys.stdout.flush()
+
+    def prompt_start(self):
+        if not self.cleanup_cmdline:
+            sys.stdout.flush()
+            sleep(0.8)
+        self.in_prompt = True
+        self.command_line = []
+        self.cmd_line_pos = 0
 
     def prompt_end(self):
+        if self.cleanup_cmdline:
+            self.print_cmd_line()
         sys.stdout.flush()
-        VT2Output.in_prompt = False
+        self.in_prompt = False
 
 
 def parse(logfile):
     """Read the input file byte by byte and output as plain text to stdout"""
     parser = TermLogParser()
-    parser.terminal_output_handler = VT2Output()
-    parser.control_sequence_handler = parser.terminal_output_handler
-    parser.tlp_event_listener = EventListener()
+    output_processor = VT2Output()
+    parser.terminal_output_handler = output_processor
+    parser.control_sequence_handler = output_processor
+    parser.tlp_event_listener = output_processor
 
     line = logfile.readline()
     while line:

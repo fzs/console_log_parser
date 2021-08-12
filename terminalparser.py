@@ -58,11 +58,11 @@ class TermLogParser(VT500Parser):
             self.tlp_state = self.STATE_NORMAL
 
         for c in line:
-            self.input(c)
-
             if self.tlp_state == self.STATE_PROMPT_IMMINENT and c == 0x24:  # check for '$'
                 self.tlp_state = self.STATE_PROMPT
                 self.emit(self.STATE_PROMPT)
+
+            self.input(c)
 
     def emit(self, tlp_state):
         """ Emit an event that we have found some pattern in the parsed log """
