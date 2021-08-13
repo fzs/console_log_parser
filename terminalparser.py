@@ -21,7 +21,7 @@ class TermLogParser(VT500Parser):
     STATE_PROMPT = 3
 
     # The regular expression to match prompt context
-    RE_PROMPT_HEADER = "(?:\x1b\\[[0-9;]+m)?florian@Susie (?:\x1b\\[[0-9;]+m)?MINGW64(?:\x1b\\[[0-9;]+m)? (?:\x1b\\[[0-9;]+m)?(?P<cwd>[-.\\w/ ])+"
+    RE_PROMPT_HEADER = b"(?:\x1b\\[[0-9;]+m)?florian@Susie (?:\x1b\\[[0-9;]+m)?MINGW64(?:\x1b\\[[0-9;]+m)? (?:\x1b\\[[0-9;]+m)?(?P<cwd>[-.\\w/ ~]+)"
 
     class DefaultEventListener:
         def prompt_start(self):
@@ -45,13 +45,14 @@ class TermLogParser(VT500Parser):
         #  The next line will be the prompt context line and then in the next line we expect the '$'
         if self.tlp_state == self.STATE_PROMPT_OSC:
             # The OSC preceding prompts was seen. Check if the current line matches the prompt context
-            str_line = line.decode()
-            match = self.re_prompt_ctx.match(str_line)
+            match = self.re_prompt_ctx.match(line)
             if match:
-                if self.osc_string.endswith(match.group('cwd')):
+                cwd = match.group('cwd').decode()
+                if self.osc_string.endswith(cwd) or cwd == '~':
                     self.tlp_state = self.STATE_PROMPT_IMMINENT
+                    LOG.info("Entering TLP state PROMPT_IMMINENT")
                 else:
-                    LOG.warning("We matched the prompt header, but the path doesn't match the OSC: %s", match.group('cwd'))
+                    LOG.warning("We matched the prompt header, but the path doesn't match the OSC: %s", cwd)
 
         elif self.tlp_state == self.STATE_PROMPT:
             self.emit(self.STATE_NORMAL)
