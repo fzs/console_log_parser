@@ -16,7 +16,7 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
     """
 
     def __init__(self):
-        self.speed = 0.5
+        self.speed = 6
         self.cleanup_cmdline = True
         self.command_line = []
         self.cmd_line_pos = 0
@@ -33,7 +33,7 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
             if self.cleanup_cmdline:
                 self.build_cmd_line_print(code)
             else:
-                sleep(0.2 * self.speed)
+                sleep(0.2 * (1.0/self.speed))
                 sys.stdout.write(chr(code))
                 sys.stdout.flush()
 
@@ -52,7 +52,7 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
                 if code == 0x0d: # Wait at CR, because this might be the end of the command input
                     sleep(0.8)
                 sys.stdout.write(chr(code))
-                sleep(0.1 * self.speed)
+                sleep(0.1 * (1.0/self.speed))
                 sys.stdout.flush()
 
     def esc_dispatch(self, intermediate, final):
@@ -81,7 +81,7 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
             if self.cleanup_cmdline:
                 self.build_cmd_line_csi(private, param, interm, final)
             else:
-                sleep(0.1 * self.speed)
+                sleep(0.1 * (1.0/self.speed))
                 sys.stdout.write(ctrlstring)
                 sys.stdout.flush()
 
@@ -140,7 +140,7 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
                 # Pause before we end the line
                 sleep(0.8)
             sys.stdout.write(chr(code))
-            sleep(0.2 * self.speed)
+            sleep(0.2 * (1.0/self.speed))
             sys.stdout.flush()
 
     def prompt_start(self):
