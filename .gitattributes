@@ -1,2 +1,2 @@
 testtermlog*.log -text diff
-
+test/resources/*.log -text diff

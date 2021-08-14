@@ -1,0 +1,623 @@
+]0;MINGW64:/c/Users/florian
+[32mflorian@Susie [35mMINGW64 [33m~[36m[0m
+$ cd Nextclout[Kd/GitTraining/tests
+]0;MINGW64:/c/Users/florian/Nextcloud/GitTraining/tests
+[32mflorian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests[36m[0m
+$ git init win_repo
+[25l[H[K[32m
+florian@Susie [35mMINGW64 [33m~[m[K
+$ cd Nextcloud/GitTraining/tests[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests[m[K
+$ git init win_repo[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[7;1H[?25hInitialized empty Git repository in C:/Users/florian/Nextcloud/GitTraining/tests/win_repo/.git/
+]0;MINGW64:/c/Users/florian/Nextcloud/GitTraining/tests
+[32mflorian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests[36m[0m
+$ cd win_repo/
+]0;MINGW64:/c/Users/florian/Nextcloud/GitTraining/tests/win_repo
+[32mflorian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[0m
+$ echo huhu > hello
+]0;MINGW64:/c/Users/florian/Nextcloud/GitTraining/tests/win_repo
+[32mflorian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[0m
+$ git add huhu
+fatal: pathspec 'huhu' did not match any files
+]0;MINGW64:/c/Users/florian/Nextcloud/GitTraining/tests/win_repo
+[32mflorian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[0m
+$ git add hello
+warning: LF will be replaced by CRLF in hello.[24X
+The file will have its original line endings in your working directory
+]0;MINGW64:/c/Users/florian/Nextcloud/GitTraining/tests/win_repo
+[32mflorian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[0m
+$ ll
+total 1
+-rw-r--r-- 1 florian 197121 5 Aug 11 20:43 hello
+]0;MINGW64:/c/Users/florian/Nextcloud/GitTraining/tests/win_repo
+[32mflorian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[0m
+$ git commit
+hint: Waiting for your editor to close the file... [25l[H[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[H[?25h[22;0;0t[?2004h[?1004h[22;2t[22;1t[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+<Users/florian/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG" [unix] 11L, 227B[K[?25l[12Cm[>c[2;1H[11X
+[11X[11C[1m[30m[107m[22m[34m[49m[2;1H# Please enter the commit message for your changes. Lines starting[m[K[34m
+# with '#' will be ignored, and an empty message aborts the commit.[m[K[34m
+#[m[K[34m
+# On branch [35mmaster[m[K[34m
+#[m[K[34m
+# Initial commit[m[K[34m
+#[m[K[34m
+# [35mChanges to be committed:[m[K[34m
+#       [32mnew file[34m: [31m  hello[m[K[34m
+#[m[K[94m
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K[1m[30m[107m
+</florian/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG [unix] (20:43 11/08/2021)1,0-1 All[H[?25h[?25l[36;1H<rs/florian/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG [unix] (20:43 11/08/2021)1,1 All[97m[49m
+-- INSERT --[m[K[H[?25h[1m[30m[107m[?25l[22m[38;2;175;95;0m[49mA[m[97X[34m
+# Please enter the commit message for your changes. Lines starting[m[32X[34m
+# with '#' will be ignored, and an empty message aborts the commit.[m[31X[34m
+#[m[97X[34m
+# On branch [35mmaster[m[80X[34m
+#[m[97X[34m
+# Initial commit[m[82X[34m
+#[m[97X[34m
+# [35mChanges to be committed:[m[72X[34m
+#       [32mnew file[34m: [31m  hello[m[73X[34m
+#[m[97X[94m
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X
+~[97X[1m[30m[107m
+<florian/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,2 [1;2H[?25h[?25l[22m[38;2;175;95;0m[49md[m[96X[34m[2;2H Please enter the commit message for your changes. Lines starting[m[32X[34m[3;2H with '#' will be ignored, and an empty message aborts the commit.[m[31X[4;2H[97X[34m
+ On branch [35mmaster[m[80X[6;2H[97X[34m
+ Initial commit[m[82X[8;2H[97X[34m
+ [35mChanges to be committed:[m[72X[34m[10;2H       [32mnew file[34m: [31m  hello[m[73X[11;2H[97X[94m
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X[1m[30m[107m
+florian/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,3 [1;3H[?25h[?25l[22m[38;2;175;95;0m[49md[m[95X[34m[2;3HPlease enter the commit message for your changes. Lines starting[m[32X[34m[3;3Hwith '#' will be ignored, and an empty message aborts the commit.[m[31X[4;3H[96X[34m
+On branch [35mmaster[m[80X[6;3H[96X[34m
+Initial commit[m[82X[8;3H[96X[35m
+Changes to be committed:[m[72X[34m[10;3H      [32mnew file[34m: [31m  hello[m[73X[11;3H[96X[94m
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X
+[96X[1m[30m[107m
+lorian/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,4 [1;4H[?25h[?25l[22m[38;2;175;95;0m[49m [m[94X[34m[2;4Hlease enter the commit message for your changes. Lines starting[m[32X[34m[3;4Hith '#' will be ignored, and an empty message aborts the commit.[m[31X[4;4H[95X[34m
+n branch [35mmaster[m[80X[6;4H[95X[34m
+nitial commit[m[82X[8;4H[95X[35m
+hanges to be committed:[m[72X[34m[10;4H     [32mnew file[34m: [31m  hello[m[73X[11;4H[95X[94m
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X
+[95X[1m[30m[107m
+orian/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,5 [1;5H[?25h[?25l[22m[38;2;175;95;0m[49mf[m[93X[34m[2;5Hease enter the commit message for your changes. Lines starting[m[32X[34m[3;5Hth '#' will be ignored, and an empty message aborts the commit.[m[31X[4;5H[94X[34m
+ branch [35mmaster[m[80X[6;5H[94X[34m
+itial commit[m[82X[8;5H[94X[35m
+anges to be committed:[m[72X[34m[10;5H    [32mnew file[34m: [31m  hello[m[73X[11;5H[94X[94m
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X
+[94X[1m[30m[107m
+rian/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,6 [1;6H[?25h[?25l[22m[38;2;175;95;0m[49mi[m[92X[34m[2;6Hase enter the commit message for your changes. Lines starting[m[32X[34m[3;6Hh '#' will be ignored, and an empty message aborts the commit.[m[31X[4;6H[93X[34m
+branch [35mmaster[m[80X[6;6H[93X[34m
+tial commit[m[82X[8;6H[93X[35m
+nges to be committed:[m[72X[34m[10;6H   [32mnew file[34m: [31m  hello[m[73X[11;6H[93X[94m
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X
+[93X[1m[30m[107m
+ian/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,7 [1;7H[?25h[?25l[22m[38;2;175;95;0m[49ml[m[91X[34m[2;7Hse enter the commit message for your changes. Lines starting[m[32X[34m[3;7H '#' will be ignored, and an empty message aborts the commit.[m[31X[4;7H[92X[34m
+ranch [35mmaster[m[80X[6;7H[92X[34m
+ial commit[m[82X[8;7H[92X[35m
+ges to be committed:[m[72X[34m[10;7H  [32mnew file[34m: [31m  hello[m[73X[11;7H[92X[94m
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X
+[92X[1m[30m[107m
+an/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,8 [1;8H[?25h[?25l[22m[38;2;175;95;0m[49me[m[90X[34m[2;8He enter the commit message for your changes. Lines starting[m[32X[34m[3;8H'#' will be ignored, and an empty message aborts the commit.[m[31X[4;8H[91X[34m
+anch [35mmaster[m[80X[6;8H[91X[34m
+al commit[m[82X[8;8H[91X[35m
+es to be committed:[m[72X[34m[10;8H [32mnew file[34m: [31m  hello[m[73X[11;8H[91X[94m
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X
+[91X[1m[30m[107m
+n/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,9 [1;9H[?25h[?25l[22m[38;2;175;95;0m[49m[1;2Hdd file [m[89X[34m[2;2H Please enter the commit message for your changes. Lines starting[m[32X[34m[3;2H with '#' will be ignored, and an empty message aborts the commit.[m[31X[4;2H[97X[34m
+ On branch [35mmaster[m[80X[6;2H[97X[34m
+ Initial commit[m[82X[8;2H[97X[34m
+ [35mChanges to be committed:[m[72X[34m[10;2H       [32mnew file[34m: [31m  hello[m[73X[11;2H[97X[94m
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X
+[97X[1m[30m[107m
+lorian/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,10 [1;10H[?25h[?25l[22m[38;2;175;95;0m[49mh[m[88X[34m[2;10Henter the commit message for your changes. Lines starting[m[32X[34m[3;10H' will be ignored, and an empty message aborts the commit.[m[31X[4;10H[89X[34m
+ch [35mmaster[m[80X[6;10H[89X[34m
+ commit[m[82X[8;10H[89X[35m
+ to be committed:[m[72X[32m[10;10Hew file[34m: [31m  hello[m[73X[11;10H[89X[94m
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X
+[89X[1m[30m[107m
+extcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,11 [1;11H[?25h[?25l[22m[38;2;175;95;0m[49me[m[87X[34m[2;11Hnter the commit message for your changes. Lines starting[m[32X[34m[3;11H will be ignored, and an empty message aborts the commit.[m[31X[4;11H[88X[34m
+h [35mmaster[m[80X[6;11H[88X[34m
+commit[m[82X[8;11H[88X[35m
+to be committed:[m[72X[32m[10;11Hw file[34m: [31m  hello[m[73X[11;11H[88X[94m
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X
+[88X[1m[30m[107m
+xtcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,12 [1;12H[?25h[?25l[22m[38;2;175;95;0m[49ml[m[86X[34m[2;12Hter the commit message for your changes. Lines starting[m[32X[34m[3;12Hwill be ignored, and an empty message aborts the commit.[m[31X[4;12H[87X[34m
+ [35mmaster[m[80X[6;12H[87X[34m
+ommit[m[82X[8;12H[87X[35m
+o be committed:[m[72X[32m[10;12H file[34m: [31m  hello[m[73X[11;12H[87X[94m
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X
+[87X[1m[30m[107m
+tcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,13 [1;13H[?25h[?25l[22m[38;2;175;95;0m[49ml[m[85X[34m[2;13Her the commit message for your changes. Lines starting[m[32X[34m[3;13Hill be ignored, and an empty message aborts the commit.[m[31X[4;13H[86X[35m
+master[m[80X[6;13H[86X[34m
+mmit[m[82X[8;13H[86X[35m
+ be committed:[m[72X[32m[10;13Hfile[34m: [31m  hello[m[73X[11;13H[86X[94m
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X
+[86X[1m[30m[107m
+cloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,14 [1;14H[?25h[?25l[22m[38;2;175;95;0m[49mo[m[84X[34m[2;14Hr the commit message for your changes. Lines starting[m[32X[34m[3;14Hll be ignored, and an empty message aborts the commit.[m[31X[4;14H[85X[35m
+aster[m[80X[6;14H[85X[34m
+mit[m[82X[8;14H[85X[35m
+be committed:[m[72X[32m[10;14Hile[34m: [31m  hello[m[73X[11;14H[85X[94m
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X
+[85X[1m[30m[107m
+loud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG[+] [unix] (20:43 11/08/2021)1,15 [1;15H[?25h[25l[m[37;1H[?25h                                                                                          ^[[K[?25l[9C[1m[30m[107m[36;91H21)1,14 [m[37;91H        [1;14H[?25h[1m[30m[107m[?25l[m[37;1H:[K[?25hx[?2004l<orian/Nextcloud/GitTraining/tests/win_repo/.git/COMMIT_EDITMSG" [unix] 11L, 241B written[?25l[23;2t[23;1t[?1004l[?2004l[23;0;0t
+[H[K[32m
+florian@Susie [35mMINGW64 [33m~[m[K
+$ cd Nextcloud/GitTraining/tests[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests[m[K
+$ git init win_repo[K
+Initialized empty Git repository in C:/Users/florian/Nextcloud/GitTraining/tests/win_repo/.git/      
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests[m[K
+$ cd win_repo/[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[m[K
+$ echo huhu > hello[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[m[K
+$ git add huhu[K
+fatal: pathspec 'huhu' did not match any files[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[m[K
+$ git add hello[K
+warning: LF will be replaced by CRLF in hello.[K
+The file will have its original line endings in your working directory[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[m[K
+$ ll[K
+total 1[K
+-rw-r--r-- 1 florian 197121 5 Aug 11 20:43 hello[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[m[K
+$ git commit[K
+hint: Waiting for your editor to close the file... [K
+[K
+[K
+[K
+[K
+[K
+[K[31;52H[?25h[51X[51C[K[25l[master (root-commit) 41ff128] Add file hello      [K
+[45X[45C 1 file changed, 1 insertion(+)[K
+[76X[76C create mode 100644 hello[36;1H[?25h]0;MINGW64:/c/Users/florian/Nextcloud/GitTraining/tests/win_repo
+[32mflorian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[0m
+$ # Now we go back in history to repeat the ll command
+]0;MINGW64:/c/Users/florian/Nextcloud/GitTraining/tests/win_repo
+[32mflorian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[0m
+$ # Now we go back in history to repeat the ll command[C[Cgit commit[K[C[Cll[K
+total 1
+-rw-r--r-- 1 florian 197121 5 Aug 11 20:43 hello
+]0;MINGW64:/c/Users/florian/Nextcloud/GitTraining/tests/win_repo
+[32mflorian@Susie [35mMINGW64 [33m~/Nextcloud/GitTraining/tests/win_repo[36m (master)[0m
+$ 

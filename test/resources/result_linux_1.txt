@@ -1,0 +1,13 @@
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ # This is a normal line
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ On this line one character was delted at the end
+On: command not found
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ # Delte one here> and then type again (space and then text)
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ # Line with going six back and deleting  three
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ # Just some cursor movement, going two back here> and then two forward again
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ # Going back and adding > smething
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ # Going back and filling in a char
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ # Going back, filling in a char, and the forward again and type more
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ # Next, open vim and clse it again
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ vim huhu
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ # Next, open vim and add one word
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ vim huhu

@@ -1,0 +1,19 @@
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ git init linux_repo
+Initialized empty Git repository in /home/florian/Nextcloud/GitTraining/tests/linux_repo/.git/
+florian@Hobbes:~/Nextcloud/GitTraining/tests$ cd linux_repo/
+florian@Hobbes:~/Nextcloud/GitTraining/tests/linux_repo$ echo hello > huhu
+florian@Hobbes:~/Nextcloud/GitTraining/tests/linux_repo$ git add hello
+fatal: pathspec 'hello' did not match any files
+florian@Hobbes:~/Nextcloud/GitTraining/tests/linux_repo$ git add huhu
+florian@Hobbes:~/Nextcloud/GitTraining/tests/linux_repo$ ll
+total 4
+-rw-rw-r-- 1 florian florian 6 Aug 11 20:39 huhu
+florian@Hobbes:~/Nextcloud/GitTraining/tests/linux_repo$ git commit
+[master (root-commit) 1df40cc] Add file huhu
+ 1 file changed, 1 insertion(+)
+ create mode 100644 huhu
+florian@Hobbes:~/Nextcloud/GitTraining/tests/linux_repo$ # now we go back in history to repeat the ll command
+florian@Hobbes:~/Nextcloud/GitTraining/tests/linux_repo$ ll
+total 4
+-rw-rw-r-- 1 florian florian 6 Aug 11 20:39 huhu
+florian@Hobbes:~/Nextcloud/GitTraining/tests/linux_repo$ exit

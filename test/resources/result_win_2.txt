@@ -1,0 +1,47 @@
+Add file hello
+
+florian@Susie MINGW64 ~
+$ cd Nextcloud/GitTraining/tests
+
+florian@Susie MINGW64 ~/Nextcloud/GitTraining/tests
+$ git init win_repo
+Initialized empty Git repository in C:/Users/florian/Nextcloud/GitTraining/tests/win_repo/.git/
+
+florian@Susie MINGW64 ~/Nextcloud/GitTraining/tests
+$ cd win_repo/
+
+florian@Susie MINGW64 ~/Nextcloud/GitTraining/tests/win_repo (master)
+$ echo huhu > hello
+
+florian@Susie MINGW64 ~/Nextcloud/GitTraining/tests/win_repo (master)
+$ git add huhu
+fatal: pathspec 'huhu' did not match any files
+
+florian@Susie MINGW64 ~/Nextcloud/GitTraining/tests/win_repo (master)
+$ git add hello
+warning: LF will be replaced by CRLF in hello.
+The file will have its original line endings in your working directory
+
+florian@Susie MINGW64 ~/Nextcloud/GitTraining/tests/win_repo (master)
+$ ll
+total 1
+-rw-r--r-- 1 florian 197121 5 Aug 11 20:43 hello
+
+florian@Susie MINGW64 ~/Nextcloud/GitTraining/tests/win_repo (master)
+$ git commit
+[master (root-commit) 41ff128] Add file hello
+                                              1 file changed, 1 insertion(+)
+                                                                             create mode 100644 hello
+
+
+
+florian@Susie MINGW64 ~/Nextcloud/GitTraining/tests/win_repo (master)
+$ # Now we go back in history to repeat the ll command
+
+florian@Susie MINGW64 ~/Nextcloud/GitTraining/tests/win_repo (master)
+$ ll
+total 1
+-rw-r--r-- 1 florian 197121 5 Aug 11 20:43 hello
+
+florian@Susie MINGW64 ~/Nextcloud/GitTraining/tests/win_repo (master)
+$

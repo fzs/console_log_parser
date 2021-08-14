@@ -1,0 +1,37 @@
+
+florian@Susie MINGW64 ~
+$ # This is a normal line
+
+florian@Susie MINGW64 ~
+$ # On this line one character was deleted at the end
+
+florian@Susie MINGW64 ~
+$ Delete one here> and then type again (starting with a space)
+bash: syntax error near unexpected token `('
+
+florian@Susie MINGW64 ~
+$ # Line with going six back and deleting  three
+
+florian@Susie MINGW64 ~
+$ # Just some cursor movement, going two back here> and the two forward again
+
+florian@Susie MINGW64 ~
+$ # Going back and adding > someting
+
+florian@Susie MINGW64 ~
+$ # Going back and filling in a char
+
+florian@Susie MINGW64 ~
+$ #Next, open vim and close again
+
+florian@Susie MINGW64 ~
+$ vim hello
+
+florian@Susie MINGW64 ~
+$ # Next, open vim and add one word
+
+florian@Susie MINGW64 ~
+$ vim hello
+
+florian@Susie MINGW64 ~
+$

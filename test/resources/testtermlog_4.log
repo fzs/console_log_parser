@@ -1,0 +1,2423 @@
+]0;MINGW64:/c/Users/florian
+[32mflorian@Susie [35mMINGW64 [33m~[36m[0m
+$ cd Dev/gitex
+[25l[H[K[32m
+florian@Susie [35mMINGW64 [33m~[m[K
+$ cd Dev/gitex[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[4;1H[?25h]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b5)[0m
+$ export GIT_MERGE_AUTOEDIT=yes
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b5)[0m
+$ git status
+On branch b5[31X
+Your branch is up to date with 'origin/b5'.
+[43X
+nothing to commit, working tree clean      
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b5)[0m
+$ git godlog --all -n 20
+* [33m724551e ([1m[96mHEAD -> [92mb5[22m[33m, [1m[91morigin/b5[22m[33m, [1m[92mb6[22m[33m)[m Readme add topic Reset explained
+* [33m2f21713[m Readme: Add topic Pushing new branches[22X
+* [33me4cca63[m Readme: Add topic using fetch explicitly[20X
+* [33m28645b6 ([1m[92mmaster[22m[33m)[m Readme: Add topic push and pull[20X
+* [33mcf6e280 ([1m[91morigin/master[22m[33m, [1m[91morigin/HEAD[22m[33m)[m Send weather report to clone   
+*   [33m2532fbf[m Merge branch 'master' of C:/Users/florian/Dev/gitex-remote[32m
+|[33m\[m  [66X[32m
+|[m * [33m0c9951e[m Add new topic to section Remote repos[21X
+* [33m|[m [33me6a4a84[m Ask remote how the weather is[29X[33m
+|/[m  [66X
+* [33maf319a2[m Send greetings back to clone[32X
+* [33m2fef48b[m Say hello to remote[41X[33m
+|[m * [33mecfbdb9 ([1m[91morigin/b4[22m[33m, [1m[92mb4[22m[33m)[m Add file header to hello.c file[11X[33m
+|[m [34m|[m * [33me8e7d00 ([1m[93mtag: tagsSection[22m[33m)[m Readme: Add new section 'Tags'       [33m
+|[m [34m|/[m  [64X
+[33m|[m * [33m95fa636[m Revert "Who knows what a hunk is?"[K
+[33m|/[m[K[2C
+* [33m3445f05 ([1m[93mtag: v1.0[22m[33m, [1m[91morigin/nowhere[22m[33m)[m Include stdio.h in hello.c to use 
+the printf function
+* [33ma4ac117[m End the output of Hello World with a newline[K
+* [33m9d8ebb7[m Readme: Add topic branch rebasing[K
+* [33m35bddd5[m Add topic reabsing to Readme[K
+* [33m3204e94[m Add actual output to the Hello World program[K
+* [33mf3c8f48[m Add branching topic: merge commits[K
+* [33m5360cdb[m Who knows what a hunk is?[K
+[K]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b5)[0m
+$ git tag newTag
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b5)[0m
+$ git puh[Ksh origin newTag
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+To C:/Users/florian/Dev/gitex-remote
+ * [new tag]         newTag -> newTag
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b5)[0m
+$ git checkout master
+Switched to branch 'master'
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git tag -a [K[K[K[K[K[K[K[K fetch
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git tag -a v1.1 2fef48b
+hint: Waiting for your editor to close the file... [25l[H[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[H[?25h[22;0;0t[?2004h[?1004h[22;2t[22;1t[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+"C:/Users/florian/Dev/gitex/.git/TAG_EDITMSG" [unix] 5L, 82B[K[?25l[12Cm[>c[34m[2;1H#[m[K[34m
+# [35mWrite a message for tag:[m[K[34m
+#   v1.1[m[K[34m
+# Lines starting with '#' will be ignored.[m[K[30C[1m[30m[107m[22m[94m[49m
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K[1m[30m[107m
+<s/florian/Dev/gitex/.git/TAG_EDITMSG [unix] (09:10 11/08/2021)1,0-1 All[H[?25h[?25l[m[31;62H [1m[30m[107m[30;1H<ers/florian/Dev/gitex/.git/TAG_EDITMSG [unix] (09:10 11/08/2021)1,1 All[97m[49m
+-- INSERT --[m[K[H[?25h[1m[30m[107m[?25l[22m[38;2;175;95;0m[49mA[m[68X[34m
+#[m[68X[34m
+# [35mWrite a message for tag:[m[43X[34m
+#   v1.1[m[61X[34m
+# Lines starting with '#' will be ignored.[m[27X[94m
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X[1m[30m[107m
+</florian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,2 [1;2H[?25h[?25l[22m[38;2;175;95;0m[49mn[m[67X[2;2H[68X[34m
+ [35mWrite a message for tag:[m[43X[34m[4;2H   v1.1[m[61X[34m[5;2H Lines starting with '#' will be ignored.[m[27X[94m[6;2H[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X[1m[30m[107m
+/florian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,3 [1;3H[?25h[?25l[22m[38;2;175;95;0m[49mn[m[66X[2;3H[67X[35m
+Write a message for tag:[m[43X[34m[4;3H  v1.1[m[61X[34m[5;3HLines starting with '#' will be ignored.[m[27X[94m[6;3H[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X[1m[30m[107m
+florian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,4 [1;4H[?25h[?25l[22m[38;2;175;95;0m[49mo[m[65X[2;4H[66X[35m
+rite a message for tag:[m[43X[34m[4;4H v1.1[m[61X[34m[5;4Hines starting with '#' will be ignored.[m[27X[94m[6;4H[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X
+[66X[1m[30m[107m
+lorian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,5 [1;5H[?25h[?25l[22m[38;2;175;95;0m[49mt[m[64X[2;5H[65X[35m
+ite a message for tag:[m[43X[34m[4;5Hv1.1[m[61X[34m[5;5Hnes starting with '#' will be ignored.[m[27X[94m[6;5H[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X[1m[30m[107m
+orian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,6 [1;6H[?25h[?25l[22m[38;2;175;95;0m[49ma[m[63X[2;6H[64X[35m
+te a message for tag:[m[43X[34m[4;6H1.1[m[61X[34m[5;6Hes starting with '#' will be ignored.[m[27X[94m[6;6H[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X[1m[30m[107m
+rian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,7 [1;7H[?25h[?25l[22m[38;2;175;95;0m[49mt[m[62X[2;7H[63X[35m
+e a message for tag:[m[43X[34m[4;7H.1[m[61X[34m[5;7Hs starting with '#' will be ignored.[m[27X[94m[6;7H[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X[1m[30m[107m
+ian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,8 [1;8H[?25h[?25l[22m[38;2;175;95;0m[49me[m[61X[2;8H[62X[35m
+ a message for tag:[m[43X[34m[4;8H1[m[61X[34m[5;8H starting with '#' will be ignored.[m[27X[94m[6;8H[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X
+[62X[1m[30m[107m
+an/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,9 [1;9H[?25h[?25l[22m[38;2;175;95;0m[49m[1;2Hnnotated[m[60X[2;2H[68X[34m
+ [35mWrite a message for tag:[m[43X[34m[4;2H   v1.1[m[61X[34m[5;2H Lines starting with '#' will be ignored.[m[27X[94m[6;2H[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X[1m[30m[107m
+florian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,10 [1;10H[?25h[?25l[22m[38;2;175;95;0m[49m [m[59X[2;10H[60X[35m
+ message for tag:[m[43X[4;10H[60X[34m
+tarting with '#' will be ignored.[m[27X[94m[6;10H[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X[1m[30m[107m
+Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,11 [1;11H[?25h[?25l[22m[38;2;175;95;0m[49mt[m[58X[2;11H[59X[35m
+message for tag:[m[43X[4;11H[59X[34m
+arting with '#' will be ignored.[m[27X[94m[6;11H[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X
+[59X[1m[30m[107m
+ev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,12 [1;12H[?25h[?25l[22m[38;2;175;95;0m[49ma[m[57X[2;12H[58X[35m
+essage for tag:[m[43X[4;12H[58X[34m
+rting with '#' will be ignored.[m[27X[94m[6;12H[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X[1m[30m[107m
+v/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,13 [1;13H[?25h[?25l[22m[38;2;175;95;0m[49mg[m[56X[2;13H[57X[35m
+ssage for tag:[m[43X[4;13H[57X[34m
+ting with '#' will be ignored.[m[27X[94m[6;13H[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X[1m[30m[107m
+/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,14 [1;14H[?25h[?25l[22m[38;2;175;95;0m[49m [m[55X[2;14H[56X[35m
+sage for tag:[m[43X[4;14H[56X[34m
+ing with '#' will be ignored.[m[27X[94m[6;14H[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X[1m[30m[107m
+gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,15 [1;15H[?25h[?25l[22m[38;2;175;95;0m[49mf[m[54X[2;15H[55X[35m
+age for tag:[m[43X[4;15H[55X[34m
+ng with '#' will be ignored.[m[27X[94m[6;15H[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X[1m[30m[107m
+itex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,16 [1;16H[?25h[?25l[22m[38;2;175;95;0m[49mo[m[53X[2;16H[54X[35m
+ge for tag:[m[43X[4;16H[54X[34m
+g with '#' will be ignored.[m[27X[94m[6;16H[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X[1m[30m[107m
+tex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,17 [1;17H[?25h[?25l[22m[38;2;175;95;0m[49mr[m[52X[2;17H[53X[35m
+e for tag:[m[43X[4;17H[53X[34m
+ with '#' will be ignored.[m[27X[94m[6;17H[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X[1m[30m[107m
+ex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,18 [1;18H[?25h[?25l[22m[38;2;175;95;0m[49m [m[51X[2;18H[52X[35m
+ for tag:[m[43X[4;18H[52X[34m
+with '#' will be ignored.[m[27X[94m[6;18H[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X
+[52X[1m[30m[107m
+x/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,19 [1;19H[?25h[?25l[22m[38;2;175;95;0m[49mt[m[50X[2;19H[51X[35m
+for tag:[m[43X[4;19H[51X[34m
+ith '#' will be ignored.[m[27X[94m[6;19H[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X[1m[30m[107m
+/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,20 [1;20H[?25h[?25l[22m[38;2;175;95;0m[49me[m[49X[2;20H[50X[35m
+or tag:[m[43X[4;20H[50X[34m
+th '#' will be ignored.[m[27X[94m[6;20H[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X[1m[30m[107m
+.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,21 [1;21H[?25h[?25l[22m[38;2;175;95;0m[49ms[m[48X[2;21H[49X[35m
+r tag:[m[43X[4;21H[49X[34m
+h '#' will be ignored.[m[27X[94m[6;21H[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X[1m[30m[107m
+git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,22 [1;22H[?25h[?25l[22m[38;2;175;95;0m[49mt[m[47X[2;22H[48X[35m
+ tag:[m[43X[4;22H[48X[34m
+ '#' will be ignored.[m[27X[94m[6;22H[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X[1m[30m[107m
+it/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,23 [1;23H[?25h[?25l[22m[38;2;175;95;0m[49mi[m[46X[2;23H[47X[35m
+tag:[m[43X[4;23H[47X[34m
+'#' will be ignored.[m[27X[94m[6;23H[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X
+[47X[1m[30m[107m
+t/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,24 [1;24H[?25h[?25l[22m[38;2;175;95;0m[49mn[m[45X[2;24H[46X[35m
+ag:[m[43X[4;24H[46X[34m
+#' will be ignored.[m[27X[94m[6;24H[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X[1m[30m[107m
+/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,25 [1;25H[?25h[?25l[22m[38;2;175;95;0m[49mg[m[44X[2;25H[45X[35m
+g:[m[43X[4;25H[45X[34m
+' will be ignored.[m[27X[94m[6;25H[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X[1m[30m[107m
+TAG_EDITMSG[+] [unix] (09:10 11/08/2021)1,26 [1;26H[?25h[?25l[22m[38;2;175;95;0m[49m.[m[43X[2;26H[44X[35m
+:[m[43X[4;26H[44X[34m
+ will be ignored.[m[27X[94m[6;26H[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X
+[44X[1m[30m[107m
+AG_EDITMSG[+] [unix] (09:10 11/08/2021)1,27 [1;27H[?25h[?25l[m[K
+[K[35m
+:[m[K[4;26H[K[34m
+ will be ignored.[m[K[94m[6;26H[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[1m[30m[107m
+AG_EDITMSG[+] [unix] (09:10 11/08/2021)1,26 All[1;26H[?25h[?25l[m
+[K[34m
+#[m[K[34m
+# [35mWrite a message for tag:[m[K[34m
+#   v1.1[m[K[34m
+# Lines starting with '#' will be ignored.[m[K[94m
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K[1m[30m[107m
+</florian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)2,1 All[2;1H[?25h[?25l[m
+[K[34m
+#[m[K[34m
+# [35mWrite a message for tag:[m[K[34m
+#   v1.1[m[K[34m
+# Lines starting with '#' will be ignored.[m[K[94m
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K[1m[30m[107m
+</florian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,1 All[3;1H[?25h[?25l[mT[68X[34m
+#[m[68X[34m
+# [35mWrite a message for tag:[m[43X[34m
+#   v1.1[m[61X[34m
+# Lines starting with '#' will be ignored.[m[27X[94m
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X
+~[68X[1m[30m[107m
+</florian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,2 [3;2H[?25h[?25l[mo[67X[4;2H[68X[34m
+ [35mWrite a message for tag:[m[43X[34m[6;2H   v1.1[m[61X[34m[7;2H Lines starting with '#' will be ignored.[m[27X[94m[8;2H[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X[1m[30m[107m
+/florian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,3 [3;3H[?25h[?25l[mo[66X[4;3H[67X[35m
+Write a message for tag:[m[43X[34m[6;3H  v1.1[m[61X[34m[7;3HLines starting with '#' will be ignored.[m[27X[94m[8;3H[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X
+[67X[1m[30m[107m
+florian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,4 [3;4H[?25h[?25l[30;68H5 [3;5H[?25h[?25l[mb[64X[4;5H[65X[35m
+ite a message for tag:[m[43X[34m[6;5Hv1.1[m[61X[34m[7;5Hnes starting with '#' will be ignored.[m[27X[94m[8;5H[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X
+[65X[1m[30m[107m
+orian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,6 [3;6H[?25h[?25l[ma[63X[4;6H[64X[35m
+te a message for tag:[m[43X[34m[6;6H1.1[m[61X[34m[7;6Hes starting with '#' will be ignored.[m[27X[94m[8;6H[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X
+[64X[1m[30m[107m
+rian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,7 [3;7H[?25h[?25l[md[62X[4;7H[63X[35m
+e a message for tag:[m[43X[34m[6;7H.1[m[61X[34m[7;7Hs starting with '#' will be ignored.[m[27X[94m[8;7H[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X
+[63X[1m[30m[107m
+ian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,8 [3;8H[?25h[?25l[30;68H9 [3;9H[?25h[?25l[m[3;2Hoo bad w[60X[4;2H[68X[34m
+ [35mWrite a message for tag:[m[43X[34m[6;2H   v1.1[m[61X[34m[7;2H Lines starting with '#' will be ignored.[m[27X[94m[8;2H[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X
+[68X[1m[30m[107m
+florian/Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,10 [3;10H[?25h[?25l[me[59X[4;10H[60X[35m
+ message for tag:[m[43X[6;10H[60X[34m
+tarting with '#' will be ignored.[m[27X[94m[8;10H[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X
+[60X[1m[30m[107m
+Dev/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,11 [3;11H[?25h[?25l[30;68H2 [3;12H[?25h[?25l[md[57X[4;12H[58X[35m
+essage for tag:[m[43X[6;12H[58X[34m
+rting with '#' will be ignored.[m[27X[94m[8;12H[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X
+[58X[1m[30m[107m
+v/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,13 [3;13H[?25h[?25l[mi[56X[4;13H[57X[35m
+ssage for tag:[m[43X[6;13H[57X[34m
+ting with '#' will be ignored.[m[27X[94m[8;13H[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X
+[57X[1m[30m[107m
+/gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,14 [3;14H[?25h[?25l[md[55X[4;14H[56X[35m
+sage for tag:[m[43X[6;14H[56X[34m
+ing with '#' will be ignored.[m[27X[94m[8;14H[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X
+[56X[1m[30m[107m
+gitex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,15 [3;15H[?25h[?25l[mn[54X[4;15H[55X[35m
+age for tag:[m[43X[6;15H[55X[34m
+ng with '#' will be ignored.[m[27X[94m[8;15H[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X
+[55X[1m[30m[107m
+itex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,16 [3;16H[?25h[?25l[m'[53X[4;16H[54X[35m
+ge for tag:[m[43X[6;16H[54X[34m
+g with '#' will be ignored.[m[27X[94m[8;16H[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X
+[54X[1m[30m[107m
+tex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,17 [3;17H[?25h[?25l[mt[52X[4;17H[53X[35m
+e for tag:[m[43X[6;17H[53X[34m
+ with '#' will be ignored.[m[27X[94m[8;17H[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X
+[53X[1m[30m[107m
+ex/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,18 [3;18H[?25h[?25l[30;68H9 [3;19H[?25h[?25l[mw[50X[4;19H[51X[35m
+for tag:[m[43X[6;19H[51X[34m
+ith '#' will be ignored.[m[27X[94m[8;19H[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X
+[51X[1m[30m[107m
+/.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,20 [3;20H[?25h[?25l[mo[49X[4;20H[50X[35m
+or tag:[m[43X[6;20H[50X[34m
+th '#' will be ignored.[m[27X[94m[8;20H[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X
+[50X[1m[30m[107m
+.git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,21 [3;21H[?25h[?25l[mr[48X[4;21H[49X[35m
+r tag:[m[43X[6;21H[49X[34m
+h '#' will be ignored.[m[27X[94m[8;21H[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X
+[49X[1m[30m[107m
+git/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,22 [3;22H[?25h[?25l[mk[47X[4;22H[48X[35m
+ tag:[m[43X[6;22H[48X[34m
+ '#' will be ignored.[m[27X[94m[8;22H[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X
+[48X[1m[30m[107m
+it/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,23 [3;23H[?25h[?25l[30;68H4 [3;24H[?25h[?25l[mo[45X[4;24H[46X[35m
+ag:[m[43X[6;24H[46X[34m
+#' will be ignored.[m[27X[94m[8;24H[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X
+[46X[1m[30m[107m
+/TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,25 [3;25H[?25h[?25l[mn[44X[4;25H[45X[35m
+g:[m[43X[6;25H[45X[34m
+' will be ignored.[m[27X[94m[8;25H[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X
+[45X[1m[30m[107m
+TAG_EDITMSG[+] [unix] (09:10 11/08/2021)3,26 [3;26H[?25h[?25l[30;68H7 [3;27H[?25h[?25l[mo[42X[4;27H[43X
+[43X
+[43X[34m
+will be ignored.[m[27X[94m[8;27H[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X
+[43X[1m[30m[107m
+G_EDITMSG[+] [unix] (09:10 11/08/2021)3,28 [3;28H[?25h[?25l[mu[41X[4;28H[42X
+[42X
+[42X[34m
+ill be ignored.[m[27X[94m[8;28H[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X
+[42X[1m[30m[107m
+_EDITMSG[+] [unix] (09:10 11/08/2021)3,29 [3;29H[?25h[?25l[mr[40X[4;29H[41X
+[41X
+[41X[34m
+ll be ignored.[m[27X[94m[8;29H[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X
+[41X[1m[30m[107m
+EDITMSG[+] [unix] (09:10 11/08/2021)3,30 [3;30H[?25h[?25l[30;68H1 [3;31H[?25h[?25l[mp[38X[4;31H[39X
+[39X
+[39X[34m
+ be ignored.[m[27X[94m[8;31H[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X
+[39X[1m[30m[107m
+ITMSG[+] [unix] (09:10 11/08/2021)3,32 [3;32H[?25h[?25l[mr[37X[4;32H[38X
+[38X
+[38X[34m
+be ignored.[m[27X[94m[8;32H[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X
+[38X[1m[30m[107m
+TMSG[+] [unix] (09:10 11/08/2021)3,33 [3;33H[?25h[?25l[mo[36X[4;33H[37X
+[37X
+[37X[34m
+e ignored.[m[27X[94m[8;33H[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X
+[37X[1m[30m[107m
+MSG[+] [unix] (09:10 11/08/2021)3,34 [3;34H[?25h[?25l[mg[35X[4;34H[36X
+[36X
+[36X[34m
+ ignored.[m[27X[94m[8;34H[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X
+[36X[1m[30m[107m
+SG[+] [unix] (09:10 11/08/2021)3,35 [3;35H[?25h[?25l[mr[34X[4;35H[35X
+[35X
+[35X[34m
+ignored.[m[27X[94m[8;35H[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X
+[35X[1m[30m[107m
+G[+] [unix] (09:10 11/08/2021)3,36 [3;36H[?25h[?25l[ma[33X[4;36H[34X
+[34X
+[34X[34m
+gnored.[m[27X[94m[8;36H[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X
+[34X[1m[30m[107m
+[+] [unix] (09:10 11/08/2021)3,37 [3;37H[?25h[?25l[mm[32X[4;37H[33X
+[33X
+[33X[34m
+nored.[m[27X[94m[8;37H[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X
+[33X[1m[30m[107m
++] [unix] (09:10 11/08/2021)3,38 [3;38H[?25h[?25l[30;68H9 [3;39H[?25h[?25l[ma[30X[4;39H[31X
+[31X
+[31X[34m
+red.[m[27X[94m[8;39H[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X
+[31X[1m[30m[107m
+ [unix] (09:10 11/08/2021)3,40 [3;40H[?25h[?25l[mn[29X[4;40H[30X
+[30X
+[30X[34m
+ed.[m[27X[94m[8;40H[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X
+[30X[1m[30m[107m
+[unix] (09:10 11/08/2021)3,41 [3;41H[?25h[?25l[my[28X[4;41H[29X
+[29X
+[29X[34m
+d.[m[27X[94m[8;41H[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X
+[29X[1m[30m[107m
+unix] (09:10 11/08/2021)3,42 [3;42H[?25h[?25l[mm[27X[4;42H[28X
+[28X
+[28X[34m
+.[m[27X[94m[8;42H[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X
+[28X[1m[30m[107m
+nix] (09:10 11/08/2021)3,43 [3;43H[?25h[?25l[mo[26X[4;43H[27X
+[27X
+[27X
+[27X[94m
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X
+[27X[1m[30m[107m
+ix] (09:10 11/08/2021)3,44 [3;44H[?25h[25l[mr[25X[4;44H[26X
+[26X
+[26X
+[26X[94m
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X
+[26X[1m[30m[107m
+x] (09:10 11/08/2021)3,45 [3;45H[?25h[?25l[me[24X[4;45H[25X
+[25X
+[25X
+[25X[94m
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X
+[25X[1m[30m[107m
+] (09:10 11/08/2021)3,46 [3;46H[?25h[?25l[m.[23X[4;46H[24X
+[24X
+[24X
+[24X[94m
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X
+[24X[1m[30m[107m
+ (09:10 11/08/2021)3,47 [3;47H[?25h[25l[m[31;1H[?25h                                                             ^[[K[?25l[9C[31;62H  [1m[30m[107m[30;68H6 [3;46H[?25h[?25l[m[31;1H:[K[?25hx[?2004l"C:/Users/florian/Dev/gitex/.git/TAG_EDITMSG"[?25l<florian/Dev/gitex/.git/TAG_EDITMSG" [unix] 7L, 155B written[23;2t[23;1t[?1004l[?2004l[23;0;0t
+[33m[H|/[m[K
+* [33m3445f05 ([1m[93mtag: v1.0[22m[33m, [1m[91morigin/nowhere[22m[33m)[m Include stdio.h in hello.c to use 
+the printf function[K
+* [33ma4ac117[m End the output of Hello World with a newline[K
+* [33m9d8ebb7[m Readme: Add topic branch rebasing[K
+* [33m35bddd5[m Add topic reabsing to Readme[K
+* [33m3204e94[m Add actual output to the Hello World program[K
+* [33mf3c8f48[m Add branching topic: merge commits[K
+* [33m5360cdb[m Who knows what a hunk is?[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b5)[m[K
+$ git tag newTag[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b5)[m[K
+$ git push origin newTag[K
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0[K
+To C:/Users/florian/Dev/gitex-remote[K
+ * [new tag]         newTag -> newTag[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b5)[m[K
+$ git checkout master[K
+Switched to branch 'master'[K
+Your branch is ahead of 'origin/master' by 1 commit.[K
+  (use "git push" to publish your local commits)[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[m[K
+$ git fetch[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[m[K
+$ git tag -a v1.1 2fef48b[K
+hint: Waiting for your editor to close the file...[K[1C[?25h[K]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git push
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+To C:/Users/florian/Dev/gitex-remote
+   cf6e280..28645b6  master -> master
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git push or[K[K[K[K[K[K[Kmerge e4cca63
+Updating 28645b6..e4cca63
+Fast-forward
+ Readme.md | 1 [32m+[m
+ 1 file changed, 1 insertion(+)
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git godlog --all -n 15
+* [33m724551e ([1m[93mtag: newTag[22m[33m, [1m[91morigin/b5[22m[33m, [1m[92mb6[22m[33m, [1m[92mb5[22m[33m)[m Readme add topic Reset explai
+ned
+* [33m2f21713[m Readme: Add topic Pushing new branches[K[25l
+* [33me4cca63 ([1m[96mHEAD -> [92mmaster[22m[33m)[m Readme: Add topic using fetch explicitly     [31;68H[?25h[25l
+* [33m28645b6 ([1m[91morigin/master[22m[33m, [1m[91morigin/HEAD[22m[33m)[m Readme: Add topic push and pull  [31;71H[?25h
+* [33mcf6e280[m Send weather report to clone[K[25l
+*   [33m2532fbf[m Merge branch 'master' of C:/Users/florian/Dev/gitex-remote  [31;71H[?25h
+[32m|[33m\[m[K[2C
+[32m|[m * [33m0c9951e[m Add new topic to section Remote repos[K
+* [33m|[m [33me6a4a84[m Ask remote how the weather is[K
+[33m|/[m[K[2C
+* [33maf319a2[m Send greetings back to clone[K
+* [33m2fef48b ([1m[93mtag: v1.1[22m[33m)[m Say hello to remote[K
+[33m|[m * [33mecfbdb9 ([1m[91morigin/b4[22m[33m, [1m[92mb4[22m[33m)[m Add file header to hello.c file[K
+[33m|[m [34m|[m * [33me8e7d00 ([1m[93mtag: tagsSection[22m[33m)[m Readme: Add new section 'Tags'[K
+[33m|[m [34m|/[m[K[2C
+[33m|[m * [33m95fa636[m Revert "Who knows what a hunk is?"[K
+[33m|/[m[K[2C
+* [33m3445f05 ([1m[93mtag: v1.0[22m[33m, [1m[91morigin/nowhere[22m[33m)[m Include stdio.h in hello.c to use 
+the printf function
+* [33ma4ac117[m End the output of Hello World with a newline[K
+[K]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git paush [K[K[K[K[Kush orign[Kin --follow-tags
+Enumerating objects: 1, done.
+Counting objects: 100% (1/1), done.
+Writing objects: 100% (1/1), 215 bytes | 215.00 KiB/s, done.
+Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+To C:/Users/florian/Dev/gitex-remote
+   28645b6..e4cca63  master -> master
+ * [new tag]         v1.1 -> v1.1
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git help tag
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git godlog --all -n 20
+* [33m724551e ([1m[93mtag: newTag[22m[33m, [1m[91morigin/b5[22m[33m, [1m[92mb6[22m[33m, [1m[92mb5[22m[33m)[m Readme add topic Reset explai
+ned
+* [33m2f21713[m Readme: Add topic Pushing new branches[K
+* [33me4cca63 ([1m[96mHEAD -> [92mmaster[22m[33m, [1m[91morigin/master[22m[33m, [1m[91morigin/HEAD[22m[33m)[m Readme: Add topic
+ using fetch explicitly
+* [33m28645b6[m Readme: Add topic push and pull[K
+* [33mcf6e280[m Send weather report to clone[K[25l
+*   [33m2532fbf[m Merge branch 'master' of C:/Users/florian/Dev/gitex-remote  [31;71H[?25h
+[32m|[33m\[m[K[2C
+[32m|[m * [33m0c9951e[m Add new topic to section Remote repos[K
+* [33m|[m [33me6a4a84[m Ask remote how the weather is[K
+[33m|/[m[K[2C
+* [33maf319a2[m Send greetings back to clone[K
+* [33m2fef48b ([1m[93mtag: v1.1[22m[33m)[m Say hello to remote[K
+[33m|[m * [33mecfbdb9 ([1m[91morigin/b4[22m[33m, [1m[92mb4[22m[33m)[m Add file header to hello.c file[K
+[33m|[m [34m|[m * [33me8e7d00 ([1m[93mtag: tagsSection[22m[33m)[m Readme: Add new section 'Tags'[K
+[33m|[m [34m|/[m[K[2C
+[33m|[m * [33m95fa636[m Revert "Who knows what a hunk is?"[K
+[33m|/[m[K[2C
+* [33m3445f05 ([1m[93mtag: v1.0[22m[33m, [1m[91morigin/nowhere[22m[33m)[m Include stdio.h in hello.c to use 
+the printf function
+* [33ma4ac117[m End the output of Hello World with a newline[K
+* [33m9d8ebb7[m Readme: Add topic branch rebasing[K
+* [33m35bddd5[m Add topic reabsing to Readme[K
+* [33m3204e94[m Add actual output to the Hello World program[K
+* [33mf3c8f48[m Add branching topic: merge commits[K
+* [33m5360cdb[m Who knows what a hunk is?[K
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git tag tag1 b5^
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git tag tag2a4ac[C a4ac
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git tag tag3 95fa
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git tag -a vt0.9 -m "Tag should be pushed with --folo[Klow-tags" [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C a f 3 1 
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git tag -a vt2.0 -M "Tag should be pushed with --follow-tags" 
+error: unknown switch `M'
+usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>]
+                <tagname> [<head>]
+   or: git tag -d <tagname>...
+   or: git tag -l [-n[<num>]] [--contains <commit>] [--no-contains <comm
+it>] [--points-at <object>]
+                [--format=<format>] [--merged <commit>] [--no-merged <co
+mmit>] [<pattern>...]
+   or: git tag -v [--format=<format>] <tagname>...
+
+    -l, --list            list tag names
+    -n[<n>]               print <n> lines of each tag message
+    -d, --delete          delete tags
+    -v, --verify          verify tags
+
+Tag creation options
+    -a, --annotate        annotated tag, needs a message
+    -m, --message <message>
+                          tag message
+    -F, --file <file>     read message from file
+    -e, --edit            force edit of tag message
+    -s, --sign            annotated and GPG-signed tag
+    --cleanup <mode>      how to strip spaces and #comments from message
+
+    -u, --local-user <key-id>
+                          use another key to sign the tag
+    -f, --force           replace the tag if exists
+    --create-reflog       create a reflog
+
+Tag listing options
+    --column[=<style>]    show tag list in columns[25l
+    --contains <commit>   print only tags that contain the commit       [31;66H[?25h
+    --no-contains <commit>
+                          print only tags that don't contain the commit 
+    --merged <commit>     print only tags that are merged
+    --no-merged <commit>  print only tags that are not merged
+    --sort <key>          field name to sort on
+    --points-at <object>  print only tags of the object
+    --format <format>     format to use for the output
+    --color[=<when>]      respect format colors[25l
+    -i, --ignore-case     sorting and filtering are case insensitive    [31;69H[?25h
+
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git tag -a vt2.0 -M "Tag should be pushed with --follow-tags" [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1@m
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git checkut[K[K[Kkout b4
+Switched to branch 'b4'
+Your branch is up to date with 'origin/b4'.
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b4)[0m
+$ git godo[Klog --all -n 20
+* [33m724551e ([1m[93mtag: newTag[22m[33m, [1m[91morigin/b5[22m[33m, [1m[92mb6[22m[33m, [1m[92mb5[22m[33m)[m Readme add topic Reset explai
+ned
+* [33m2f21713 ([1m[93mtag: tag1[22m[33m)[m Readme: Add topic Pushing new branches[K
+* [33me4cca63 ([1m[93mtag: vt2.0[22m[33m, [1m[91morigin/master[22m[33m, [1m[91morigin/HEAD[22m[33m, [1m[92mmaster[22m[33m)[m Readme: Add t
+opic using fetch explicitly
+* [33m28645b6[m Readme: Add topic push and pull[K
+* [33mcf6e280[m Send weather report to clone[K[25l
+*   [33m2532fbf[m Merge branch 'master' of C:/Users/florian/Dev/gitex-remote  [31;71H[?25h
+[32m|[33m\[m[K[2C
+[32m|[m * [33m0c9951e[m Add new topic to section Remote repos[K
+* [33m|[m [33me6a4a84[m Ask remote how the weather is[K
+[33m|/[m[K[2C
+*[1C[33maf319a2 ([1m[93mtag: vt0.9[22m[33m)[m Send greetings back to clone
+* [33m2fef48b ([1m[93mtag: v1.1[22m[33m)[m Say hello to remote[K[25l
+[33m|[m * [33mecfbdb9 ([1m[96mHEAD -> [92mb4[22m[33m, [1m[91morigin/b4[22m[33m)[m Add file header to hello.c file     [31;68H[?25h
+[33m|[m [34m|[m * [33me8e7d00 ([1m[93mtag: tagsSection[22m[33m)[m Readme: Add new section 'Tags'[K
+[33m|[m [34m|/[m[K[2C
+[33m|[m * [33m95fa636 ([1m[93mtag: tag3[22m[33m)[m Revert "Who knows what a hunk is?"[K
+[33m|/[m[K[2C
+* [33m3445f05 ([1m[93mtag: v1.0[22m[33m, [1m[91morigin/nowhere[22m[33m)[m Include stdio.h in hello.c to use 
+the printf function[25l
+* [33ma4ac117 ([1m[93mtag: tag2[22m[33m)[m End the output of Hello World with a newline      [31;67H[?25h
+* [33m9d8ebb7[m Readme: Add topic branch rebasing[K
+* [33m35bddd5[m Add topic reabsing to Readme[K
+* [33m3204e94[m Add actual output to the Hello World program[K
+* [33mf3c8f48[m[K Add branching topic: merge commits
+* [33m5360cdb[m Who knows what a hunk is?[K
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b4)[0m
+$ git tag -a -m "Tags[K should not be pushed with --follow-tags" v1.2t1.2
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b4)[0m
+$ vim he..[?5h[?5l[K[Kllo.c 
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;31r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[31;1H"hello.c" [dos] 9L, 129B[2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c]10;?]11;?[1;1H[34m/* Hello World Program */[m[2;1H[K[3;1H[35m#include [m[31m<stdio.h>[m[3;19H[K[4;1H[32mint[m main([32mint[m argc, [32mchar[m** argv)
+{[6;9Hprintf([31m"Hello World[m[35m\n[m[31m"[m);[7;9H[38;5;130mreturn[m [31m0[m;
+}
+
+[94m~                                                                       [11;1H~                                                                       [12;1H~                                                                       [13;1H~                                                                       [14;1H~                                                                       [15;1H~                                                                       [16;1H~                                                                       [17;1H~                                                                       [18;1H~                                                                       [19;1H~                                                                       [20;1H~                                                                       [21;1H~                                                                       [22;1H~                                                                       [23;1H~                                                                       [24;1H~                                                                       [25;1H~                                                                       [26;1H~                                                                       [27;1H~                                                                       [28;1H~                                                                       [29;1H~                                                                       [m[30;1H[1m[7mhello.c [dos] (09:30 11/08/2021)                               2,0-1 All[2;1H[?25h[?25l[m[31;62H~@k[2;1H[31;62H   [1;1H[30;64H[1m[7m  1,1[1;1H[?25h[?25l[m[31;62H~@k[1;1H[31;62H   [1;2H[30;68H[1m[7m2 [1;2H[?25h[?25l[m[31;62H~@k[1;2H[31;62H   [1;3H[30;68H[1m[7m3 [1;3H[?25h[?25l[m[31;62Hi[1;3H[31;62H [1;3H[31;1H[1m-- INSERT --[m[31;13H[K[1;3H[?25h[?25l[34mHello World Program */[m[1;25H[K[30;8H[1m[7m[+] [dos] (09:30 11/08/2021)[1;3H[?25h[?25l[2;29r[m[2;1H[L[1;31r[1;3H[K[2;1H[34m * Hello World Program */[m[30;66H[1m[7m2,4 [2;4H[?25h[30;68H5 [2;5H[30;68H6 [2;6H[30;68H7 [2;7H[30;68H8 [2;8H[30;68H9 [2;9H[30;65H2,10 [2;10H[30;68H1 [2;11H[30;68H2 [2;12H[30;68H5 [2;15H[30;68H6 [2;16H[30;68H7 [2;17H[30;68H8 [2;18H[30;68H9 [2;19H[30;67H20 [2;20H[30;68H1 [2;21H[30;68H2 [2;22H[30;68H3 [2;23H[30;68H4 [2;24H[?25l[m[34m*/[m[2;25H[K[30;68H[1m[7m3 [2;23H[?25h[?25l[3;29r[m[3;1H[L[1;31r[2;23H[K[3;1H[34m * */[m[30;65H[1m[7m 3,4 [3;4H[?25h[?25l[m[34m*/[m[3;5H[K[30;68H[1m[7m3 [3;3H[?25h[?25l[m[34m/[m[3;4H[K[30;68H[1m[7m2 [3;2H[?25h[m[31;1H[K[3;1H[?25l[31;62H^[[3;1H[31;62H  [3;2H[30;68H[1m[7m1 [3;1H[?25h[?25l[m[31;62H:[3;1H[31;62H[K[31;1H:[?25hx[?25l[?2004l[>4;m"hello.c" [dos] 11L, 135B written[23;2t[23;1t
+[?1004l[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0t]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b4)[0m
+$ git commit -a -m "Beat[Kutify file header for better visibility"
+[b4 7301171] Beautify file header for better visibility
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b4)[0m
+$ git tag -a -m "Tag should not be pushed with --follow-tags" vr[Kt1.3
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b4)[0m
+$ git godlg[Kog --all -n 20
+* [33m7301171 ([1m[96mHEAD -> [92mb4[22m[33m, [1m[93mtag: vt1.3[22m[33m)[m Beautify file header for better visib
+ility[25l
+* [33mecfbdb9 ([1m[93mtag: vt1.2[22m[33m, [1m[91morigin/b4[22m[33m)[m Add file header to hello.c file       [31;66H[?25h
+[31m|[m * [33m724551e ([1m[93mtag: newTag[22m[33m, [1m[91morigin/b5[22m[33m, [1m[92mb6[22m[33m, [1m[92mb5[22m[33m)[m Readme add topic Reset expl
+ained
+[31m|[m * [33m2f21713 ([1m[93mtag: tag1[22m[33m)[m Readme: Add topic Pushing new branches[K
+[31m|[m * [33me4cca63 ([1m[93mtag: vt2.0[22m[33m, [1m[91morigin/master[22m[33m, [1m[91morigin/HEAD[22m[33m, [1m[92mmaster[22m[33m)[m Readme: Add
+ topic using fetch explicitly
+[31m|[m * [33m28645b6[m Readme: Add topic push and pull[K
+[31m|[m * [33mcf6e280[m Send weather report to clone[K
+[31m|[m *   [33m2532fbf[m Merge branch 'master' of C:/Users/florian/Dev/gitex-remote
+[31m|[m [33m|[34m\[m[K[2C
+[31m|[m [33m|[m * [33m0c9951e[m Add new topic to section Remote repos[K
+[31m|[m * [34m|[m [33me6a4a84[m Ask remote how the weather is[K
+[31m|[m [34m|/[m[K[2C
+[31m|[m * [33maf319a2 ([1m[93mtag: vt0.9[22m[33m)[m Send greetings back to clone[K
+[31m|[m * [33m2fef48b ([1m[93mtag: v1.1[22m[33m)[m Say hello to remote[K
+[31m|[m [34m|[m * [33me8e7d00 ([1m[93mtag: tagsSection[22m[33m)[m Readme: Add new section 'Tags'[K
+[31m|[m [34m|[31m/[m[K[2C
+[31m|/[34m|[m[K[3C
+* [34m|[m [33m95fa636 ([1m[93mtag: tag3[22m[33m)[m Revert "Who knows what a hunk is?"[K
+[34m|/[m[K[2C
+* [33m3445f05 ([1m[93mtag: v1.0[22m[33m, [1m[91morigin/nowhere[22m[33m)[m Include stdio.h in hello.c to use 
+the printf function[25l
+* [33ma4ac117 ([1m[93mtag: tag2[22m[33m)[m End the output of Hello World with a newline      [31;67H[?25h
+*[1C[33m9d8ebb7[m Readme: Add topic branch rebasing
+* [33m35bddd5[m Add topic reabsing to Readme[K
+* [33m3204e94[m Add actual output to the Hello World program[K
+* [33mf3c8f48[m Add branching topic: merge commits[K
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (b4)[0m
+$ goit [K[K[K[Kit checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git o[Kgodlog -n 20
+* [33me4cca63 ([1m[96mHEAD -> [92mmaster[22m[33m, [1m[93mtag: vt2.0[22m[33m, [1m[91morigin/master[22m[33m, [1m[91morigin/HEAD[22m[33m)[m Readm
+e: Add topic using fetch explicitly
+* [33m28645b6[m Readme: Add topic push and pull[K
+* [33mcf6e280[m Send weather report to clone[K[25l
+*   [33m2532fbf[m Merge branch 'master' of C:/Users/florian/Dev/gitex-remote  [31;71H[?25h
+[32m|[33m\[m[K[2C
+[32m|[m * [33m0c9951e[m Add new topic to section Remote repos[K
+* [33m|[m [33me6a4a84[m Ask remote how the weather is[K
+[33m|/[m[K[2C
+* [33maf319a2 ([1m[93mtag: vt0.9[22m[33m)[m Send greetings back to clone[K
+* [33m2fef48b ([1m[93mtag: v1.1[22m[33m)[m Say hello to remote[K
+* [33m3445f05 ([1m[93mtag: v1.0[22m[33m, [1m[91morigin/nowhere[22m[33m)[m Include stdio.h in hello.c to use 
+the printf function[25l
+* [33ma4ac117 ([1m[93mtag: tag2[22m[33m)[m End the output of Hello World with a newline      [31;67H[?25h
+* [33m9d8ebb7[m Readme: Add topic branch rebasing[K
+* [33m35bddd5[m Add topic reabsing to Readme[K
+* [33m3204e94[m Add actual output to the Hello World program[K
+* [33mf3c8f48[m Add branching topic: merge commits[K
+* [33m5360cdb[m Who knows what a hunk is?[K
+*   [33m346e316[m Merge branch 'b2' into master[K
+[34m|[35m\[m[K[2C
+[34m|[m * [33m49422cc[m Add new topic creating branches[25l
+* [35m|[m [33mbc6be29[m Add new topic for fast-forwad merges to Branches section    [31;69H[?25h
+[35m|/[m[K[2C
+*   [33mb367b11[m Merge branch 'b1'[K
+[36m|[1m[91m\[m[K[2C[25l
+[36m|[m * [33mf8c147f[m A proper main function always returns an explicit value     [31;68H[?25h
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git godlog -n 20[K[K15
+* [33me4cca63 ([1m[96mHEAD -> [92mmaster[22m[33m, [1m[93mtag: vt2.0[22m[33m, [1m[91morigin/master[22m[33m, [1m[91morigin/HEAD[22m[33m)[m Readm
+e: Add topic using fetch explicitly
+* [33m28645b6[m Readme: Add topic push and pull[K
+* [33mcf6e280[m Send weather report to clone[K[25l
+*   [33m2532fbf[m Merge branch 'master' of C:/Users/florian/Dev/gitex-remote  [31;71H[?25h
+[32m|[33m\[m[K[2C
+[32m|[m * [33m0c9951e[m Add new topic to section Remote repos[K
+* [33m|[m [33me6a4a84[m Ask remote how the weather is[K
+[33m|/[m[K[2C
+* [33maf319a2 ([1m[93mtag: vt0.9[22m[33m)[m Send greetings back to clone[K
+* [33m2fef48b ([1m[93mtag: v1.1[22m[33m)[m Say hello to remote[K
+* [33m3445f05 ([1m[93mtag: v1.0[22m[33m, [1m[91morigin/nowhere[22m[33m)[m Include stdio.h in hello.c to use 
+the printf function[25l
+* [33ma4ac117 ([1m[93mtag: tag2[22m[33m)[m End the output of Hello World with a newline      [31;67H[?25h
+* [33m9d8ebb7[m Readme: Add topic branch rebasing[K
+* [33m35bddd5[m Add topic reabsing to Readme[K
+* [33m3204e94[m Add actual output to the Hello World program[K
+* [33mf3c8f48[m Add branching topic: merge commits[K
+* [33m5360cdb[m Who knows what a hunk is?[K
+[K]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git merge b5
+Updating e4cca63..724551e
+Fast-forward
+ Readme.md | 4 [32m+++[31m-[m
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git godlog -n 10
+* [33m724551e ([1m[96mHEAD -> [92mmaster[22m[33m, [1m[93mtag: newTag[22m[33m, [1m[91morigin/b5[22m[33m, [1m[92mb6[22m[33m, [1m[92mb5[22m[33m)[m Readme add to
+pic Reset explained
+* [33m2f21713 ([1m[93mtag: tag1[22m[33m)[m Readme: Add topic Pushing new branches[K
+* [33me4cca63 ([1m[93mtag: vt2.0[22m[33m, [1m[91morigin/master[22m[33m, [1m[91morigin/HEAD[22m[33m)[m Readme: Add topic usi
+ng fetch explicitly
+* [33m28645b6[m Readme: Add topic push and pull[K
+* [33mcf6e280[m Send weather report to clone[K[25l
+*   [33m2532fbf[m Merge branch 'master' of C:/Users/florian/Dev/gitex-remote  [31;71H[?25h
+[32m|[33m\[m[K[2C
+[32m|[m * [33m0c9951e[m Add new topic to section Remote repos[K
+* [33m|[m [33me6a4a84[m Ask remote how the weather is[K
+[33m|/[m[K[2C
+* [33maf319a2 ([1m[93mtag: vt0.9[22m[33m)[m Send greetings back to clone[K
+* [33m2fef48b ([1m[93mtag: v1.1[22m[33m)[m Say hello to remote[K
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git tag -f v2.0 2[K[K[K[K[Kt2.0 2f21-2f21a2f21[1P2f21[1P2f21[1@-[1@a[1@ 
+hint: Waiting for your editor to close the file... [25l[H[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[H[?25h[22;0;0t[?2004h[?1004h[22;2t[22;1t[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+"C:/Users/florian/Dev/gitex/.git/TAG_EDITMSG" [unix] 1L, 40B[K[?25l[12Cm[>c[94m[38;2;175;95;0m[HTag should be pushed with --follow-tags[m[K[94m
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K
+~[K[71C[1m[30m[107m[22m[94m[49m
+~[K
+~[K
+~[K[1m[30m[107m
+<ers/florian/Dev/gitex/.git/TAG_EDITMSG [unix] (09:38 11/08/2021)1,1 All[H[?25h[?25l[m[31;1H:[K[?25hx[?25l[?2004l[23;2t[23;1t[?1004l[?2004l[23;0;0t[H* [33m3204e94[m Add actual output to the Hello World program[K
+* [33mf3c8f48[m Add branching topic: merge commits[K
+* [33m5360cdb[m Who knows what a hunk is?[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[m[K
+$ git merge b5[K
+Updating e4cca63..724551e[K
+Fast-forward[K
+ Readme.md | 4 [32m+++[31m-[m[K
+ 1 file changed, 3 insertions(+), 1 deletion(-)[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[m[K
+$ git godlog -n 10[K
+* [33m724551e ([1m[96mHEAD -> [92mmaster[22m[33m, [1m[93mtag: newTag[22m[33m, [1m[91morigin/b5[22m[33m, [1m[92mb6[22m[33m, [1m[92mb5[22m[33m)[m Readme add to
+pic Reset explained[K
+* [33m2f21713 ([1m[93mtag: tag1[22m[33m)[m Readme: Add topic Pushing new branches[K
+* [33me4cca63 ([1m[93mtag: vt2.0[22m[33m, [1m[91morigin/master[22m[33m, [1m[91morigin/HEAD[22m[33m)[m Readme: Add topic usi
+ng fetch explicitly[K
+* [33m28645b6[m Readme: Add topic push and pull[K
+* [33mcf6e280[m Send weather report to clone[K
+*   [33m2532fbf[m Merge branch 'master' of C:/Users/florian/Dev/gitex-remote  [32m
+|[33m\[m[K[32m
+|[m * [33m0c9951e[m Add new topic to section Remote repos[K
+* [33m|[m [33me6a4a84[m Ask remote how the weather is[K[33m
+|/[m[K
+* [33maf319a2 ([1m[93mtag: vt0.9[22m[33m)[m Send greetings back to clone[K
+* [33m2fef48b ([1m[93mtag: v1.1[22m[33m)[m Say hello to remote[K
+[K[32m
+florian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[m[K
+$ git tag -f -a vt2.0 2f21[K
+hint: Waiting for your editor to close the file...[K[1C[?25h[KUpdated tag 'vt2.0' (was b68a57c)
+[33C]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git tag -f -a vt2.0 2f21[C[C[C[C[C[C[8Pgodlog -n 10
+* [33m724551e ([1m[96mHEAD -> [92mmaster[22m[33m, [1m[93mtag: newTag[22m[33m, [1m[91morigin/b5[22m[33m, [1m[92mb6[22m[33m, [1m[92mb5[22m[33m)[m Readme add to
+pic Reset explained
+* [33m2f21713 ([1m[93mtag: vt2.0[22m[33m, [1m[93mtag: tag1[22m[33m)[m Readme: Add topic Pushing new branches
+* [33me4cca63 ([1m[91morigin/master[22m[33m, [1m[91morigin/HEAD[22m[33m)[m Readme: Add topic using fetch exp
+licitly
+* [33m28645b6[m Readme: Add topic push and pull[K
+* [33mcf6e280[m Send weather report to clone[K[25l
+*   [33m2532fbf[m Merge branch 'master' of C:/Users/florian/Dev/gitex-remote  [31;71H[?25h
+[32m|[33m\[m[K[2C
+[32m|[m * [33m0c9951e[m Add new topic to section Remote repos[K
+* [33m|[m [33me6a4a84[m Ask remote how the weather is[K
+[33m|/[m[K[2C
+* [33maf319a2 ([1m[93mtag: vt0.9[22m[33m)[m Send greetings back to clone[K
+* [33m2fef48b ([1m[93mtag: v1.1[22m[33m)[m Say hello to remote[K
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git godlog -n 10[K5 --all
+* [33m7301171 ([1m[93mtag: vt1.3[22m[33m, [1m[92mb4[22m[33m)[m Beautify file header for better visibility[25l
+* [33mecfbdb9 ([1m[93mtag: vt1.2[22m[33m, [1m[91morigin/b4[22m[33m)[m Add file header to hello.c file       [31;66H[?25h
+[31m|[m * [33m724551e ([1m[96mHEAD -> [92mmaster[22m[33m, [1m[93mtag: newTag[22m[33m, [1m[91morigin/b5[22m[33m, [1m[92mb6[22m[33m, [1m[92mb5[22m[33m)[m Readme add 
+topic Reset explained
+[31m|[m * [33m2f21713 ([1m[93mtag: vt2.0[22m[33m, [1m[93mtag: tag1[22m[33m)[m Readme: Add topic Pushing new branch
+es
+[31m|[m * [33me4cca63 ([1m[91morigin/master[22m[33m, [1m[91morigin/HEAD[22m[33m)[m Readme: Add topic using fetch e
+xplicitly
+[31m|[m * [33m28645b6[m Readme: Add topic push and pull[K
+[31m|[m * [33mcf6e280[m Send weather report to clone[K
+[31m|[m *   [33m2532fbf[m Merge branch 'master' of C:/Users/florian/Dev/gitex-remote
+[31m|[m [33m|[34m\[m[K[2C
+[31m|[m [33m|[m * [33m0c9951e[m Add new topic to section Remote repos[K
+[31m|[m * [34m|[m [33me6a4a84[m Ask remote how the weather is[K
+[31m|[m [34m|/[m[K[2C
+[31m|[m * [33maf319a2 ([1m[93mtag: vt0.9[22m[33m)[m Send greetings back to clone[K[33m
+[31m|[m *[K[1C[33m2fef48b ([1m[93mtag: v1.1[22m[33m)[m Say hello to remote
+[31m|[m [34m|[m * [33me8e7d00 ([1m[93mtag: tagsSection[22m[33m)[m Readme: Add new section 'Tags'[K
+[31m|[m [34m|[31m/[m[K[2C
+[31m|/[34m|[m[K[3C
+* [34m|[m [33m95fa636 ([1m[93mtag: tag3[22m[33m)[m Revert "Who knows what a hunk is?"[K
+[34m|/[m[K[2C
+* [33m3445f05 ([1m[93mtag: v1.0[22m[33m, [1m[91morigin/nowhere[22m[33m)[m Include stdio.h in hello.c to use 
+the printf function
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git push --[K[K[K[K[K[K[K[K tag
+lostCommit
+newTag
+tag1
+tag2
+tag3
+tagsSection
+v1.0
+v1.1
+vt0.9
+vt1.2
+vt1.3
+vt2.0
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git push --follow-tags
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 514 bytes | 36.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To C:/Users/florian/Dev/gitex-remote
+   e4cca63..724551e  master -> master
+ * [new tag]         vt0.9 -> vt0.9
+ * [new tag]         vt1.2 -> vt1.2
+ * [new tag]         vt2.0 -> vt2.0
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git push --tags
+Enumerating objects: 13, done.
+Counting objects: 100% (12/12), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (7/7), 842 bytes | 280.00 KiB/s, done.
+Total 7 (delta 2), reused 0 (delta 0), pack-reused 0
+To C:/Users/florian/Dev/gitex-remote
+ * [new tag]         tag1 -> tag1
+ * [new tag]         tag2 -> tag2
+ * [new tag]         tag3 -> tag3
+ * [new tag]         tagsSection -> tagsSection
+ * [new tag]         vt1.3 -> vt1.3
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ git push --force
+Everything up-to-date
+]0;MINGW64:/c/Users/florian/Dev/gitex
+[32mflorian@Susie [35mMINGW64 [33m~/Dev/gitex[36m (master)[0m
+$ 
