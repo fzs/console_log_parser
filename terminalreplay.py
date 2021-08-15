@@ -162,6 +162,7 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
             sys.stdout.flush()
 
     def prompt_active(self):
+        print("=== Prompt active ====")
         if not self.cleanup_cmdline:
             sys.stdout.flush()
             sleep(0.8)
@@ -174,12 +175,17 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
             self.print_cmd_line()
         sys.stdout.flush()
         self.in_prompt = False
+        print("=== Prompt has ended ====")
+        sleep(1)
 
     def vim_start(self):
+        print("=== Vim session below ====")
         self.in_vim = True
 
     def vim_end(self):
         self.in_vim = False
+        print("=== Vim session has ended ====")
+        sleep(2)
 
 
 def parse(logfile):
@@ -205,7 +211,7 @@ def main():
         exit()
 
     with open(sys.argv[1], 'rb') as logfile:
-        LOG.info("PlainOut:: Parsing file %s", sys.argv[1])
+        LOG.info("Replay:: Parsing file %s", sys.argv[1])
         parse(logfile)
 
 
