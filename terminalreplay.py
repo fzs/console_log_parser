@@ -21,21 +21,29 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
         self.command_line = []
         self.cmd_line_pos = 0
         self.in_prompt = False
+        self.in_vim = False
 
 
     def print(self, code):
         """The current code should be mapped to a glyph according to the character set mappings and shift states
          in effect, and that glyph should be displayed.
          We print normal output to stdout. Only delayed when in the prompt."""
-        if not self.in_prompt:
-            sys.stdout.write(chr(code))
-        else:
+        if self.in_prompt:
             if self.cleanup_cmdline:
                 self.build_cmd_line_print(code)
             else:
                 sleep(0.2 * (1.0/self.speed))
                 sys.stdout.write(chr(code))
                 sys.stdout.flush()
+
+        elif self.in_vim:
+            if 0x21 <= code <= 0x7d:
+                sleep(0.2 * (1.0 / self.speed))
+            sys.stdout.write(chr(code))
+            sys.stdout.flush()
+
+        else:
+            sys.stdout.write(chr(code))
 
     def execute(self, code):
         """The C0 or C1 control function should be executed, which may have any one of a variety of effects,
@@ -156,6 +164,13 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
             self.print_cmd_line()
         sys.stdout.flush()
         self.in_prompt = False
+
+    def vim_start(self):
+        self.in_vim = True
+
+    def vim_end(self):
+        self.in_vim = False
+        sleep(1)
 
 
 def parse(logfile):
