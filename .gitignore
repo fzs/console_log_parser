@@ -1,0 +1,7 @@
+parser.log
+
+.idea
+*.iml
+__pycache*
+venv
+
