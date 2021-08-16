@@ -17,7 +17,7 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
     """
 
     def __init__(self):
-        self.speed = 6
+        self.speed = 3
         self.cleanup_cmdline = True
         self.print_vim = False
 
@@ -42,7 +42,7 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
         elif self.in_vim:
             if self.print_vim:
                 if 0x21 <= code <= 0x7d:
-                    sleep(0.2 * (1.0 / self.speed))
+                    sleep(0.2 * (0.5 / self.speed))
                 sys.stdout.write(chr(code))
                 sys.stdout.flush()
 
