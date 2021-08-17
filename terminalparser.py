@@ -32,6 +32,9 @@ class TermLogParser(VT500Parser):
         def prompt_start(self):
             pass
 
+        def prompt_active(self):
+            pass
+
         def prompt_end(self):
             pass
 
@@ -121,8 +124,11 @@ class TermLogParser(VT500Parser):
 
     def emit(self, tlp_state):
         """ Emit an event that we have found some pattern in the parsed log """
-        if tlp_state == self.STATE_PROMPT:
+        if tlp_state == self.STATE_PROMPT_OSC:
             self.tlp_event_listener.prompt_start()
+
+        if tlp_state == self.STATE_PROMPT:
+            self.tlp_event_listener.prompt_active()
 
         if tlp_state == self.STATE_VIM_START:
             self.tlp_event_listener.vim_start()
@@ -161,6 +167,7 @@ class TermLogParser(VT500Parser):
                     or self.tlp_state == self.STATE_VIM_ENDING:
                 self.emit(self.STATE_NORMAL)
             self.tlp_state = self.STATE_PROMPT_OSC
+            self.emit(self.STATE_PROMPT_OSC)
             LOG.info("Entering TLP state PROMPT_OSC")
 
 

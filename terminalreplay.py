@@ -8,7 +8,8 @@ from vtparser import VT500Parser
 LOG = logging.getLogger()
 
 
-class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultControlSequenceHandler):
+class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultControlSequenceHandler,
+                TermLogParser.DefaultEventListener):
     """
     Output class that writes the console session log to stdout, recreating coloring, etc.
     It suppresses vim's terminal query control functions that would trigger terminal responses.
@@ -151,7 +152,7 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
             sleep(0.2 * (1.0/self.speed))
             sys.stdout.flush()
 
-    def prompt_start(self):
+    def prompt_active(self):
         if not self.cleanup_cmdline:
             sys.stdout.flush()
             sleep(0.8)
