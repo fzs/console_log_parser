@@ -1,0 +1,9 @@
+{
+  /* "base_dir_in" : "Raw_Console_Logs", */
+  "base_dir_out" : "html",
+  "files" : [
+    {"in": "testtermlog_0.log" },
+    {"in": "testtermlog_1.log" , "out": "testlog_1.html", "title": "Test 2 of terminal session log"},
+    {"in": "testtermlog_3.log" , "out": "terminal_session_3.html", "title": "A darker day", "palette": "Dracula"}
+  ]
+}
