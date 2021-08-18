@@ -125,6 +125,11 @@ class TermLogParser(VT500Parser):
     def emit(self, tlp_state):
         """ Emit an event that we have found some pattern in the parsed log """
         if tlp_state == self.STATE_PROMPT_OSC:
+            if self.tlp_state == self.STATE_VIM_START or self.tlp_state == self.STATE_VIM_SESSION_ONELINE:
+                self.tlp_event_listener.vim_end()
+            elif self.tlp_state == self.STATE_VIM_ENDING:
+                self.tlp_event_listener.vim_end()
+
             self.tlp_event_listener.prompt_start()
 
         if tlp_state == self.STATE_PROMPT:
@@ -163,9 +168,6 @@ class TermLogParser(VT500Parser):
         super().osc_end(code)
         # Check if this is the OSC that sets the window title. If so, transition to the state that a prompt is coming up
         if self.osc_string.startswith("0;"):
-            if self.tlp_state == self.STATE_VIM_START or self.tlp_state == self.STATE_VIM_SESSION_ONELINE\
-                    or self.tlp_state == self.STATE_VIM_ENDING:
-                self.emit(self.STATE_NORMAL)
             self.tlp_state = self.STATE_PROMPT_OSC
             self.emit(self.STATE_PROMPT_OSC)
             LOG.info("Entering TLP state PROMPT_OSC")
