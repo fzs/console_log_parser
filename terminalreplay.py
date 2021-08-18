@@ -19,6 +19,8 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
     def __init__(self):
         self.speed = 6
         self.cleanup_cmdline = True
+        self.print_vim = False
+
         self.command_line = []
         self.cmd_line_pos = 0
         self.in_prompt = False
@@ -38,10 +40,11 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
                 sys.stdout.flush()
 
         elif self.in_vim:
-            if 0x21 <= code <= 0x7d:
-                sleep(0.2 * (1.0 / self.speed))
-            sys.stdout.write(chr(code))
-            sys.stdout.flush()
+            if self.print_vim:
+                if 0x21 <= code <= 0x7d:
+                    sleep(0.2 * (1.0 / self.speed))
+                sys.stdout.write(chr(code))
+                sys.stdout.flush()
 
         else:
             sys.stdout.write(chr(code))
@@ -52,9 +55,7 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
          shift states in effect. There are no parameters to this action.
          We print control directly to stdout. Except when in the prompt of when ending the prompt. Then
          a delay is added."""
-        if not self.in_prompt:
-            sys.stdout.write(chr(code))
-        else:
+        if self.in_prompt:
             if self.cleanup_cmdline:
                 self.build_cmd_line_ctrl(code)
             else:
@@ -63,9 +64,15 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
                 sys.stdout.write(chr(code))
                 sleep(0.1 * (1.0/self.speed))
                 sys.stdout.flush()
+        elif self.in_vim and not self.print_vim:
+            pass
+        else:
+            sys.stdout.write(chr(code))
 
     def esc_dispatch(self, intermediate, final):
         """Execute all control sequences"""
+        if self.in_vim and not self.print_vim:
+            return
         ctrlstring = f"\x1b{intermediate}{final}"
         LOG.info("Emit to stdout full ESC control function: %s", ctrlstring)
         sys.stdout.write(ctrlstring)
@@ -84,15 +91,17 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
         ctrlstring = f"\x1b[{private}{param}{interm}{final}"
         LOG.info("Emit to stdout full CSI control function: %s", ctrlstring)
 
-        if not self.in_prompt:
-            sys.stdout.write(ctrlstring)
-        else:
+        if self.in_prompt:
             if self.cleanup_cmdline:
                 self.build_cmd_line_csi(private, param, interm, final)
             else:
                 sleep(0.1 * (1.0/self.speed))
                 sys.stdout.write(ctrlstring)
                 sys.stdout.flush()
+        elif self.in_vim and not self.print_vim:
+            pass
+        else:
+            sys.stdout.write(ctrlstring)
 
 
     def build_cmd_line_print(self, code):
