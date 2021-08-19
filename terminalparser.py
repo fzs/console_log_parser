@@ -78,9 +78,9 @@ class TermLogParser(VT500Parser):
         elif self.tlp_state == self.STATE_VIM_START:
             match = self.re_vim_end.match(line)
             if match:
+                self.emit(self.STATE_VIM_ENDING)
                 self.tlp_state = self.STATE_VIM_ENDING
                 LOG.info("Entering TLP state VIM_ENDING")
-                self.emit(self.STATE_VIM_ENDING)
 
         elif self.tlp_state == self.STATE_VIM_ENDING:
             self.emit(self.STATE_NORMAL)
@@ -103,6 +103,7 @@ class TermLogParser(VT500Parser):
             if match:
                 LOG.info("=====>   vim is starting with file {} in height {}  <=======".format(match.group('file'), match.group('height')))
                 # The vim session might be on only one single line, i.e. no 0x0A in the session
+                self.emit(self.STATE_VIM_START)
                 match = self.re_vim_end.match(line[-70:])
                 if match:
                     LOG.info("Entering TLP state VIM_SESSION_ONELINE")
@@ -110,15 +111,14 @@ class TermLogParser(VT500Parser):
                 else:
                     self.tlp_state = self.STATE_VIM_START
                     LOG.info("Entering TLP state VIM_START")
-                self.emit(self.STATE_VIM_START)
             else:
                 LOG.warning("A vim session start was suspected but the regex didn't match")
 
         for c in line:
             if self.tlp_state == self.STATE_PROMPT_IMMINENT and c == 0x24:  # check for '$'
+                self.emit(self.STATE_PROMPT)
                 self.tlp_state = self.STATE_PROMPT
                 LOG.info("Entering TLP state PROMPT")
-                self.emit(self.STATE_PROMPT)
 
             self.input(c)
 
@@ -168,8 +168,8 @@ class TermLogParser(VT500Parser):
         super().osc_end(code)
         # Check if this is the OSC that sets the window title. If so, transition to the state that a prompt is coming up
         if self.osc_string.startswith("0;"):
-            self.tlp_state = self.STATE_PROMPT_OSC
             self.emit(self.STATE_PROMPT_OSC)
+            self.tlp_state = self.STATE_PROMPT_OSC
             LOG.info("Entering TLP state PROMPT_OSC")
 
 
