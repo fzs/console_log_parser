@@ -180,7 +180,6 @@ class VT2Output(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultCon
 
     def vim_end(self):
         self.in_vim = False
-        sleep(1)
 
 
 def parse(logfile):
