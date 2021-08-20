@@ -116,7 +116,7 @@ def main():
 if __name__ == '__main__':
     LOG_FORMAT = "%(levelname)s :%(module)s - %(message)s"
     logging.basicConfig(filename="parser.log",
-                        level=logging.DEBUG,
+                        level=logging.INFO,
                         format=LOG_FORMAT,
                         filemode='w')
     main()
