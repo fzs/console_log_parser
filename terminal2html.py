@@ -112,6 +112,8 @@ pre { white-space: pre-wrap; }
 .line-through { text-decoration: line-through; }
 .blink { text-decoration: blink; }
 
+.vim-session { color: #9696cc ; }
+
 </style>
 </head>
 
@@ -220,6 +222,9 @@ pre { white-space: pre-wrap; }
             self.fh.write("</span>" * self.html_span_count)
             self.html_span_count = 0
         self.fh.write("\n</pre>\n<pre>\n")
+
+    def vim_session(self):
+        self.fh.write('<span class="vim-session">     [==-- Vim editor session --==]</span>\n')
 
     def finish(self):
         """ Finish output. Writing it out or closing a file or something. """
@@ -432,6 +437,7 @@ class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultContr
 
     def vim_end(self):
         self.in_vim = False
+        self.document.vim_session()
 
 
 def parse(logfile, destfile=None, palette='MyDracula', title=None):
