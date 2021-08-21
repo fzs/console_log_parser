@@ -114,15 +114,24 @@ pre { white-space: pre-wrap; }
 
 .vim-session { color: #9696cc ; }
 
+.cmd-count { float: left; width: 3em ; color: #558855 ; font-family: Orbitron, "PT Mono", Menlo, sans-serif ; }
+.cmd { float: left ; }
+/* Clear floats after the columns */
+.cmd-row:after { content: ""; display: table; clear: both; }
+
 </style>
 </head>
 
 <body class="f9 b9">
 <h1>%(title)s</h1>
-<pre>
+
+<div class="cmd-row">
+  <div class="cmd-count">&numero;</div>
+  <pre class="cmd">
 """
     HTML_OUTRO = """
 </pre>
+</div>
 </body>
 </html>
 """
@@ -146,6 +155,7 @@ pre { white-space: pre-wrap; }
         self.html_body_string = ""
         self.html_outro = self.HTML_OUTRO
         self.html_span_count = 0
+        self.cmd_count = 0
 
         self.fh.write(self.html_intro)
 
@@ -221,7 +231,10 @@ pre { white-space: pre-wrap; }
         if self.html_span_count:
             self.fh.write("</span>" * self.html_span_count)
             self.html_span_count = 0
-        self.fh.write("\n</pre>\n<pre>\n")
+
+        self.cmd_count += 1
+        self.fh.write("\n  </pre>\n</div>\n")
+        self.fh.write('<div class="cmd-row">\n  <div class="cmd-count">{}</div>\n  <pre class="cmd">'.format(self.cmd_count))
 
     def vim_session(self):
         self.fh.write('<span class="vim-session">     [==-- Vim editor session --==]</span>\n')
