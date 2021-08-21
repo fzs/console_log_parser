@@ -69,7 +69,7 @@ class HtmlDocumentCreator:
 <title>%(title)s</title>
 <style type="text/css">
 h1 { text-align: center; color: #f0f5f5; }
-h2 { text-align: center; color: #f0f5f5; }
+h3 { text-align: right; color: #d0d5d5; font-family: sans-serif; padding-right: 3em; }
 pre { white-space: pre-wrap; }
 .ef0,.f0 { color: %(PC00)s; } .eb0,.b0 { background-color: %(PC00)s; }
 .ef1,.f1 { color: %(PC01)s; } .eb1,.b1 { background-color: %(PC01)s; }
@@ -112,7 +112,7 @@ pre { white-space: pre-wrap; }
 .line-through { text-decoration: line-through; }
 .blink { text-decoration: blink; }
 
-.vim-session { color: #9696cc ; }
+.vim-session { color: #9696cc; }
 
 .cmd-count { float: left; width: 3em ; color: #558855 ; font-family: Orbitron, "PT Mono", Menlo, sans-serif ; }
 .cmd { float: left ; }
@@ -126,7 +126,7 @@ pre { white-space: pre-wrap; }
 <h1>%(title)s</h1>
 
 <div class="cmd-row">
-  <div class="cmd-count">&numero;</div>
+  <div class="cmd-num">No.</div>
   <pre class="cmd">
 """
     HTML_OUTRO = """
@@ -136,12 +136,13 @@ pre { white-space: pre-wrap; }
 </html>
 """
 
-    def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None):
+    def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}):
         self.fh = out_fh if out_fh is not None else sys.stdout
         self.palette = palette if palette is not None else 'MyDracula'
         self.dark_bg = dark_bg
         self.bold_as_bright = True
         self.title = title
+        self.chapters = chapters
 
         sdict = self.SCHEMES[self.palette].copy()
         sdict['fw'] = self.SCHEMES['BoldAsBright'][self.bold_as_bright]['fw']
@@ -234,6 +235,9 @@ pre { white-space: pre-wrap; }
 
         self.cmd_count += 1
         self.fh.write("\n  </pre>\n</div>\n")
+        idx = str(self.cmd_count)
+        if idx in self.chapters:
+            self.fh.write('<h3>{}</h3>'.format(self.chapters[idx]))
         self.fh.write('<div class="cmd-row">\n  <div class="cmd-count">{}</div>\n  <pre class="cmd">'.format(self.cmd_count))
 
     def vim_session(self):
@@ -453,9 +457,9 @@ class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultContr
         self.document.vim_session()
 
 
-def parse(logfile, destfile=None, palette='MyDracula', title=None):
+def parse(logfile, destfile=None, palette='MyDracula', title=None, chapters={}):
     """Read the input file byte by byte and output as HTML, either to a file or to stdout."""
-    html = HtmlDocumentCreator(destfile, palette=palette, title=title)
+    html = HtmlDocumentCreator(destfile, palette=palette, title=title, chapters=chapters)
     parser = TermLogParser()
     output_processor = VT2Html(html)
     parser.terminal_output_handler = output_processor
