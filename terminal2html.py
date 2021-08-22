@@ -114,8 +114,9 @@ pre { white-space: pre-wrap; }
 
 .vim-session { color: #9696cc; }
 
-.cmd-count { float: left; width: 3em ; color: #558855 ; font-family: Orbitron, "PT Mono", Menlo, sans-serif ; }
-.cmd { float: left ; }
+.cmd-num { float: left; width: 3em; color: #558855; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, sans-serif; }
+.cmd-count { color: %(cb9)s; }
+.cmd { float: left; }
 /* Clear floats after the columns */
 .cmd-row:after { content: ""; display: table; clear: both; }
 
@@ -136,13 +137,14 @@ pre { white-space: pre-wrap; }
 </html>
 """
 
-    def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}):
+    def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}, cmd_filter=[]):
         self.fh = out_fh if out_fh is not None else sys.stdout
         self.palette = palette if palette is not None else 'MyDracula'
         self.dark_bg = dark_bg
         self.bold_as_bright = True
         self.title = title
         self.chapters = chapters
+        self.filter = cmd_filter
 
         sdict = self.SCHEMES[self.palette].copy()
         sdict['fw'] = self.SCHEMES['BoldAsBright'][self.bold_as_bright]['fw']
@@ -157,16 +159,24 @@ pre { white-space: pre-wrap; }
         self.html_outro = self.HTML_OUTRO
         self.html_span_count = 0
         self.cmd_count = 0
+        self.cmd_number = 0
 
+        self.output_suppressed = False
         self.fh.write(self.html_intro)
 
     def write(self, char):
+        if self.output_suppressed:
+            return
+
         if char in self.HTML_MAP:
             self.fh.write(self.HTML_MAP[char])
         else:
             self.fh.write(char)
 
     def convert_csi(self, _private, param, _intermediate, final):
+        if self.output_suppressed:
+            return
+
         if final == 'm':
             span = ''
             if param == '' or param == '0' or param == '00':
@@ -235,12 +245,22 @@ pre { white-space: pre-wrap; }
 
         self.cmd_count += 1
         self.fh.write("\n  </pre>\n</div>\n")
+        if self.cmd_count in self.filter:
+            self.output_suppressed = True
+            LOG.debug("Suppressing command number %d", self.cmd_count)
+            return
+
+        self.output_suppressed = False
         idx = str(self.cmd_count)
         if idx in self.chapters:
             self.fh.write('<h3>{}</h3>'.format(self.chapters[idx]))
-        self.fh.write('<div class="cmd-row">\n  <div class="cmd-count">{}</div>\n  <pre class="cmd">'.format(self.cmd_count))
+        self.cmd_number += 1
+        self.fh.write('<div class="cmd-row">\n  <div class="cmd-num"><span class="cmd-count">{}</span><br/>'
+                      '{}</div>\n  <pre class="cmd">'.format(self.cmd_count, self.cmd_number))
 
     def vim_session(self):
+        if self.output_suppressed:
+            return
         self.fh.write('<span class="vim-session">     [==-- Vim editor session --==]</span>\n')
 
     def finish(self):
@@ -457,9 +477,9 @@ class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultContr
         self.document.vim_session()
 
 
-def parse(logfile, destfile=None, palette='MyDracula', title=None, chapters={}):
+def parse(logfile, destfile=None, palette='MyDracula', title=None, chapters={}, cmd_filter=[]):
     """Read the input file byte by byte and output as HTML, either to a file or to stdout."""
-    html = HtmlDocumentCreator(destfile, palette=palette, title=title, chapters=chapters)
+    html = HtmlDocumentCreator(destfile, palette=palette, title=title, chapters=chapters, cmd_filter=cmd_filter)
     parser = TermLogParser()
     output_processor = VT2Html(html)
     parser.terminal_output_handler = output_processor

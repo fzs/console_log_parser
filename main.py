@@ -19,6 +19,7 @@ class TodoArgs:
         self.palette = args.palette
         self.title = None
         self.chapters = {}
+        self.filter = []
 
 
 def parse_file(args):
@@ -29,11 +30,11 @@ def parse_file(args):
         with open(args.outfile, 'w') as destfile:
             with open(args.infile, 'rb') as logfile:
                 LOG.info("Parsing file %s", args.infile)
-                html_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters)
+                html_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter)
     else:
         with open(args.infile, 'rb') as logfile:
             LOG.info("Parsing file %s", args.infile)
-            html_parse(logfile, palette=args.palette, title=args.title, chapters=args.chapters)
+            html_parse(logfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter)
 
 
 # def join(path, file):
@@ -82,6 +83,10 @@ def process_file_list(args, file_list_file):
                     chapters = file['id'] + '-chapters'
                     if chapters in data:
                         my_args.chapters = data[chapters]
+
+                    filter = file['id'] + '-suppress'
+                    if filter in data:
+                        my_args.filter = data[filter]
 
                 print("Process")
                 print(f"    {my_args.infile}")
