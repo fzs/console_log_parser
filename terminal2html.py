@@ -68,8 +68,8 @@ class HtmlDocumentCreator:
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title>%(title)s</title>
 <style type="text/css">
-h1 { text-align: center; color: #f0f5f5; }
-h3 { text-align: right; color: #d0d5d5; font-family: sans-serif; padding-right: 3em; }
+h1 { text-align: center; color: #e0e0c0; }
+h3 { text-align: right; color: #e0e0c0; font-family: sans-serif; padding-right: 3em; }
 pre { white-space: pre-wrap; }
 .ef0,.f0 { color: %(PC00)s; } .eb0,.b0 { background-color: %(PC00)s; }
 .ef1,.f1 { color: %(PC01)s; } .eb1,.b1 { background-color: %(PC01)s; }
@@ -114,7 +114,7 @@ pre { white-space: pre-wrap; }
 
 .vim-session { color: #9696cc; }
 
-.cmd-num { float: left; width: 3em; color: #558855; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, sans-serif; }
+.cmd-num { float: left; width: 3em; color: #447744; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, sans-serif; }
 .cmd-count { color: %(cb9)s; }
 .cmd { float: left; }
 /* Clear floats after the columns */
