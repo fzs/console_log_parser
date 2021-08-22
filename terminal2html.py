@@ -335,7 +335,7 @@ class LineBuilder:
         elif final == 'X':  # Erase Character
             times = 1 if param == '' else int(param)
             pos = self.pos
-            while times > 0 and pos >= len(self.line):
+            while times > 0 and pos < len(self.line):
                 self.line[pos] = ord(' ')
                 pos += 1
                 times -= 1
