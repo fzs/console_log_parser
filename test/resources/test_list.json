@@ -5,5 +5,16 @@
     {"in": "testtermlog_0.log" },
     {"in": "testtermlog_1.log" , "out": "testlog_1.html", "title": "Test 2 of terminal session log"},
     {"in": "testtermlog_3.log" , "out": "terminal_session_3.html", "title": "A darker day", "palette": "Dracula"}
+    {"in": "testtermlog_4.log" , "out": "testlog_4.html", "title": "A darker day", "id": "tl4"}
   ]
+
+  /*
+  ,
+  "tl4-chapters": {
+	"3": "Chapter 1",
+	"12": "Chapter 2"
+  },
+
+  "tl4-suppress": [15]
+  */
 }
