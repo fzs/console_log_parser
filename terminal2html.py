@@ -114,7 +114,7 @@ pre { white-space: pre-wrap; }
 
 .vim-session { color: #9696cc; }
 
-.cmd-num { float: left; width: 3em; color: #447744; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, sans-serif; }
+.cmd-num { float: left; width: 3em; color: #447744; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif; }
 .cmd-count { color: %(cb9)s; }
 .cmd { float: left; }
 /* Clear floats after the columns */
