@@ -1,4 +1,5 @@
 import logging
+import re
 import sys
 from terminalparser import TermLogParser
 from vtparser import VT500Parser
@@ -157,7 +158,7 @@ pre { white-space: pre-wrap; }
         self.html_intro = self.HTML_INTRO % sdict
         self.html_body_string = ""
         self.html_outro = self.HTML_OUTRO
-        self.html_span_count = 0
+        self.html_span_stack = []
         self.cmd_count = 0
         self.cmd_number = 0
 
@@ -173,6 +174,10 @@ pre { white-space: pre-wrap; }
         else:
             self.fh.write(char)
 
+    RE_FG_SPAN = re.compile("(color:rgb)|(e?f)")
+    RE_BG_SPAN = re.compile("(background-color:rgb)|(e?b[0-9])")
+    RE_BOLD_SPAN = re.compile("bold")
+
     def convert_csi(self, _private, param, _intermediate, final):
         if self.output_suppressed:
             return
@@ -181,8 +186,8 @@ pre { white-space: pre-wrap; }
             span = ''
             if param == '' or param == '0' or param == '00':
                 # close all spans
-                span = "</span>" * self.html_span_count
-                self.html_span_count = 0
+                span = "</span>" * len(self.html_span_stack)
+                self.html_span_stack = []
             else:
                 s_classes = []
                 s_style = ''
@@ -225,23 +230,55 @@ pre { white-space: pre-wrap; }
                         elif int(p) == 7:
                             s_classes.append('reverse')
                         elif p == '22':
-                            LOG.warning("Ignoring reset code 22m. Output needs to be checked for consistency.")
+                            # Close a bold directive.
+                            span += self._close_span(self.RE_BOLD_SPAN, p)
+                        elif p == '39':
+                            # Close a fg color directive.
+                            span += self._close_span(self.RE_FG_SPAN, p)
+                        elif p == '49':
+                            # Close a bg color directive.
+                            span += self._close_span(self.RE_BG_SPAN, p)
                         else:
                             raise NotImplementedError("Implementation missing for CSI " + p + " m")
                 for cls in s_classes:
                     span += '<span class="' + cls + '">'
-                    self.html_span_count += 1
+                    self.html_span_stack.append((cls, 'class'))
                 if s_style:
                     span = '<span style="' + s_style + '">'
-                    self.html_span_count += 1
+                    self.html_span_stack.append((s_style, 'style'))
             if span:
                 self.fh.write(span)
 
+    def _close_span(self, regex, directive):
+        # Close a directive span. This is easy if it is the last on the stack. Otherwise,
+        # we have to close and open again the other directives after it.
+        spans = ''
+        idx = len(self.html_span_stack) - 1
+        for span in reversed(self.html_span_stack):
+            if regex.match(span[0]):
+                break
+            idx -= 1
+        if idx < 0:
+            raise IndexError("Could not find any matching span for directive " + directive + "m")
+
+        # Close the span elements behind and including the one we want to get rid of
+        for i in range(idx, len(self.html_span_stack)):
+            spans += "</span>"
+
+        # Delete the one we want to keep closed
+        del self.html_span_stack[idx]
+
+        # Open the span elements again, that we closed but want to keep
+        for i in range(idx, len(self.html_span_stack)):
+            spans += '<span ' + self.html_span_stack[i][1] + '="' + self.html_span_stack[i][0] + '">'
+
+        return spans
+
     def new_cmd_block(self, count):
         """ Begin a new block of a prompt, command and command output. """
-        if self.html_span_count:
-            self.fh.write("</span>" * self.html_span_count)
-            self.html_span_count = 0
+        if self.html_span_stack:
+            self.fh.write("</span>" * len(self.html_span_stack))
+            self.html_span_stack = []
 
         self.cmd_count += 1
         self.fh.write("\n  </pre>\n</div>\n")
