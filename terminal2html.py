@@ -36,7 +36,7 @@ class HtmlDocumentCreator:
         'MyDracula': {
             'PC00': "#21222c", 'PC08': "#6272a4",
             'PC01': "#ff5555", 'PC09': "#ff6e6e",
-            'PC02': "#50fa7b", 'PC10': "#d6acff",
+            'PC02': "#50fa7b", 'PC10': "#69ff94",
             'PC03': "#f1fa8c", 'PC11': "#ffffa5",
             'PC04': "#bd93f9", 'PC12': "#d6acff",
             'PC05': "#ff79c6", 'PC13': "#ff92df",
