@@ -351,6 +351,8 @@ class LineBuilder:
         elif final == 'C':  # Cursor forward
             times = 1 if param == '' else int(param)
             while times > 0:
+                while isinstance(self.line[self.pos], tuple) and self.pos < len(self.line):
+                    self.pos += 1  # Skip over CSI
                 if self.pos >= len(self.line):  # Add spaces to the end of our line
                     self.line.append(ord(' '))
                 self.pos += 1
@@ -358,6 +360,8 @@ class LineBuilder:
         elif final == 'D':  # Cursor backward
             p = 1 if param == '' else int(param)
             while self.pos >= 0 and p:
+                while isinstance(self.line[self.pos], tuple) and self.pos > 0:
+                    self.pos -= 1  # Skip over CSI
                 self.pos -= 1
                 p -= 1
         elif final == 'K':  # Erase in line
