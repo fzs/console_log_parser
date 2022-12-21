@@ -177,6 +177,7 @@ pre { white-space: pre-wrap; }
     RE_FG_SPAN = re.compile("(color:rgb)|(e?f)")
     RE_BG_SPAN = re.compile("(background-color:rgb)|(e?b[0-9])")
     RE_BOLD_SPAN = re.compile("bold")
+    RE_UNDERLINE_SPAN = re.compile("underline")
 
     def convert_csi(self, _private, param, _intermediate, final):
         if self.output_suppressed:
@@ -232,6 +233,9 @@ pre { white-space: pre-wrap; }
                         elif p == '22':
                             # Close a bold directive.
                             span += self._close_span(self.RE_BOLD_SPAN, p)
+                        elif p == '24':
+                            # Close an underline directive.
+                            span += self._close_span(self.RE_UNDERLINE_SPAN, p)
                         elif p == '39':
                             # Close a fg color directive.
                             span += self._close_span(self.RE_FG_SPAN, p)
