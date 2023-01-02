@@ -121,7 +121,7 @@ def main():
         process_file_list(args, args.infile)
     else:
         args.title = ''
-        parse_file(args)
+        parse_file(TodoArgs(args))
 
 
 if __name__ == '__main__':
