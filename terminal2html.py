@@ -278,11 +278,14 @@ pre { white-space: pre-wrap; }
 
         return spans
 
-    def new_cmd_block(self, count):
-        """ Begin a new block of a prompt, command and command output. """
+    def close_all_spans(self):
         if self.html_span_stack:
             self.fh.write("</span>" * len(self.html_span_stack))
             self.html_span_stack = []
+
+    def new_cmd_block(self, count):
+        """ Begin a new block of a prompt, command and command output. """
+        self.close_all_spans()
 
         self.cmd_count += 1
         self.fh.write("\n  </pre>\n</div>\n")
@@ -404,6 +407,9 @@ class LineBuilder:
         self.line = []
         self.pos = 0
 
+    def size(self):
+        return len(self.line)
+
 
 class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultControlSequenceHandler,
               TermLogParser.DefaultEventListener):
@@ -507,6 +513,11 @@ class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultContr
         self.document.new_cmd_block(self.prompt_count)
 
     def prompt_active(self):
+        if self.term_line.size() > 0:
+            self.print_term_line(self.term_line)
+            self.term_line.reset()
+        # Close CSI directives in case any are open. Now the command line typing begins, so no directive can follow
+        self.document.close_all_spans()
         self.in_prompt = True
         self.command_line.reset()
 
