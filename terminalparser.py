@@ -27,6 +27,7 @@ class TermLogParser(VT500Parser):
     RE_PROMPT_HEADER = b"(?:\x1b\\[[0-9;]+m)?[a-z.]+@[-a-zA-Z0-9]+ (?:\x1b\\[[0-9;]+m)?MINGW64(?:\x1b\\[[0-9;]+m)? (?:\x1b\\[[0-9;]+m)?(?P<cwd>(~?[-.\\w/ ]+|~))"
     RE_PROMPT = b"(?:\x1b\\[[0-9;]+m)?[a-z.]+(?:@[-a-zA-Z0-9]+)?(?:\x1b\\[[0-9;]+m)?(?::| )(?:\x1b\\[[0-9;]+m)?(?:(~?[-.\\w/ ]+|~))(?:\x1b\\[[0-9;]+m)?(?:(?:\x1b\\[[0-9;]+m) \\({1,2}[-.\\w/|! ]+\\){1,2} (?:\x1b\\[[0-9;]+m))?(?:\x1b\\[[0-9;]+m)?\\$(?:\x1b\\[00m)? "
     RE_PROMPT_LINESTART = b"^" + RE_PROMPT
+    RE_PROMPT_INLINE = b"(?:\x1b\\[\\?1049l\x1b\\[23;0;0t)?" + RE_PROMPT   # With a possible end-of-man-page-session prefixed
     VIM_START = b"hint: Waiting for your editor to close the file... "
     RE_VIM_START_0 = b"(?:\x1b\\[\\?2004l\r)?" + VIM_START
     RE_VIM_START_1 = b".*(?P<t2200>\x1b\\[22;0;0t)(?:.*\x1b\\[[0-9];(?P<height>[0-9]+)r)?.*(?:\x1b\\[22;2t\x1b\\[22;1t)"
@@ -50,16 +51,43 @@ class TermLogParser(VT500Parser):
         def vim_end(self):
             pass
 
+    class AppModeStateMachine:
+        """ A state machine to detect when application mode is entered and exited. """
+        def __init__(self):
+            self.app_mode_active = False
+            self.ckm_set_pos = -1     # Position a Set Cursor Key Mode (application) was seen
+            self.ckm_reset_pos = -1   # Position a Reset Cursor Key Mode (cursor) was seen
+
+        def input(self, code, pos):
+            """ Consume input code and transition states if applicable. If a state transition results
+            from the input code, a 'enter' or 'exit' event is returned. """
+            if code == 'DECCKM-S':
+                self.ckm_set_pos = pos
+            elif code == 'DECKPAM':
+                if self.ckm_set_pos == pos - 2 and not self.app_mode_active:
+                    self.app_mode_active = True
+                    return 'enter'
+            elif code == 'DECCKM-R':
+                self.ckm_reset_pos = pos
+            elif code == 'DECKPNM':
+                if self.ckm_reset_pos == pos - 2 and self.app_mode_active:
+                    self.app_mode_active = False
+                    return 'exit'
+            return ''
+
+
     def __init__(self):
         super().__init__()
         self.tlp_state = self.STATE_NORMAL
         self.tlp_event_listener = self.DefaultEventListener()
+        self.app_mode = self.AppModeStateMachine()
         self.osc_string = ''
         self.line = None
         self.line_pos = 0
         self.re_prompt = re.compile(self.RE_PROMPT)
         self.re_prompt_ctx = re.compile(self.RE_PROMPT_HEADER)
         self.re_prompt_linestart = re.compile(self.RE_PROMPT_LINESTART)
+        self.re_prompt_inline = re.compile(self.RE_PROMPT_INLINE)
         self.re_vim_start_0 = re.compile(self.RE_VIM_START_0)
         self.re_vim_start_1 = re.compile(self.RE_VIM_START_1)
         self.re_vim_start_2 = re.compile(self.RE_VIM_START_2)
@@ -229,17 +257,49 @@ class TermLogParser(VT500Parser):
             elif self.tlp_state == self.STATE_VIM_ENDING:
                 self.tlp_event_listener.vim_end()
 
+
+    # Override the esc_dispatch method, so that we can react to a keyboard processing control function,
+    # signaling the termination of application mode.
+    # Actually this should be done with a ESC handler. But we want to keep the handler slot available
+    # for an application to set with other output handlers. So we override methods instead and do the
+    # checking "internally".
+    # A better solution would probably be to be able to have a list of handlers instead of only one.
+    # Or, to override a handler that may have been set. But that is probably not done safely in Python.
+    def esc_dispatch(self, code):
+        """The final character of an escape sequence has arrived. After the parent's method has run,
+         check if this is a keypad mode function. In that case, an application mode could end and we should
+         check for a prompt following in the line."""
+        super().esc_dispatch(code)
+
+        if self.final_char == '=':
+            self.app_mode.input('DECKPAM', self.line_pos)
+        elif self.final_char == '>':
+            event = self.app_mode.input('DECKPNM', self.line_pos)
+            if event == 'exit' and not (self.tlp_state == self.STATE_VIM_START or
+                                        self.tlp_state == self.STATE_VIM_SESSION_ONELINE or
+                                        self.tlp_state == self.STATE_VIM_ENDING):
+                # Check if the next prompt follows directly after this application mode session
+                match = self.re_prompt_inline.match(self.line, self.line_pos+1)
+                if match:
+                    self.emit(self.STATE_PROMPT_IMMINENT)
+                    self.tlp_state = self.STATE_PROMPT_IMMINENT
+                    LOG.info("Entering TLP state PROMPT_IMMINENT (prompt after application mode exit)")
+
+
+
     # Override the csi method, so that we can react to a window manipulation code, signaling
     # the termination of a vim session.
     # Actually this should be done with a OSC handler. But we want to keep the handler slot available
     # for an application to set with other output handlers. So we override methods instead and do the
     # checking "internally".
     # A better solution would probably be to be able to have a list of handlers instead of only one.
-    # Or, so override a handler that may have been set. But that is probably not done safely in Python.
+    # Or, to override a handler that may have been set. But that is probably not done safely in Python.
     def csi_dispatch(self, code):
         """A final character has arrived. After the parent's method has run, check if this is a CSI [ 23;0;0
-         code and we are in a vim session. In that case the vim session ends here."""
+         code and we are in a vim session. In that case the vim session ends here. Also feed mode codes to our
+         mode state machine to detect end of application modes. Used for finding the prompt."""
         super().csi_dispatch(code)
+
         if self.final_char == 't' and self.parameter_string == '23;0;0'and self.private_flag == '' and self.intermediate_char == '':
             if self.vim_2200_seen and (self.tlp_state == self.STATE_VIM_START or
                                        self.tlp_state == self.STATE_VIM_SESSION_ONELINE or
@@ -261,6 +321,11 @@ class TermLogParser(VT500Parser):
                 self.next_vim = self.line.find(self.VIM_START, self.line_pos)
                 if self.next_vim > 0:
                     LOG.info("Another Vim session opening in same line at %d", self.next_vim)
+
+        elif self.final_char == 'h' and self.parameter_string == '1'and self.private_flag == '?' and self.intermediate_char == '':
+            self.app_mode.input('DECCKM-S', self.line_pos)
+        elif self.final_char == 'l' and self.parameter_string == '1'and self.private_flag == '?' and self.intermediate_char == '':
+            self.app_mode.input('DECCKM-R', self.line_pos)
 
 
     # Override the osc methods so that we get a notification when to start checking for the prompt.
