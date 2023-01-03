@@ -28,6 +28,7 @@ class TermLogParser(VT500Parser):
     RE_PROMPT = b"(?:\x1b\\[[0-9;]+m)?[a-z.]+(?:@[-a-zA-Z0-9]+)?(?:\x1b\\[[0-9;]+m)?(?::| )(?:\x1b\\[[0-9;]+m)?(?:(~?[-.\\w/ ]+|~))(?:\x1b\\[[0-9;]+m)?(?:(?:\x1b\\[[0-9;]+m) \\({1,2}[-.\\w/|! ]+\\){1,2} (?:\x1b\\[[0-9;]+m))?(?:\x1b\\[[0-9;]+m)?\\$(?:\x1b\\[00m)? "
     RE_PROMPT_LINESTART = b"^" + RE_PROMPT
     RE_PROMPT_INLINE = b"(?:\x1b\\[\\?1049l\x1b\\[23;0;0t)?" + RE_PROMPT   # With a possible end-of-man-page-session prefixed
+    RE_PROMPT_POSTVIM = b"(?:\r\x1b\\[K)?" + RE_PROMPT                     # With a possible clear-line prefixed
     VIM_START = b"hint: Waiting for your editor to close the file... "
     RE_VIM_START_0 = b"(?:\x1b\\[\\?2004l\r)?" + VIM_START
     RE_VIM_START_1 = b".*(?P<t2200>\x1b\\[22;0;0t)(?:.*\x1b\\[[0-9];(?P<height>[0-9]+)r)?.*(?:\x1b\\[22;2t\x1b\\[22;1t)"
@@ -88,6 +89,7 @@ class TermLogParser(VT500Parser):
         self.re_prompt_ctx = re.compile(self.RE_PROMPT_HEADER)
         self.re_prompt_linestart = re.compile(self.RE_PROMPT_LINESTART)
         self.re_prompt_inline = re.compile(self.RE_PROMPT_INLINE)
+        self.re_prompt_post_vim = re.compile(self.RE_PROMPT_POSTVIM)
         self.re_vim_start_0 = re.compile(self.RE_VIM_START_0)
         self.re_vim_start_1 = re.compile(self.RE_VIM_START_1)
         self.re_vim_start_2 = re.compile(self.RE_VIM_START_2)
@@ -309,7 +311,7 @@ class TermLogParser(VT500Parser):
                 LOG.info("Entering TLP state NORMAL, Vim ended with 23;0;0t")
 
                 # Check if the next prompt follows directly after this vim session
-                match = self.re_prompt.match(self.line, self.line_pos+1)
+                match = self.re_prompt_post_vim.match(self.line, self.line_pos+1)
                 if match:
                     self.emit(self.STATE_PROMPT_IMMINENT)
                     self.tlp_state = self.STATE_PROMPT_IMMINENT
