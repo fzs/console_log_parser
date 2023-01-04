@@ -1,6 +1,10 @@
 import logging
 import re
 import sys
+from os.path import dirname, exists
+from os import makedirs
+
+
 from terminalparser import TermLogParser
 from vtparser import VT500Parser
 
@@ -567,9 +571,18 @@ def main():
         print("Log file missing. Specify log file to parse.")
         exit()
 
-    with open(sys.argv[1], 'rb') as logfile:
-        LOG.info("PlainOut:: Parsing file %s", sys.argv[1])
-        parse(logfile)
+    elif len(sys.argv) <= 2:
+        with open(sys.argv[1], 'rb') as logfile:
+            LOG.info("PlainOut:: Parsing file %s", sys.argv[1])
+            parse(logfile)
+
+    else:
+        if not exists(dirname(sys.argv[2])):
+            makedirs(dirname(sys.argv[2]))
+        with open(sys.argv[2], encoding="utf-8", mode='w') as destfile:
+            with open(sys.argv[1], 'rb') as logfile:
+                LOG.info("PlainOut:: Parsing file %s to %s", sys.argv[1], sys.argv[2])
+                parse(logfile, destfile)
 
 
 if __name__ == '__main__':
