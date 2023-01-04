@@ -27,7 +27,7 @@ def parse_file(args):
         if not exists(dirname(args.outfile)):
             makedirs(dirname(args.outfile))
 
-        with open(args.outfile, 'w') as destfile:
+        with open(args.outfile, encoding="utf-8", mode='w') as destfile:
             with open(args.infile, 'rb') as logfile:
                 LOG.info("Parsing file %s", args.infile)
                 html_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter)
