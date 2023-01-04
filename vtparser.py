@@ -117,6 +117,7 @@ class State:
                 if isinstance(key, tuple):
                     if key[0] <= s_code <= key[1]:
                         entry = self.event_map[key]
+                        break
 
         if entry is not None:
             action, state_id = entry
