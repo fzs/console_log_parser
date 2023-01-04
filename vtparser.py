@@ -45,6 +45,99 @@ class Actions(Enum):
     OSC_END = 'osc_end'
 
 
+class Utf8StateMachine:
+    """
+    State machine parsing UTF-8 multibyte sequences and converting them to unicode code points.
+    """
+    class State(Enum):
+        """
+        UTF-8 state machine states
+        """
+        START = 'start'
+        ACCEPT = 'accept'
+        INVALID = 'invalid'
+        EXPECT_3 = 3
+        EXPECT_2 = 2
+        EXPECT_1 = 1
+
+
+    def __init__(self):
+        self.state = self.State.START
+        self.uic = 0
+
+
+    def reset(self):
+        self.state = self.State.START
+        self.uic = 0
+
+
+    def input(self, code):
+        if (self.state == self.State.START
+                or self.state == self.State.ACCEPT
+                or self.state == self.State.INVALID):
+
+            if code < 0x80:
+                # A normal 7-bit ASCII code is accepted as it is
+                self.uic = code
+                self.state = self.State.ACCEPT
+            elif code < 0xc2 or code > 0xfd:
+                # Anything but a multibyte start byte is accepted as it is
+                LOG.debug("8-bit code seen in UTF-8 parser: 0x{:02x}. Accepted as normal code.", code)
+                self.uic = code
+                self.state = self.State.ACCEPT
+            elif (code & 0xE0) == 0xC0:
+                # Start byte of a two-byte sequence. Store and expect one more byte
+                self.uic = (code & 0x1F) << 6
+                self.state = self.State.EXPECT_1
+            elif (code & 0xF0) == 0xE0:
+                # Start byte of a three-byte sequence. Store and expect two more bytes
+                self.uic = (code & 0x0F) << 12
+                self.state = self.State.EXPECT_2
+            elif (code & 0xF8) == 0xF0:
+                # Start byte of a four-byte sequence. Store and expect three more bytes
+                self.uic = (code & 0x07) << 18
+                self.state = self.State.EXPECT_3
+            elif 0xf8 <= code <= 0xfd:
+                # These would be five-byte or six-byte sequences. Not implemented, so throw.
+                raise NotImplementedError("UTF-8 sequence starting with 0x{:02x} is not supported.".format(code))
+
+        elif self.state == self.State.EXPECT_3:
+            if (code & 0xC0) == 0x80:
+                self.uic |= (code & 0x3F) << 12
+                self.state = self.State.EXPECT_2
+            else:
+                # Nope, we need a sequence code. This ain't one so reject the byte.
+                self.state = self.State.INVALID
+
+        elif self.state == self.State.EXPECT_2:
+            if (code & 0xC0) == 0x80:
+                self.uic |= (code & 0x3F) << 6
+                self.state = self.State.EXPECT_1
+            else:
+                # Nope, we need a sequence code. This ain't one so reject the byte.
+                self.state = self.State.INVALID
+
+        elif self.state == self.State.EXPECT_1:
+            if (code & 0xC0) == 0x80:
+                self.uic |= (code & 0x3F)
+                self.state = self.State.ACCEPT
+            else:
+                # Nope, we need a sequence code. This ain't one so reject the byte.
+                self.state = self.State.INVALID
+
+        else:
+            raise NotImplementedError("Not implemented state '%s'".format(self.state))
+
+        return self.state
+
+
+    def get(self):
+        if self.state == self.State.ACCEPT:
+            return self.uic
+        return ord('\N{REPLACEMENT CHARACTER}')
+
+
+
 class State:
     """
     VT500Parser state machine state. It defines a mapping from an input code to a action and/or new state
@@ -52,9 +145,13 @@ class State:
     """
     states = {}
 
+
     def __init__(self, state_id: States):
         # State id. In case someone wants to find out who we are.
         self.id = state_id
+        # Does this state support UTF-8 input? The default is no. Only the GROUND state accepts UTF-8
+        # multibyte sequences. Other states use the bytes as they come in.
+        self.accept_utf8 = False
         # The event map defines for each input code a (action,state) tuple.
         # The tuple has an action if the event, i.e. input code, results
         # in an action, and it has a state if the event results in a
@@ -90,6 +187,7 @@ class State:
             0x9D: (None, States.OSC_STRING)
         }
 
+
     @classmethod
     def get(cls, state_id):
         if state_id in cls.states:
@@ -99,14 +197,20 @@ class State:
             cls.states[state_id] = state
             return state
 
+
     def event(self, code):
         entry = None
-        # All codes A0-ff (GR area) are treated identically
-        # to codes 20-7F (GL area). So for these codes search the
-        # mapping table  for the GL counterpart
-        s_code = code
-        if 0xA0 <= code <= 0xff:
-            s_code = code - 0x80
+
+        if self.accept_utf8:
+            s_code = code
+        else:
+            # All codes A0-ff (GR area) are treated identically
+            # to codes 20-7F (GL area). So for these codes search the
+            # mapping table  for the GL counterpart
+            if 0xA0 <= code <= 0xff:
+                s_code = code - 0x80
+            else:
+                s_code = code
 
         # First check if the code is in the map as a single key
         if s_code in self.event_map:
@@ -123,28 +227,33 @@ class State:
             action, state_id = entry
             return (action, None if state_id is None else self.get(state_id))
 
-        raise NotImplementedError("The input 0x{:02x} has no mapping defined.".format(code))
+        raise NotImplementedError("The input 0x{:02x}(0x{:02x}) has no mapping defined.".format(s_code, code))
         #return None
+
 
     def entry(self):
         if 'entry' in self.event_map:
             return self.event_map['entry'][0]
         return None
 
+
     def exit(self):
         if 'exit' in self.event_map:
             return self.event_map['exit'][0]
         return None
 
+
     @staticmethod
     def generate_state(state_id):
         if state_id == States.GROUND:
             state = State(state_id)
+            state.accept_utf8 = True
             state.event_map[(0x00, 0x17)] = (Actions.EXECUTE, None)
             state.event_map[0x19]         = (Actions.EXECUTE, None)
             state.event_map[(0x1C, 0x1F)] = (Actions.EXECUTE, None)
 
             state.event_map[(0x20, 0x7F)] = (Actions.PRINT, None)
+            state.event_map[(0xA0, 0x10FFFF)] = (Actions.PRINT, None)
             return state
 
         if state_id == States.ESCAPE:
@@ -363,6 +472,7 @@ class State:
             state.event_map[(0x20, 0x7F)] = (Actions.IGNORE, None)
             return state
 
+        # Should this raise an exception?
         return None
 
 
@@ -435,6 +545,9 @@ class VT500Parser:
         # Operating system command. Buffered for statistics, because we can.
         self.operating_system_command = ''
 
+        # Parse UTF-8 multibyte sequences into code points
+        self.utf8_stm = Utf8StateMachine()
+
         # We keep some statistics to see what we are dealing with in a file.
         self.states_visited = {States.GROUND: 1}
         self.actions_performed = {}
@@ -463,8 +576,25 @@ class VT500Parser:
         self.stats_dict_inc(self.states_visited, self.state.id)
 
     def input(self, code: int):
+        if self.state.accept_utf8:
+            # Parse possible multibyte sequences to code points. Only the
+            # whole code points are then sent to the state as an event.
+            stm_state = self.utf8_stm.input(code)
+            if stm_state == Utf8StateMachine.State.ACCEPT:
+                # Ready to get a code point
+                code = self.utf8_stm.get()
+            elif stm_state == Utf8StateMachine.State.INVALID:
+                # An invalid sequence occurred.
+                # We could get the replacement character here but then we still have to deal with
+                # the code that just came in. Instead, we drop the invalid sequence and continue
+                # with the current code.
+                LOG.warning("An invalid UTF-8 sequence occurred. Dropping sequence and continuing with current code 0x{:02x}", code)
+            else:
+                # Need more input
+                return
+
         # Send event to state
-        LOG.debug("> %02x %s", code, "("+chr(code)+")" if 0x20 <= code <= 0x7E else '')
+        LOG.debug("> %02x %s", code, "("+chr(code)+")" if (0x20 <= code <= 0x7E or 0xA0 < code) else '')
         action, new_state = self.state.event(code)
 
         # If a new state is returned,
