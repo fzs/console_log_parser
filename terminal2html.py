@@ -329,25 +329,30 @@ class LineBuilder:
     def __init__(self):
         self.line = []
         self.pos = 0
+        self.prefix_start = 0   # Length of characters on line in prefixing line builder, which this one doesn't see.
+                                # Expressed as negative index, indicating the start of the prefix: -2, -1, 0, 1, 2, ...
 
     def print(self, code):
         """ Add a normal character """
-        if self.pos >= len(self.line):
-            self.line.insert(self.pos, code)
-        else:
-            self.line[self.pos] = code
+        if self.pos >= 0:    # Is not in prefix
+            if self.pos >= len(self.line):
+                self.line.insert(self.pos, code)
+            else:
+                self.line[self.pos] = code
         self.pos += 1
 
     def ctrl(self, code):
         """ Add a control character to be handled accordingly. """
         if code == 0x08:  # BS
-            self.pos -= (1 if self.pos > 0 else 0)  # Go back one character
+            self.pos -= (1 if self.pos > self.prefix_start else 0)  # Go back one character
         if code == 0x09:  # TAB
             self.print(code)  # Treat as normal character, add via print
         elif code == 0x0D:  # CR
-            self.pos = 0  # Back to start of line
+            self.pos = self.prefix_start  # Back to start of line (maybe into prefix, i.e. getting negative)
         elif code == 0x0A:  # LF
             # This should terminate the command line. Add it so it gets printed.
+            if self.prefix_start < self.pos < 0:
+                raise IndexError(f"Newline (LF) occurred while in line prefix (@{self.pos})")
             self.line.insert(len(self.line), code)
             self.pos += 1
 
@@ -358,15 +363,18 @@ class LineBuilder:
         Might be editing the line or setting character attributes. """
         # Now it get's interesting.
         # Filter out the codes that effect the command line and discard all the rest.
+
         if final == '@' and interm == '':  # Insert blank characters
             times = 1 if param == '' else int(param)
             while times > 0:
+                if self.pos < 0:
+                    raise IndexError(f"Insert blank (CSI-@) occurred while in line prefix (@{self.pos})")
                 self.line.insert(self.pos, ord(' '))
                 times -= 1
         elif final == 'C':  # Cursor forward
             times = 1 if param == '' else int(param)
             while times > 0:
-                while isinstance(self.line[self.pos], tuple) and self.pos < len(self.line):
+                while self.pos >= 0 and self.pos < len(self.line) and isinstance(self.line[self.pos], tuple):
                     self.pos += 1  # Skip over CSI
                 if self.pos >= len(self.line):  # Add spaces to the end of our line
                     self.line.append(ord(' '))
@@ -374,31 +382,40 @@ class LineBuilder:
                 times -= 1
         elif final == 'D':  # Cursor backward
             p = 1 if param == '' else int(param)
-            while self.pos >= 0 and p:
-                while isinstance(self.line[self.pos], tuple) and self.pos > 0:
+            while self.pos >= self.prefix_start and p:
+                while self.pos > 0 and isinstance(self.line[self.pos], tuple):
                     self.pos -= 1  # Skip over CSI
                 self.pos -= 1
                 p -= 1
         elif final == 'K':  # Erase in line
             if param == '' or param == '0':
-                del self.line[self.pos:]
+                from_pos = self.pos if self.pos >= 0 else 0
+                del self.line[from_pos:]
             else:
                 # We need to handle this somehow should it appear
                 raise NotImplementedError("Control sequence for Erase in Line not implemented: " + param + final)
         elif final == 'P':  # Delete Character
             p = 1 if param == '' else int(param)
-            self.line[self.pos:self.pos+p] = []
+            start = self.pos if self.pos >= 0 else 0
+            end = self.pos + p
+            if end > 0:
+                self.line[start:end] = []
+            if self.pos < 0:
+                LOG.warning("Deleting characters (CSI-P) while in prefix (@%d)", self.pos)
         elif final == 'X':  # Erase Character
             times = 1 if param == '' else int(param)
             pos = self.pos
             while times > 0 and pos < len(self.line):
-                self.line[pos] = ord(' ')
+                if pos >= 0:
+                    self.line[pos] = ord(' ')
                 pos += 1
                 times -= 1
+            if self.pos < 0:
+                LOG.warning("Erasing characters (CSI-X) while in prefix (@%d)", self.pos)
         elif final == 'm':
             if ignore_SGR:
                 LOG.info("Discard ignored SGR control sequence CSI %s%s %s %s", private, param, interm, final)
-            else:
+            elif self.pos >= 0:    # Is not in prefix
                 self._insert_csi(private, param, interm, final)
         else:
             LOG.info("Discard unused control sequence CSI %s%s %s %s", private, param, interm, final)
@@ -414,9 +431,22 @@ class LineBuilder:
         """ Clear line """
         self.line = []
         self.pos = 0
+        self.prefix_start = 0
+
+    def set_prefix_len(self, ptls):
+        self.prefix_start = -ptls
 
     def size(self):
         return len(self.line)
+
+    def printable_size(self):
+        """ Get the number of printable characters on the line, which excludes CSI tuples """
+        size = 0
+        for elem in self.line:
+            if not isinstance(elem, tuple):
+                size += 1
+        return size
+
 
 
 class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultControlSequenceHandler,
@@ -521,6 +551,7 @@ class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultContr
         self.document.new_cmd_block(self.prompt_count)
 
     def prompt_active(self):
+        ptls = self.term_line.printable_size()
         if self.term_line.size() > 0:
             self.print_term_line(self.term_line)
             self.term_line.reset()
@@ -528,6 +559,7 @@ class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultContr
         self.document.close_all_spans()
         self.in_prompt = True
         self.command_line.reset()
+        self.command_line.set_prefix_len(ptls)
 
     def prompt_end(self):
         self.print_cmd_line()
