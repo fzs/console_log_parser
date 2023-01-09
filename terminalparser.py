@@ -25,7 +25,7 @@ class TermLogParser(VT500Parser):
 
     # The regular expression to match prompt context
     RE_PROMPT_HEADER = b"(?:\x1b\\[[0-9;]+m)?[a-z.]+@[-a-zA-Z0-9]+ (?:\x1b\\[[0-9;]+m)?MINGW64(?:\x1b\\[[0-9;]+m)? (?:\x1b\\[[0-9;]+m)?(?P<cwd>(~?[-.\\w/ ]+|~))"
-    RE_PROMPT = b"(?:\x1b\\[[0-9;]+m)?[a-z.]+(?:@[-a-zA-Z0-9]+)?(?:\x1b\\[[0-9;]+m)?(?::| )(?:\x1b\\[[0-9;]+m)?(?:(~?[-.\\w/ ]+|~))(?:\x1b\\[[0-9;]+m)?(?:(?:\x1b\\[[0-9;]+m) \\({1,2}[-.\\w/|! ]+\\){1,2} (?:\x1b\\[[0-9;]+m))?(?:\x1b\\[[0-9;]+m)?\\$(?:\x1b\\[00m)? "
+    RE_PROMPT = b"(?:\x1b\\[[0-9;]+m)?[a-z.]+(?:(?:\x1b\\[[0-9;]+m)?@(?:\x1b\\[[0-9;]+m)?[-a-zA-Z0-9]+)?(?:\x1b\\[[0-9;]+m)?(?::| )(?:\x1b\\[[0-9;]+m)?(?P<cwd>(~?[-.\\w/ ]+|~))(?:\x1b\\[[0-9;]+m)?(?:(?:\x1b\\[[0-9;]+m) \\({1,2}[-.\\w/|! ]+\\){1,2} (?:\x1b\\[[0-9;]+m))?(?:\x1b\\[[0-9;]+m)?\\$(?:\x1b\\[00m)? "
     RE_PROMPT_LINESTART = b"^" + RE_PROMPT
     RE_PROMPT_INLINE = b"(?:\x1b\\[\\?1049l\x1b\\[23;0;0t)?" + RE_PROMPT   # With a possible end-of-man-page-session prefixed
     RE_PROMPT_POSTVIM = b"(?:\r\x1b\\[K)?" + RE_PROMPT                     # With a possible clear-line prefixed
@@ -197,7 +197,19 @@ class TermLogParser(VT500Parser):
         # Finally, feed the line character by character to the VT parser
         self.line_pos = 0
         for c in line:
-            if self.tlp_state == self.STATE_PROMPT_IMMINENT and c == 0x24:  # check for '$'
+            #  An OSC string will try to set the window title. This is the marker that we have a prompt coming up.
+            #  Check if the prompt follows directly after in this line
+            if self.tlp_state == self.STATE_PROMPT_OSC:
+                # The OSC preceding prompts was seen. Check if the current line matches the prompt context
+                match = self.re_prompt.match(line, self.line_pos)
+                if match:
+                    cwd = match.group('cwd').decode()
+                    if self.osc_string.endswith(cwd[1:]) or cwd == '~':
+                        self.tlp_state = self.STATE_PROMPT_IMMINENT
+                        LOG.info("Entering TLP state PROMPT_IMMINENT")
+                    else:
+                        LOG.warning("We matched the prompt header, but the path doesn't match the OSC: %s", cwd)
+            elif self.tlp_state == self.STATE_PROMPT_IMMINENT and c == 0x24:  # check for '$'
                 self.emit(self.STATE_PROMPT)
                 self.tlp_state = self.STATE_PROMPT
                 LOG.info("Entering TLP state PROMPT")
