@@ -32,7 +32,7 @@ class HtmlDocumentCreator:
             'PC01': "#ee3c3c", 'PC09': "#ff5555",
             'PC02': "#66de3d", 'PC10': "#50fa7b",
             'PC03': "#ffb86c", 'PC11': "#f1fa8c",
-            'PC04': "#5443bc", 'PC12': "#6272a4",
+            'PC04': "#5443bc", 'PC12': "#729fcf",
             'PC05': "#bd93f9", 'PC13': "#ff79c6",
             'PC06': "#77d6fb", 'PC14': "#8be9fd",
             'PC07': "#f8f8f2", 'PC15': "#f8f8f2",
