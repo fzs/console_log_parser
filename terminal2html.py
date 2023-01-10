@@ -593,6 +593,9 @@ class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultContr
 
     # Event handler methods
     def prompt_start(self):
+        if self.term_line.size() > 0:
+            self.print_term_line(self.term_line)
+            self.term_line.reset()
         self.prompt_count += 1
         self.document.new_cmd_block(self.prompt_count)
 
