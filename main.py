@@ -4,7 +4,7 @@ import json
 from os.path import dirname, isabs, splitext, exists, join
 from os import makedirs
 import sys
-from terminal2html import parse as html_parse
+from terminal2html import parse as html_parse, HopTarget
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -20,6 +20,7 @@ class TodoArgs:
         self.title = None
         self.chapters = {}
         self.filter = []
+        self.hopto = None
 
 
 def parse_file(args):
@@ -30,20 +31,28 @@ def parse_file(args):
         with open(args.outfile, encoding="utf-8", mode='w') as destfile:
             with open(args.infile, 'rb') as logfile:
                 LOG.info("Parsing file %s", args.infile)
-                html_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter)
+                html_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter, hopto=args.hopto)
     else:
         with open(args.infile, 'rb') as logfile:
             LOG.info("Parsing file %s", args.infile)
-            html_parse(logfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter)
+            html_parse(logfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter, hopto=args.hopto)
 
 
 # def join(path, file):
 #     """ Redefined join since even under windows we work in a Linux shell """
 #     return path + '/' + file
 
+def outfiles_by_id(file_list):
+    filedict = {}
+    for file in file_list:
+        if 'id' in file and file['id']:
+            filedict[file['id']] = file['out']
+
+    return filedict
+
 
 def process_file_list(args, file_list_file):
-    with open(file_list_file, 'r') as file_list:
+    with open(file_list_file, 'r', encoding="utf-8") as file_list:
         data = json.load(file_list)
 
         base_dir_in = dirname(file_list_file)
@@ -63,6 +72,7 @@ def process_file_list(args, file_list_file):
                 base_dir_out = join(base_dir_out, dir)
 
         if data['files']:
+            outfiles = outfiles_by_id(data['files'])
             for file in data['files']:
                 in_file = join(base_dir_in, file['in'])
                 if 'out' in file and file['out']:
@@ -87,6 +97,18 @@ def process_file_list(args, file_list_file):
                     filter = file['id'] + '-suppress'
                     if filter in data:
                         my_args.filter = data[filter]
+
+                    hopto = file['id'] + '-hopto'
+                    if hopto in data:
+                        my_args.hopto = data[hopto]
+                        ofid = data[hopto]['id']
+                        tfilterid = ofid + '-suppress'
+                        if tfilterid in data:
+                            tfilter = data[tfilterid]
+                        else:
+                            tfilter = tuple()
+                        my_args.hopto['target'] = HopTarget(ofid, outfiles[ofid], tfilter)
+                        print(len(tfilter))
 
                 print("Process")
                 print(f"    {my_args.infile}")

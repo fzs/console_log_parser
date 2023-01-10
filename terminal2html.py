@@ -1,5 +1,6 @@
 import logging
 import re
+import html
 import sys
 from os.path import dirname, exists
 from os import makedirs
@@ -10,6 +11,31 @@ from vtparser import VT500Parser
 
 
 LOG = logging.getLogger()
+
+
+class HopTarget:
+    """
+    When linking from one HTML file into another,
+    provide the correct target, i.e. file name and
+    anchor in the file.
+    """
+
+    def __init__(self, id, name, filter):
+        self.id = id
+        self.name = name
+        self.filter = filter
+
+    def get_target(self, hop):
+        """ Get the anchor in the target """
+        return self.name + "#c" + str(hop)
+
+    def get_target_cmd(self, hop):
+        """ Get the translated command number to show, when filtering out commands before it """
+        cmdnum = hop
+        for cmd in self.filter:
+            if hop < cmd: break
+            cmdnum -= 1
+        return str(cmdnum)
 
 
 class HtmlDocumentCreator:
@@ -124,6 +150,11 @@ pre { white-space: pre-wrap; }
 .cmd { float: left; }
 /* Clear floats after the columns */
 .cmd-row:after { content: ""; display: table; clear: both; }
+.cmd-hop { font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif;  }
+a.cmd-hop { color: #cdcdaf;  text-decoration: none; font-size: smaller; }
+a.cmd-hop:hover { color: orchid; text-decoration: underline; font-size: smaller;}
+a.cmd-hop:visited { color: #9f9f86;  text-decoration: none; font-size: smaller; }
+
 
 </style>
 </head>
@@ -142,7 +173,7 @@ pre { white-space: pre-wrap; }
 </html>
 """
 
-    def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}, cmd_filter=[]):
+    def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}, cmd_filter=[], hopto=None):
         self.fh = out_fh if out_fh is not None else sys.stdout
         self.palette = palette if palette is not None else 'MyDracula'
         self.dark_bg = dark_bg
@@ -150,6 +181,8 @@ pre { white-space: pre-wrap; }
         self.title = title
         self.chapters = chapters
         self.filter = cmd_filter
+        self.hopto = hopto if hopto else {'hops':[-1]}
+        self.curr_hop = 0
 
         sdict = self.SCHEMES[self.palette].copy()
         sdict['fw'] = self.SCHEMES['BoldAsBright'][self.bold_as_bright]['fw']
@@ -294,9 +327,20 @@ pre { white-space: pre-wrap; }
     def new_cmd_block(self, count):
         """ Begin a new block of a prompt, command and command output. """
         self.close_all_spans()
+        self.fh.write("\n  </pre>\n</div>\n")
+
+        if self.hopto['hops'][self.curr_hop] == self.cmd_count:
+            target_cmd = str(self.hopto['hops'][self.curr_hop+1])
+            target = self.hopto['target'].get_target(target_cmd)
+            target_cmd =  self.hopto['target'].get_target_cmd(int(target_cmd))
+            self.fh.write('<a class="cmd-hop" href="{}">{} jump to {} command {} {}</a><br/><br/>\n\n'
+                          .format(target, html.escape(self.hopto['pre']),  html.escape(self.hopto['to']),  target_cmd, html.escape(self.hopto['post'])))
+            if self.curr_hop +2 < len(self.hopto['hops']) -1:
+                self.curr_hop += 2
+            else:
+                self.curr_hop = -1
 
         self.cmd_count += 1
-        self.fh.write("\n  </pre>\n</div>\n")
         if self.cmd_count in self.filter:
             self.output_suppressed = True
             LOG.debug("Suppressing command number %d", self.cmd_count)
@@ -304,11 +348,13 @@ pre { white-space: pre-wrap; }
 
         self.output_suppressed = False
         idx = str(self.cmd_count)
+        anchor_id = f' id="c{self.cmd_count}"'
         if idx in self.chapters:
-            self.fh.write('<h3>{}</h3>'.format(self.chapters[idx]))
+            self.fh.write('<h3{}>{}</h3>'.format(anchor_id, self.chapters[idx]))
+            anchor_id = ''
         self.cmd_number += 1
-        self.fh.write('<div class="cmd-row">\n  <div class="cmd-num"><span class="cmd-count">{}</span><br/>'
-                      '{}</div>\n  <pre class="cmd">'.format(self.cmd_count, self.cmd_number))
+        self.fh.write('<div class="cmd-row"{}>\n  <div class="cmd-num"><span class="cmd-count">{}</span><br/>'
+                      '{}</div>\n  <pre class="cmd">'.format(anchor_id, self.cmd_count, self.cmd_number))
 
     def vim_session(self):
         if self.output_suppressed:
@@ -573,9 +619,9 @@ class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultContr
         self.document.vim_session()
 
 
-def parse(logfile, destfile=None, palette='MyDracula', title=None, chapters={}, cmd_filter=[]):
+def parse(logfile, destfile=None, palette='MyDracula', title=None, chapters={}, cmd_filter=[], hopto=None):
     """Read the input file byte by byte and output as HTML, either to a file or to stdout."""
-    html = HtmlDocumentCreator(destfile, palette=palette, title=title, chapters=chapters, cmd_filter=cmd_filter)
+    html = HtmlDocumentCreator(destfile, palette=palette, title=title, chapters=chapters, cmd_filter=cmd_filter, hopto=hopto)
     parser = TermLogParser()
     output_processor = VT2Html(html)
     parser.terminal_output_handler = output_processor
