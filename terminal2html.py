@@ -155,8 +155,12 @@ a.cmd-hop { color: #cdcdaf;  text-decoration: none; font-size: smaller; }
 a.cmd-hop:hover { color: orchid; text-decoration: underline; font-size: smaller;}
 a.cmd-hop:visited { color: #9f9f86;  text-decoration: none; font-size: smaller; }
 
-
 </style>
+"""
+
+    HEAD_ELEMS = []
+
+    BODY_INTRO = """
 </head>
 
 <body class="f9 b9">
@@ -166,6 +170,7 @@ a.cmd-hop:visited { color: #9f9f86;  text-decoration: none; font-size: smaller; 
   <div class="cmd-num">No.</div>
   <pre class="cmd">
 """
+
     HTML_OUTRO = """
 </pre>
 </div>
@@ -192,7 +197,7 @@ a.cmd-hop:visited { color: #9f9f86;  text-decoration: none; font-size: smaller; 
         sdict['bf9'] = self.SCHEMES[self.palette][bf9]
         sdict['title'] = self.title
 
-        self.html_intro = self.HTML_INTRO % sdict
+        self.html_intro = (self.HTML_INTRO + ''.join(self.HEAD_ELEMS) + self.BODY_INTRO) % sdict
         self.html_body_string = ""
         self.html_outro = self.HTML_OUTRO
         self.html_span_stack = []
