@@ -345,10 +345,19 @@ class HtmlDocumentCreator:
             self.fh.write("</span>" * len(self.html_span_stack))
             self.html_span_stack = []
 
-    def new_cmd_block(self, count):
-        """ Begin a new block of a prompt, command and command output. """
+    def start_cmd_block(self):
+        """ Begin a new command block: prompt, command and command output, or continuation of a previous block."""
+        self.fh.write('      <pre class="cmd">')
+
+    def end_cmd_block(self):
+        """ End a new block, closing all open spans."""
         self.close_all_spans()
-        self.fh.write("\n      </pre>\n    </div>\n  </div>\n\n")
+        self.fh.write("\n      </pre>\n")
+
+    def new_cmd_row(self, count):
+        """ Begin a new command row, with command number and command, maybe a hop target link.  """
+        self.end_cmd_block()
+        self.fh.write("    </div>\n  </div>\n\n")
 
         if self.hopto['hops'][self.curr_hop] == self.cmd_count:
             target_cmd = str(self.hopto['hops'][self.curr_hop+1])
@@ -377,7 +386,9 @@ class HtmlDocumentCreator:
             anchor_id = ''
         self.cmd_number += 1
         self.fh.write('  <div class="cmd-row"{}>\n    <div class="cmd-num"><span class="cmd-count">{}</span><br/>'
-                      '{}</div>\n    <div class="cmd-wrapper">\n      <pre class="cmd">'.format(anchor_id, self.cmd_count, self.cmd_number))
+                      '{}</div>\n    <div class="cmd-wrapper">\n'
+                      .format(anchor_id, self.cmd_count, self.cmd_number))
+        self.start_cmd_block()
 
     def vim_session(self):
         if self.output_suppressed:
@@ -620,7 +631,7 @@ class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultContr
             self.print_term_line(self.term_line)
             self.term_line.reset()
         self.prompt_count += 1
-        self.document.new_cmd_block(self.prompt_count)
+        self.document.new_cmd_row(self.prompt_count)
 
     def prompt_active(self):
         ptls = self.term_line.printable_size()

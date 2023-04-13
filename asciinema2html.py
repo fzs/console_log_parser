@@ -21,15 +21,42 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
     HTML document creator that can add asciinema recordings for vim sessions
     """
 
+    STYLE_DROPDOWN = """
+  <style type="text/css">
+    /* *** Dropdown for asciinema sessions *** */
+    
+    input, div.dropdown {  display: none;  }
+    label { position: relative; display: block; cursor:pointer; }
+    input:checked~div.dropdown {  display: block;  }
+    input + label::before  { content: "   \\25B6   ";  }
+    input:checked + label::before  { content: "   \\25BC   ";  }
+    
+    .vim-session { font-family: monospace; }
+    .vimsession-wrapper { position: relative; top: -6ex; margin-bottom: -6ex }
+  </style>
+"""
+
     def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}, cmd_filter=[], hopto=None):
+        super().HEAD_ELEMS.extend([self.STYLE_DROPDOWN])
         super().__init__(out_fh, palette, dark_bg, title, chapters, cmd_filter, hopto)
+        self.ddcount = 0
 
 
     def vim_session(self):
         if self.output_suppressed:
             return
-        self.fh.write('<span class="vim-session">     [==-- THIS SHOULD BE A DROPDOWN ASCIINEMA RECORDING --==]</span>\n')
+        self.end_cmd_block()
 
+        self.fh.write('      <div class="vimsession-wrapper">\n')
+        self.fh.write('        <input id="ddcheck' + str(self.ddcount) + '" type="checkbox" name="asciinema"/>\n')
+        self.fh.write('        <label for="ddcheck' + str(self.ddcount) + '"><span class="vim-session">  [==-- Vim editor session --==]</span></label>\n')
+        self.fh.write('        <div class="dropdown">\n')
+        self.fh.write('          <span class="vim-session">     [==-- THIS SHOULD BE A DROPDOWN ASCIINEMA RECORDING --==]</span>\n')
+        self.fh.write('        </div>\n')
+        self.fh.write('      </div>\n')
+        self.ddcount += 1
+
+        self.start_cmd_block()
 
 
 class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultControlSequenceHandler,
