@@ -2,6 +2,7 @@ import logging
 import re
 import sys
 import copy
+import shutil
 import json
 import base64
 from os.path import dirname, exists
@@ -15,6 +16,7 @@ from vtparser import VT500Parser
 LOG = logging.getLogger()
 
 
+ACP_DIR = "js"
 
 
 class HtmlDocumentCreator(VT2HtmlDocCreator):
@@ -37,8 +39,19 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
   </style>
 """
 
+    STYLE_ASCIINEMA = """
+<link rel="stylesheet" type="text/css" href="{acpdir}/asciinema-player.css" />
+"""
+
+    SCRIPT_ASCIINEMA = """
+<script src="{acpdir}/asciinema-player.js"></script>
+"""
+
+
     def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}, cmd_filter=[], hopto=None):
-        super().HEAD_ELEMS.extend([self.STYLE_DROPDOWN])
+        super().HEAD_ELEMS.extend([self.STYLE_DROPDOWN,
+                                   self.STYLE_ASCIINEMA.format(acpdir=ACP_DIR),
+                                   self.SCRIPT_ASCIINEMA.format(acpdir=ACP_DIR) ])
         super().__init__(out_fh, palette, dark_bg, title, chapters, cmd_filter, hopto)
         self.ddcount = 0
         self.vimsessions = {}
@@ -55,6 +68,9 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         self.fh.write('        <div class="dropdown">\n')
         if vimsession is not None:
             acbase64 = base64.b64encode(vimsession.encode("utf-8"))
+            self.fh.write('          <div>\n')
+            self.fh.write('            <asciinema-player idle-time-limit="3" src="data:application/json;base64,' + acbase64.decode("ascii") + '" />\n')
+            self.fh.write('          </div>\n')
             self.fh.write('          <div>\n')
             self.fh.write(vimsession + '\n')
             self.fh.write('          </div>\n')
@@ -234,6 +250,12 @@ def main():
             with open(sys.argv[1], mode="r", encoding="utf-8") as logfile:
                 LOG.info("PlainOut:: Parsing file %s to %s", sys.argv[1], sys.argv[2])
                 parse(logfile, destfile)
+        # Copy over the asciinema files
+        acpdir = dirname(sys.argv[2]) + "/" + ACP_DIR
+        if not exists(acpdir):
+            makedirs(acpdir)
+        shutil.copy("acp/v2/asciinema-player.css", acpdir)
+        shutil.copy("acp/v2/asciinema-player.js", acpdir)
 
 
 if __name__ == '__main__':
