@@ -87,6 +87,17 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
 
         self.start_cmd_block()
 
+        self.vimsessions[str(self.cmd_number) + '_' + str(self.ddcount)] = vimsession
+
+
+    def dump_vim_sessions(self, path):
+        if not exists(path):
+            makedirs(path)
+        for sessnum, session in self.vimsessions.items():
+            with open(path + "/vim_session_" + sessnum + ".rec", mode='w', encoding="utf-8") as sessfile:
+                sessfile.write(session)
+                sessfile.close()
+
 
 class VimRecording:
     """
@@ -241,6 +252,8 @@ def parse(logfile, destfile=None, palette='MyDracula', title=None, chapters={}, 
     # Gather statistics and dump to log
     parser.log_statistics()
 
+    return html
+
 
 def main():
     if len(sys.argv) <= 1:
@@ -258,13 +271,17 @@ def main():
         with open(sys.argv[2], mode='w', encoding="utf-8") as destfile:
             with open(sys.argv[1], mode="r", encoding="utf-8") as logfile:
                 LOG.info("PlainOut:: Parsing file %s to %s", sys.argv[1], sys.argv[2])
-                parse(logfile, destfile)
+                html = parse(logfile, destfile)
+
         # Copy over the asciinema files
         acpdir = dirname(sys.argv[2]) + "/" + ACP_DIR
         if not exists(acpdir):
             makedirs(acpdir)
         shutil.copy("acp/v2/asciinema-player.css", acpdir)
         shutil.copy("acp/v2/asciinema-player.js", acpdir)
+
+        html.dump_vim_sessions(dirname(sys.argv[2]) + "/vs")
+
 
 
 if __name__ == '__main__':
