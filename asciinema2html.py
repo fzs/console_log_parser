@@ -1,10 +1,10 @@
 import logging
-import re
 import sys
 import copy
 import shutil
 import json
 import base64
+import re
 from os.path import dirname, exists
 from os import makedirs
 
@@ -165,13 +165,28 @@ class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Par
         self.framebuffer = []
         self.capturing_vim = False
         self.vimrecording = VimRecording(asciinfo)
+        self.re_vim_end_1 = re.compile(TermLogParser.RE_VIM_END_1)
+        self.re_vim_end_2 = re.compile(TermLogParser.RE_VIM_END_2)
+
 
     def parse(self, line):
         frame = json.loads(line)
         termline = frame[2].encode('utf-8')
 
         if self.in_vim:
+            if self.capturing_vim:
+                # Check if this frame includes the ending of the vim session.
+                # If so, we end the capturing here without this and following frames,
+                # so that our session replay doesn't close the vim secondary screen buffer.
+                # Otherwise we include this frame in our session recording.
+                match = self.re_vim_end_1.search(termline, re.MULTILINE)
+                if not match:
+                    match = self.re_vim_end_2.search(termline, re.MULTILINE)
+                if match:
+                    self.capturing_vim = False
+                else:
                     self.vimrecording.add(frame)
+
         else:
             # Collect asciinema frames in a buffer until a newline appears
             # This is necessary to catch all frames leading up to a Vim session,
@@ -189,6 +204,7 @@ class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Par
     def vim_start(self):
         self.in_vim = True
         # Start a new vim session as asciinema recording
+        self.capturing_vim = True
         # This needs to be timed relative to the timestamp from the frame that started the vim session
         self.vimrecording.start(self.framebuffer[0][0])
         self.vimrecording.addall(self.framebuffer)
@@ -196,6 +212,7 @@ class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Par
 
     def vim_end(self):
         self.in_vim = False
+        self.capturing_vim = False  # Just in case
         self.document.vim_session(self.vimrecording.to_string())
 
 
