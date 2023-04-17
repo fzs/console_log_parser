@@ -220,15 +220,30 @@ class TermLogParser(VT500Parser):
             elif self.next_vim > 0 and self.line_pos == self.next_vim:
                 # Another vim session is coming up in the line.
                 # Check if we have reached it yet, and if so, go into Vim mode again.
+                file = ''
+                height = ''
+                props = {}
                 if line[self.line_pos:].startswith(self.VIM_START):  # Yup, here it comes
-                    if self.re_vim_start_1.match(line[self.line_pos:]):
+                    match1 = self.re_vim_start_1.match(line[self.line_pos:])
+                    if match1:
                         self.vim_2200_seen = True
+                        if match1.group('height'):
+                            props['height'] = match1.group('height')
+                            height = " in height {}".format(match1.group('height'))
                     else:
                         self.vim_2200_seen = False
+                        match2 = self.re_vim_start_2.match(line[self.line_pos:])
+                        if match2:
+                            if match2.group('height'):
+                                props['height'] = match2.group('height')
+                                height = " in height {}".format(match2.group('height'))
+                            if match2.group('file'):
+                                props['file'] = match2.group('file')
+                                file = " with file {}".format(match2.group('file'))
 
-                LOG.info("=====>   vim is starting again  <=======")
+                LOG.info("=====>   vim is starting again{}{}  <=======".format(file, height))
                 # The vim session might be on only one single line, i.e. no 0x0A in the session
-                self.emit(self.STATE_VIM_START)
+                self.emit(self.STATE_VIM_START, props)
                 match1 = self.re_vim_end_1.match(line[-70:])
                 if match1:
                     LOG.info("Entering TLP state VIM_SESSION_ONELINE")
