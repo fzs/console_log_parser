@@ -46,7 +46,7 @@ class TermLogParser(VT500Parser):
         def prompt_end(self):
             pass
 
-        def vim_start(self):
+        def vim_start(self, ev_props):
             pass
 
         def vim_end(self):
@@ -157,6 +157,7 @@ class TermLogParser(VT500Parser):
                 self.tlp_state == self.STATE_VIM_ENDING):
             file = ''
             height = ''
+            props = {}
             match2 = None
 
             match0 = self.re_vim_start_0.match(line)
@@ -164,20 +165,23 @@ class TermLogParser(VT500Parser):
             if match1:
                 self.vim_2200_seen = True
                 if match1.group('height'):
+                    props['height'] = match1.group('height')
                     height = " in height {}".format(match1.group('height'))
             else:
                 self.vim_2200_seen = False
                 match2 = self.re_vim_start_2.match(line)
                 if match2:
                     if match2.group('height'):
+                        props['height'] = match2.group('height')
                         height = " in height {}".format(match2.group('height'))
                     if match2.group('file'):
+                        props['file'] = match2.group('file')
                         file = " with file {}".format(match2.group('file'))
 
             if match0 or match1 or match2:
                 LOG.info("=====>   vim is starting {}{}  <=======".format(file, height))
                 # The vim session might be on only one single line, i.e. no 0x0A in the session
-                self.emit(self.STATE_VIM_START)
+                self.emit(self.STATE_VIM_START, props)
                 match1 = self.re_vim_end_1.match(line[-70:])
                 if match1:
                     LOG.info("Entering TLP state VIM_SESSION_ONELINE")
@@ -241,7 +245,7 @@ class TermLogParser(VT500Parser):
             self.input(c)
             self.line_pos += 1
 
-    def emit(self, tlp_state):
+    def emit(self, tlp_state, props=None):
         """ Emit an event that we have found some pattern in the parsed log """
         if tlp_state == self.STATE_PROMPT_OSC:
             if self.tlp_state == self.STATE_VIM_START or self.tlp_state == self.STATE_VIM_SESSION_ONELINE:
@@ -258,7 +262,7 @@ class TermLogParser(VT500Parser):
             self.tlp_event_listener.prompt_active()
 
         if tlp_state == self.STATE_VIM_START:
-            self.tlp_event_listener.vim_start()
+            self.tlp_event_listener.vim_start(props)
 
         if tlp_state == self.STATE_VIM_ENDING:
             LOG.info("Event STATE_VIM_ENDING has currently no mapped event.")

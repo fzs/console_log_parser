@@ -648,7 +648,7 @@ class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultContr
         self.print_cmd_line()
         self.in_prompt = False
 
-    def vim_start(self):
+    def vim_start(self, ev_props):
         self.in_vim = True
 
     def vim_end(self):

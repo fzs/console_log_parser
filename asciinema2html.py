@@ -135,14 +135,18 @@ class VimRecording:
     """
     def __init__(self, asciinfo):
         self.asciinfo = asciinfo
+        self.last_ts = 0.0
 
     def start(self, start_ts, height = -1):
         self.last_ts = start_ts
-        self.height = height
         if (height >= 0):
-            LOG.debug("VimRecording:: Start vim recording at ts %s with height %s", start_ts, height)
-            asciinfo = copy.deepcopy(self.asciinfo)
-            asciinfo["height"] = height
+            if height != self.asciinfo["height"]:
+                LOG.debug("VimRecording:: Start vim recording at ts %s with height %s (overriding default %s)", start_ts, height, self.asciinfo["height"])
+                asciinfo = copy.deepcopy(self.asciinfo)
+                asciinfo["height"] = height
+            else:
+                LOG.debug("VimRecording:: Start vim recording at ts %s with height %s", start_ts, height)
+                asciinfo = self.asciinfo
         else:
             LOG.debug("VimRecording:: Start vim recording at ts %s with default height %s", start_ts, self.asciinfo["height"])
             asciinfo = self.asciinfo
@@ -234,12 +238,17 @@ class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Par
                 self.framebuffer.clear()
 
 
-    def vim_start(self):
+    def vim_start(self, ev_props):
         self.in_vim = True
         # Start a new vim session as asciinema recording
         self.capturing_vim = True
         # This needs to be timed relative to the timestamp from the frame that started the vim session
-        self.vimrecording.start(self.framebuffer[0][0])
+        if ev_props is not None and "height" in ev_props:
+            height = int(ev_props["height"])
+        else:
+            height = -1
+
+        self.vimrecording.start(self.framebuffer[0][0], height)
         self.vimrecording.addall(self.framebuffer)
 
 
