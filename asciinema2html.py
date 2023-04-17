@@ -105,22 +105,9 @@ class VimRecording:
         self.frames.append([0.0000, "o", "Start at " + str(start_ts) + "\r\n"])
 
     def quantize_ts(self, ts):
-        if ts >= 4.0:
-            return 4.0
-        elif ts >= 2.0:
-            return 2.0
-        elif ts >= 1.0:
-            return 1.0
-        elif ts >= 0.5:
-            return 0.5
-        elif ts >= 0.3:
-            return 0.3
-        elif ts >= 0.18:
-            return 0.18
-        elif ts >= 0.1:
-            return 0.1
-        elif ts >= 0.03:
-            return 0.03
+        for qstep in [4.0, 2.0, 1.0, 0.5, 0.3, 0.18, 0.1, 0.03]:
+            if ts >= qstep:
+                return qstep
         return ts
 
     def frame_time(self, ts):
