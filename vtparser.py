@@ -2,8 +2,8 @@ import logging
 import sys
 from enum import Enum
 
-LOG = logging.getLogger()
-
+LOG = logging.getLogger('vtparser')
+LOG_TRACE = 5
 
 class States(Enum):
     """
@@ -562,7 +562,7 @@ class VT500Parser:
         if action is None:
             return
 
-        LOG.debug("{:02x} -> run action {}".format(code, action))
+        LOG.log(LOG_TRACE, "{:02x} -> run action {}".format(code, action))
         method = getattr(self, action.value, self.default_action)
         method(code)
         self.stats_dict_inc(self.actions_performed, action)
@@ -571,7 +571,7 @@ class VT500Parser:
         LOG.warning("ENCOUNTERED AN UNIMPLEMENTED ACTION")
 
     def transition_to(self, new_state):
-        LOG.info("Entering new state %s", new_state.id)
+        LOG.debug("Entering new state %s", new_state.id)
         self.state = new_state
         self.stats_dict_inc(self.states_visited, self.state.id)
 
@@ -594,7 +594,7 @@ class VT500Parser:
                 return
 
         # Send event to state
-        LOG.debug("> %02x %s", code, "("+chr(code)+")" if (0x20 <= code <= 0x7E or 0xA0 < code) else '')
+        LOG.log(LOG_TRACE, "> %02x %s", code, "("+chr(code)+")" if (0x20 <= code <= 0x7E or 0xA0 < code) else '')
         action, new_state = self.state.event(code)
 
         # If a new state is returned,
@@ -664,7 +664,7 @@ class VT500Parser:
         self.final_char += chr(code)
         self.stats_dict_inc(self.escape_sequences_seen, 'Esc' + self.private_flag + self.parameter_string
                                                         + self.intermediate_char + self.final_char)
-        LOG.info("execute escape sequence: {}_{}".format(self.intermediate_char, self.final_char))
+        LOG.debug("execute escape sequence: {}_{}".format(self.intermediate_char, self.final_char))
 
         self.control_sequence_handler.esc_dispatch(self.intermediate_char, self.final_char)
 
@@ -674,10 +674,10 @@ class VT500Parser:
         self.final_char += chr(code)
         self.stats_dict_inc(self.control_sequences_seen, 'Esc[' + self.private_flag + self.parameter_string
                                                          + self.intermediate_char + self.final_char)
-        LOG.info("determine control function from {}_{}_{}".format(self.private_flag,
+        LOG.debug("determine control function from {}_{}_{}".format(self.private_flag,
                                                                    self.intermediate_char,
                                                                    self.final_char))
-        LOG.info("execute with parameters: {}".format(self.parameter_string))
+        LOG.debug("execute with parameters: {}".format(self.parameter_string))
 
         self.control_sequence_handler.csi_dispatch(self.private_flag, self.parameter_string,
                                                    self.intermediate_char, self.final_char)
@@ -692,11 +692,11 @@ class VT500Parser:
         self.device_control_string = ''
         self.stats_dict_inc(self.device_control_functions_seen, 'EscP' + self.private_flag + self.parameter_string
                                                                 + self.intermediate_char + self.final_char)
-        LOG.info("determine control function from {}_{}_{}".format(self.private_flag,
+        LOG.debug("determine control function from {}_{}_{}".format(self.private_flag,
                                                                    self.intermediate_char,
                                                                    self.final_char))
-        LOG.info("execute with parameters: {}".format(self.parameter_string))
-        LOG.info("Select handler function for following put actions")
+        LOG.debug("execute with parameters: {}".format(self.parameter_string))
+        LOG.debug("Select handler function for following put actions")
 
         self.dc_string_handler = self.dc_control_handler.hook(self.private_flag, self.parameter_string,
                                                               self.intermediate_char, self.final_char)
@@ -712,7 +712,7 @@ class VT500Parser:
         """When a device control string is terminated by ST, CAN, SUB or ESC, this action calls the previously
          selected handler function with an “end of data” parameter. This allows the handler to finish neatly."""
         self.device_control_strings.add(self.device_control_string)
-        LOG.info("Signal EOD to handler function")
+        LOG.debug("Signal EOD to handler function")
 
         self.dc_string_handler.end_of_data()
 
@@ -812,7 +812,8 @@ def main():
 if __name__ == '__main__':
     LOG_FORMAT = "%(levelname)s :%(module)s - %(message)s"
     logging.basicConfig(filename="parser.log",
-                        level=logging.DEBUG,
+                        level=LOG_TRACE,
                         format=LOG_FORMAT,
                         filemode='w')
+    logging.addLevelName(LOG_TRACE, "TRACE")
     main()
