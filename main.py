@@ -5,6 +5,7 @@ from os.path import dirname, isabs, splitext, exists, join
 from os import makedirs
 import sys
 from terminal2html import parse as html_parse, HopTarget
+from asciinema2html import parse as asciinema_parse, copy_asciinema_files
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -15,6 +16,7 @@ LOG = logging.getLogger()
 class TodoArgs:
     def __init__(self, args):
         self.infile = args.infile
+        self.format = 'terminal'
         self.outfile = args.outfile
         self.palette = args.palette
         self.title = None
@@ -22,20 +24,25 @@ class TodoArgs:
         self.filter = []
         self.hopto = None
 
+def parse_to_html(args, logfile, destfile):
+    if args.format == 'asciinema':
+        asciinema_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter, hopto=args.hopto)
+        if args.outfile:
+            copy_asciinema_files(dirname(args.outfile))
+
+    else:
+        html_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter, hopto=args.hopto)
 
 def parse_file(args):
-    if args.outfile:
-        if not exists(dirname(args.outfile)):
-            makedirs(dirname(args.outfile))
-
-        with open(args.outfile, encoding="utf-8", mode='w') as destfile:
-            with open(args.infile, 'rb') as logfile:
-                LOG.info("Parsing file %s", args.infile)
-                html_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter, hopto=args.hopto)
-    else:
-        with open(args.infile, 'rb') as logfile:
-            LOG.info("Parsing file %s", args.infile)
-            html_parse(logfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter, hopto=args.hopto)
+    with open(args.infile, 'rb') as logfile:
+        LOG.info("Parsing file %s", args.infile)
+        if args.outfile:
+            if not exists(dirname(args.outfile)):
+                makedirs(dirname(args.outfile))
+            with open(args.outfile, encoding="utf-8", mode='w') as destfile:
+                parse_to_html(args, logfile, destfile)
+        else:
+            parse_to_html(args, logfile, None)
 
 
 # def join(path, file):
@@ -80,10 +87,18 @@ def process_file_list(args, file_list_file):
                 else:
                     base, ext = splitext(file['in'])
                     out_file = join(base_dir_out, base + '.html')
+                if 'format' in file and file['format']:
+                    log_format = file['format']
+                    if log_format != 'terminal' and log_format != 'asciinema':
+                        print("Unsupported input file format '%s' for file '%s'. Exiting.".format(log_format, file['in']), file=sys.stderr)
+                        return
+                else:
+                    log_format = 'terminal'
 
                 my_args = TodoArgs(args)
                 my_args.infile = in_file
                 my_args.outfile = out_file
+                my_args.format = log_format
                 if 'palette' in file and file['palette']:
                     my_args.palette = file['palette']
                 if 'title' in file and file['title']:
