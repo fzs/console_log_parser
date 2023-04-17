@@ -5,7 +5,7 @@ import shutil
 import json
 import base64
 import re
-from os.path import dirname, exists
+from os.path import dirname, exists, realpath
 from os import makedirs
 
 from terminal2html import VT2Html, HtmlDocumentCreator as VT2HtmlDocCreator
@@ -300,6 +300,23 @@ def parse(logfile, destfile=None, palette='MyDracula', title=None, chapters={}, 
     return html
 
 
+def copy_asciinema_files(destdir):
+    basedir = dirname(realpath(__file__))
+    acp_srcdir = basedir + "/acp/v" + str(ACP_VER)
+
+    # Copy over the asciinema files
+    acp_dstdir = destdir + "/" + ACP_DIR + "/v" + str(ACP_VER)
+    LOG.info("Copying player files from '%s' to '%s'", acp_srcdir, acp_dstdir)
+    if not exists(acp_dstdir):
+        makedirs(acp_dstdir)
+    if ACP_VER == 2:
+        shutil.copy(acp_srcdir + "/asciinema-player.css", acp_dstdir)
+        shutil.copy(acp_srcdir + "/asciinema-player.js", acp_dstdir)
+    else:
+        shutil.copy(acp_srcdir + "/asciinema-player.css", acp_dstdir)
+        shutil.copy(acp_srcdir + "/asciinema-player.min.js", acp_dstdir + "/asciinema-player.js")
+
+
 def main():
     if len(sys.argv) <= 1:
         print("Asciinema file missing. Specify session file to parse.")
@@ -318,16 +335,7 @@ def main():
                 LOG.info("PlainOut:: Parsing file %s to %s", sys.argv[1], sys.argv[2])
                 html = parse(logfile, destfile)
 
-        # Copy over the asciinema files
-        acpdir = dirname(sys.argv[2]) + "/" + ACP_DIR + "/v" + str(ACP_VER)
-        if not exists(acpdir):
-            makedirs(acpdir)
-        if ACP_VER == 2:
-            shutil.copy("acp/v2/asciinema-player.css", acpdir)
-            shutil.copy("acp/v2/asciinema-player.js", acpdir)
-        else:
-            shutil.copy("acp/v3/asciinema-player.css", acpdir)
-            shutil.copy("acp/v3/asciinema-player.min.js", acpdir + "/asciinema-player.js")
+        copy_asciinema_files(dirname(sys.argv[2]))
 
         html.dump_vim_sessions(dirname(sys.argv[2]) + "/vs")
 
