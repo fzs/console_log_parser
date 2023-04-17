@@ -339,4 +339,5 @@ if __name__ == '__main__':
                         level=logging.DEBUG,
                         format=LOG_FORMAT,
                         filemode='w')
+    logging.getLogger('vtparser').setLevel(logging.WARNING)
     main()
