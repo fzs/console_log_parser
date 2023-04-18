@@ -56,7 +56,7 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         self.vimsessions = {}
 
 
-    def vim_session(self, vimsession=None):
+    def vim_session(self, vimrecording=None):
         if self.output_suppressed:
             return
         self.end_cmd_block()
@@ -66,25 +66,29 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         self.fh.write('        <div class="vimsession-player-wrapper">\n')
 
         session_id = str(self.ddcount) + '_' + str(self.cmd_number)
-        if vimsession is not None:
+        if vimrecording is not None:
             if ACP_VER == 2:
-                self.insert_vim_session_player_v2(vimsession, session_id)
+                self.insert_vim_session_player_v2(vimrecording, session_id)
             else:
-                self.insert_vim_session_player_v3(vimsession, session_id)
+                self.insert_vim_session_player_v3(vimrecording, session_id)
+            self.vimsessions[session_id] = vimrecording.to_string()
         else:
             self.fh.write('          <span class="vim-session">     [==-- THIS SHOULD BE A DROPDOWN ASCIINEMA RECORDING --==]</span>\n')
+
         self.fh.write('        </div>\n')
         self.fh.write('      </details>\n')
         self.ddcount += 1
 
         self.start_cmd_block()
 
-        self.vimsessions[session_id] = vimsession
 
-    def insert_vim_session_player_v2(self, vimsession, session_id):
+    def insert_vim_session_player_v2(self, vimrecording, session_id):
+        vimsession = vimrecording.to_string()
         acbase64 = base64.b64encode(vimsession.encode("utf-8"))
         self.fh.write('          <div>\n')
-        self.fh.write('            <asciinema-player idle-time-limit="3" src="data:application/json;base64,' + acbase64.decode("ascii") + '" />\n')
+        self.fh.write('            <asciinema-player idle-time-limit="3" ')
+        self.fh.write(                              'cols="{:d}" rows="{:d}" '.format(vimrecording.asciinfo['width'], vimrecording.asciinfo['height']))
+        self.fh.write(                              'src="data:application/json;base64,' + acbase64.decode("ascii") + '" />\n')
         self.fh.write('          </div>\n')
         self.fh.write('          <div class="controls-help">\n')
         self.fh.write('  Controls: \n')
@@ -97,7 +101,8 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         self.fh.write(vimsession + '\n')
         self.fh.write('          </pre>\n')
 
-    def insert_vim_session_player_v3(self, vimsession, session_id):
+    def insert_vim_session_player_v3(self, vimrecording, session_id):
+        vimsession = vimrecording.to_string()
         acbase64 = base64.b64encode(vimsession.encode("utf-8"))
         self.fh.write('          <div id="vimsess_' + session_id + '"></div>\n')
         self.fh.write('          <div class="controls-help">\n')
@@ -115,7 +120,8 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         self.fh.write('          <script>\n')
         self.fh.write("            AsciinemaPlayer.create('data:text/plain;base64," + acbase64.decode("ascii") + "', \n")
         self.fh.write("                                   document.getElementById('vimsess_" + session_id + "'), {\n")
-        self.fh.write("                                     fit: false \n")
+        self.fh.write("                                      cols: {:d} , rows: {:d}, fit: false, idleTimeLimit: 3 \n"
+                      .format(vimrecording.asciinfo['width'], vimrecording.asciinfo['height']))
         self.fh.write("                                   });\n")
         self.fh.write('          </script>\n')
 
@@ -255,7 +261,7 @@ class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Par
     def vim_end(self):
         self.in_vim = False
         self.capturing_vim = False  # Just in case
-        self.document.vim_session(self.vimrecording.to_string())
+        self.document.vim_session(self.vimrecording)
 
 
 
