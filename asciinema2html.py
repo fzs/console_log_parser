@@ -28,14 +28,11 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
   <style type="text/css">
     /* *** Dropdown for asciinema sessions *** */
     
-    input, div.dropdown {  display: none;  }
-    label { position: relative; display: block; cursor:pointer; }
-    input:checked~div.dropdown {  display: block;  }
-    input + label::before  { content: "   \\25B6   ";  }
-    input:checked + label::before  { content: "   \\25BC   ";  }
-    
     .vim-session { font-family: monospace; }
-    .vimsession-wrapper { position: relative; top: -6ex; margin-bottom: -6ex }
+
+    .vimsession-dropdown { position: relative; top: -6ex; margin-bottom: -6ex; }
+    .vimsession-dropdown > summary { cursor:pointer; color: #e6e6ff; }
+    .vimsession-player-wrapper { display: flex; flex-wrap: wrap; margin-left: 1em; margin-top: 18px; }
     .controls-help { white-space: pre-wrap; font-family: monospace; }
     .vimsession-dump { display: none }
   </style>
@@ -64,10 +61,9 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
             return
         self.end_cmd_block()
 
-        self.fh.write('      <div class="vimsession-wrapper">\n')
-        self.fh.write('        <input id="ddcheck' + str(self.ddcount) + '" type="checkbox" name="asciinema"/>\n')
-        self.fh.write('        <label for="ddcheck' + str(self.ddcount) + '"><span class="vim-session">  [==-- Vim editor session --==]</span></label>\n')
-        self.fh.write('        <div class="dropdown">\n')
+        self.fh.write('      <details class="vimsession-dropdown">\n')
+        self.fh.write('        <summary><span class="vim-session">  [==-- Vim editor session --==]</span></summary>\n')
+        self.fh.write('        <div class="vimsession-player-wrapper">\n')
         if vimsession is not None:
             acbase64 = base64.b64encode(vimsession.encode("utf-8"))
             self.fh.write('          <div>\n')
@@ -86,7 +82,7 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         else:
             self.fh.write('          <span class="vim-session">     [==-- THIS SHOULD BE A DROPDOWN ASCIINEMA RECORDING --==]</span>\n')
         self.fh.write('        </div>\n')
-        self.fh.write('      </div>\n')
+        self.fh.write('      </details>\n')
         self.ddcount += 1
 
         self.start_cmd_block()
