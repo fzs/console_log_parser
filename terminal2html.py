@@ -165,10 +165,9 @@ class HtmlDocumentCreator:
     /* *** Layout *** */ 
 
     h3 { text-align: right;  padding-right: 3em; }
-    .cmd-num { float: left; width: 3em; }
-    .cmd { float: left; }
-    /* Clear floats after the columns */
-    .cmd-row:after { content: ""; display: table; clear: both; }
+    
+    .cmd-row { display: flex; }
+    .cmd-num { min-width: 1.5em; padding-right: 25px; text-align: right; }
     .cmd-hop { margin-bottom: 15px; padding-left: 5px; }
   </style>
 """
@@ -184,10 +183,12 @@ class HtmlDocumentCreator:
 
   <div class="cmd-row">
     <div class="cmd-num">No.</div>
-    <pre class="cmd">"""
+    <div class="cmd-wrapper">
+      <pre class="cmd">"""
 
     HTML_OUTRO = """
-    </pre>
+      </pre>
+    </div>
   </div>
 </body>
 </html>
@@ -347,7 +348,7 @@ class HtmlDocumentCreator:
     def new_cmd_block(self, count):
         """ Begin a new block of a prompt, command and command output. """
         self.close_all_spans()
-        self.fh.write("\n    </pre>\n  </div>\n\n")
+        self.fh.write("\n      </pre>\n    </div>\n  </div>\n\n")
 
         if self.hopto['hops'][self.curr_hop] == self.cmd_count:
             target_cmd = str(self.hopto['hops'][self.curr_hop+1])
@@ -376,7 +377,7 @@ class HtmlDocumentCreator:
             anchor_id = ''
         self.cmd_number += 1
         self.fh.write('  <div class="cmd-row"{}>\n    <div class="cmd-num"><span class="cmd-count">{}</span><br/>'
-                      '{}</div>\n    <pre class="cmd">'.format(anchor_id, self.cmd_count, self.cmd_number))
+                      '{}</div>\n    <div class="cmd-wrapper">\n      <pre class="cmd">'.format(anchor_id, self.cmd_count, self.cmd_number))
 
     def vim_session(self):
         if self.output_suppressed:
