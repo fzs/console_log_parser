@@ -17,6 +17,7 @@ LOG = logging.getLogger()
 
 
 ACP_DIR = "js"
+ACP_VER = 2
 
 
 class HtmlDocumentCreator(VT2HtmlDocCreator):
@@ -39,18 +40,17 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
 """
 
     STYLE_ASCIINEMA = """
-<link rel="stylesheet" type="text/css" href="{acpdir}/asciinema-player.css" />
+  <link rel="stylesheet" type="text/css" href="{acpdir}/v{acpver}/asciinema-player.css" />
 """
-
     SCRIPT_ASCIINEMA = """
-<script src="{acpdir}/asciinema-player.js"></script>
+  <script src="{acpdir}/v{acpver}/asciinema-player.js"></script>
 """
 
 
     def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}, cmd_filter=[], hopto=None):
         super().HEAD_ELEMS.extend([self.STYLE_DROPDOWN,
-                                   self.STYLE_ASCIINEMA.format(acpdir=ACP_DIR),
-                                   self.SCRIPT_ASCIINEMA.format(acpdir=ACP_DIR) ])
+                                   self.STYLE_ASCIINEMA.format(acpdir=ACP_DIR, acpver=ACP_VER),
+                                   self.SCRIPT_ASCIINEMA.format(acpdir=ACP_DIR, acpver=ACP_VER) ])
         super().__init__(out_fh, palette, dark_bg, title, chapters, cmd_filter, hopto)
         self.ddcount = 0
         self.vimsessions = {}
@@ -64,21 +64,13 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         self.fh.write('      <details class="vimsession-dropdown">\n')
         self.fh.write('        <summary><span class="vim-session">  [==-- Vim editor session --==]</span></summary>\n')
         self.fh.write('        <div class="vimsession-player-wrapper">\n')
+
+        session_id = str(self.ddcount) + '_' + str(self.cmd_number)
         if vimsession is not None:
-            acbase64 = base64.b64encode(vimsession.encode("utf-8"))
-            self.fh.write('          <div>\n')
-            self.fh.write('            <asciinema-player idle-time-limit="3" src="data:application/json;base64,' + acbase64.decode("ascii") + '" />\n')
-            self.fh.write('          </div>\n')
-            self.fh.write('          <div class="controls-help">\n')
-            self.fh.write('  Controls: \n')
-            self.fh.write('    space       - play / pause \n')
-            self.fh.write('    < / >       - de- / increase playback speed\n')
-            self.fh.write('    ← / →       - rewind / fast-forward 5 seconds\n')
-            self.fh.write('    0, 1, ... 9 - jump to 0%, 10%, ... 90%\n')
-            self.fh.write('          </div>\n')
-            self.fh.write('          <pre class="vimsession-dump">[\n')
-            self.fh.write(vimsession + '\n')
-            self.fh.write(']         </pre>\n')
+            if ACP_VER == 2:
+                self.insert_vim_session_player_v2(vimsession, session_id)
+            else:
+                self.insert_vim_session_player_v3(vimsession, session_id)
         else:
             self.fh.write('          <span class="vim-session">     [==-- THIS SHOULD BE A DROPDOWN ASCIINEMA RECORDING --==]</span>\n')
         self.fh.write('        </div>\n')
@@ -87,7 +79,45 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
 
         self.start_cmd_block()
 
-        self.vimsessions[str(self.cmd_number) + '_' + str(self.ddcount)] = vimsession
+        self.vimsessions[session_id] = vimsession
+
+    def insert_vim_session_player_v2(self, vimsession, session_id):
+        acbase64 = base64.b64encode(vimsession.encode("utf-8"))
+        self.fh.write('          <div>\n')
+        self.fh.write('            <asciinema-player idle-time-limit="3" src="data:application/json;base64,' + acbase64.decode("ascii") + '" />\n')
+        self.fh.write('          </div>\n')
+        self.fh.write('          <div class="controls-help">\n')
+        self.fh.write('  Controls: \n')
+        self.fh.write('    space       - play / pause \n')
+        self.fh.write('    < / >       - de- / increase playback speed\n')
+        self.fh.write('    ← / →       - rewind / fast-forward 5 seconds\n')
+        self.fh.write('    0, 1, ... 9 - jump to 0%, 10%, ... 90%\n')
+        self.fh.write('          </div>\n')
+        self.fh.write('          <pre class="vimsession-dump">\n')
+        self.fh.write(vimsession + '\n')
+        self.fh.write('          </pre>\n')
+
+    def insert_vim_session_player_v3(self, vimsession, session_id):
+        acbase64 = base64.b64encode(vimsession.encode("utf-8"))
+        self.fh.write('          <div id="vimsess_' + session_id + '"></div>\n')
+        self.fh.write('          <div class="controls-help">\n')
+        self.fh.write('  Controls: \n')
+        self.fh.write('    space  - play / pause\n')
+        self.fh.write('    .      - step through a recording one frame at a time (when paused)\n')
+        self.fh.write('    < / >  - decrease / increase playback speed\n')
+        self.fh.write('    ← / →  - rewind 5 seconds / fast-forward 5 seconds\n')
+        self.fh.write('    Shift + ← / Shift + → - rewind by 10% / fast-forward by 10%\n')
+        self.fh.write('    0, 1, 2 ... 9         - jump to 0%, 10%, 20% ... 90%\n')
+        self.fh.write('          </div>\n')
+        self.fh.write('          <pre  class="vimsession-dump" id="vimsess_' + session_id + '_dump">[\n')
+        self.fh.write(vimsession.replace('\n', ',\n') + '\n')
+        self.fh.write(']         </pre>\n')
+        self.fh.write('          <script>\n')
+        self.fh.write("            AsciinemaPlayer.create('data:text/plain;base64," + acbase64.decode("ascii") + "', \n")
+        self.fh.write("                                   document.getElementById('vimsess_" + session_id + "'), {\n")
+        self.fh.write("                                     fit: false \n")
+        self.fh.write("                                   });\n")
+        self.fh.write('          </script>\n')
 
 
     def dump_vim_sessions(self, path):
@@ -274,11 +304,15 @@ def main():
                 html = parse(logfile, destfile)
 
         # Copy over the asciinema files
-        acpdir = dirname(sys.argv[2]) + "/" + ACP_DIR
+        acpdir = dirname(sys.argv[2]) + "/" + ACP_DIR + "/v" + str(ACP_VER)
         if not exists(acpdir):
             makedirs(acpdir)
-        shutil.copy("acp/v2/asciinema-player.css", acpdir)
-        shutil.copy("acp/v2/asciinema-player.js", acpdir)
+        if ACP_VER == 2:
+            shutil.copy("acp/v2/asciinema-player.css", acpdir)
+            shutil.copy("acp/v2/asciinema-player.js", acpdir)
+        else:
+            shutil.copy("acp/v3/asciinema-player.css", acpdir)
+            shutil.copy("acp/v3/asciinema-player.min.js", acpdir + "/asciinema-player.js")
 
         html.dump_vim_sessions(dirname(sys.argv[2]) + "/vs")
 
