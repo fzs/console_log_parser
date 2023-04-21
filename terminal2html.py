@@ -94,15 +94,20 @@ class HtmlDocumentCreator:
     }
 
     HTML_INTRO = """
+<!DOCTYPE html>
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta charset="utf-8"/>
   <title>%(title)s</title>
 
   <style type="text/css">
-    h1 { text-align: center; color: #e0e0c0; }
-    h3 { text-align: right;  color: #e0e0c0; font-family: sans-serif; padding-right: 3em; }
+    /* *** Text styling *** */
+
+    h1 { color: #e0e0c0; text-align: center; }
+    h3 { color: #e0e0c0; font-family: sans-serif; }
     pre { white-space: pre-wrap; }
+
     .ef0,.f0 { color: %(PC00)s; } .eb0,.b0 { background-color: %(PC00)s; }
     .ef1,.f1 { color: %(PC01)s; } .eb1,.b1 { background-color: %(PC01)s; }
     .ef2,.f2 { color: %(PC02)s; } .eb2,.b2 { background-color: %(PC02)s; }
@@ -147,15 +152,23 @@ class HtmlDocumentCreator:
 
     .vim-session { color: #9696cc; }
 
-    .cmd-num { float: left; width: 3em; color: #447744; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif; }
+    .cmd-num { color: #447744; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif; }
     .cmd-count { color: %(cb9)s; }
-    .cmd { float: left; }
-    /* Clear floats after the columns */
-    .cmd-row:after { content: ""; display: table; clear: both; }
+
     .cmd-hop { font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif;  }
     a.cmd-hop { color: #cdcdaf;  text-decoration: none; font-size: smaller; }
     a.cmd-hop:hover { color: orchid; text-decoration: underline; font-size: smaller;}
     a.cmd-hop:visited { color: #9f9f86;  text-decoration: none; font-size: smaller; }
+  </style>
+
+  <style type="text/css">
+    /* *** Layout *** */ 
+
+    h3 { text-align: right;  padding-right: 3em; }
+    .cmd-num { float: left; width: 3em; }
+    .cmd { float: left; }
+    /* Clear floats after the columns */
+    .cmd-row:after { content: ""; display: table; clear: both; }
   </style>
 """
 
