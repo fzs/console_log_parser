@@ -36,6 +36,8 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
     
     .vim-session { font-family: monospace; }
     .vimsession-wrapper { position: relative; top: -6ex; margin-bottom: -6ex }
+    .controls-help { white-space: pre-wrap; font-family: monospace; }
+    .vimsession-dump { display: none }
   </style>
 """
 
@@ -71,9 +73,16 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
             self.fh.write('          <div>\n')
             self.fh.write('            <asciinema-player idle-time-limit="3" src="data:application/json;base64,' + acbase64.decode("ascii") + '" />\n')
             self.fh.write('          </div>\n')
-            self.fh.write('          <div>\n')
-            self.fh.write(vimsession + '\n')
+            self.fh.write('          <div class="controls-help">\n')
+            self.fh.write('  Controls: \n')
+            self.fh.write('    space       - play / pause \n')
+            self.fh.write('    < / >       - de- / increase playback speed\n')
+            self.fh.write('    ← / →       - rewind / fast-forward 5 seconds\n')
+            self.fh.write('    0, 1, ... 9 - jump to 0%, 10%, ... 90%\n')
             self.fh.write('          </div>\n')
+            self.fh.write('          <pre class="vimsession-dump">[\n')
+            self.fh.write(vimsession + '\n')
+            self.fh.write(']         </pre>\n')
         else:
             self.fh.write('          <span class="vim-session">     [==-- THIS SHOULD BE A DROPDOWN ASCIINEMA RECORDING --==]</span>\n')
         self.fh.write('        </div>\n')
