@@ -156,9 +156,9 @@ class HtmlDocumentCreator:
     .cmd-count { color: %(cb9)s; }
 
     .cmd-hop { font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif;  }
-    a.cmd-hop { color: #cdcdaf;  text-decoration: none; font-size: smaller; }
-    a.cmd-hop:hover { color: orchid; text-decoration: underline; font-size: smaller;}
-    a.cmd-hop:visited { color: #9f9f86;  text-decoration: none; font-size: smaller; }
+    .cmd-hop > a { color: #cdcdaf;  text-decoration: none; font-size: smaller; }
+    .cmd-hop > a:hover { color: orchid; text-decoration: underline; font-size: smaller;}
+    .cmd-hop > a:visited { color: #9f9f86;  text-decoration: none; font-size: smaller; }
   </style>
 
   <style type="text/css">
@@ -169,6 +169,7 @@ class HtmlDocumentCreator:
     .cmd { float: left; }
     /* Clear floats after the columns */
     .cmd-row:after { content: ""; display: table; clear: both; }
+    .cmd-hop { margin-bottom: 15px; padding-left: 5px; }
   </style>
 """
 
@@ -352,8 +353,10 @@ class HtmlDocumentCreator:
             target_cmd = str(self.hopto['hops'][self.curr_hop+1])
             target = self.hopto['target'].get_target(target_cmd)
             target_cmd =  self.hopto['target'].get_target_cmd(int(target_cmd))
-            self.fh.write('  <a class="cmd-hop" href="{}">{} jump to {} command {} {}</a><br/><br/>\n\n'
+            self.fh.write('\n  <div class="cmd-hop">\n')
+            self.fh.write('    <a class="cmd-hop" href="{}">{} jump to {} command {} {}</a>\n'
                           .format(target, html.escape(self.hopto['pre']),  html.escape(self.hopto['to']),  target_cmd, html.escape(self.hopto['post'])))
+            self.fh.write('  </div>\n\n')
             if self.curr_hop +2 < len(self.hopto['hops']) -1:
                 self.curr_hop += 2
             else:
