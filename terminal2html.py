@@ -152,7 +152,7 @@ class HtmlDocumentCreator:
 
     .vim-session { color: #9696cc; }
 
-    .cmd-num { color: #447744; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif; }
+    .cmd-num { color: #579957; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif; }
     .cmd-count { color: %(cb9)s; }
 
     .cmd-hop { font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif;  }
