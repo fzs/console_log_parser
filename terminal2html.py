@@ -169,6 +169,8 @@ class HtmlDocumentCreator:
     .cmd-row { display: flex; }
     .cmd-num { min-width: 1.5em; padding-right: 25px; text-align: right; }
     .cmd-hop { margin-bottom: 15px; padding-left: 5px; }
+
+    #cmd-num-header { align-self: flex-end; margin-left: 1em; }
   </style>
 """
 
@@ -182,7 +184,7 @@ class HtmlDocumentCreator:
   <h1>%(title)s</h1>
 
   <div class="cmd-row">
-    <div class="cmd-num">No.</div>
+    <div class="cmd-num" id="cmd-num-header">No.</div>
     <div class="cmd-wrapper">
       <pre class="cmd">"""
 

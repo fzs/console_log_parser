@@ -34,7 +34,7 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
     .vimsession-dropdown { position: relative; top: -6ex; margin-bottom: -6ex; }
     .vimsession-dropdown > summary { cursor:pointer; color: #e6e6ff; }
     .vimsession-player-wrapper { display: flex; flex-wrap: wrap; margin-left: 1em; margin-top: 18px; }
-    .controls-help { white-space: pre-wrap; font-family: monospace; }
+    .controls-help { white-space: pre-wrap; }
     .vimsession-dump { display: none }
   </style>
 """
@@ -90,7 +90,7 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         self.fh.write(                              'cols="{:d}" rows="{:d}" '.format(vimrecording.asciinfo['width'], vimrecording.asciinfo['height']))
         self.fh.write(                              'src="data:application/json;base64,' + acbase64.decode("ascii") + '" />\n')
         self.fh.write('          </div>\n')
-        self.fh.write('          <div class="controls-help">\n')
+        self.fh.write('          <div class="controls-help vim-session">\n')
         self.fh.write('  Controls: \n')
         self.fh.write('    space       - play / pause \n')
         self.fh.write('    < / >       - de- / increase playback speed\n')
@@ -105,7 +105,7 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         vimsession = vimrecording.to_string()
         acbase64 = base64.b64encode(vimsession.encode("utf-8"))
         self.fh.write('          <div id="vimsess_' + session_id + '"></div>\n')
-        self.fh.write('          <div class="controls-help">\n')
+        self.fh.write('          <div class="controls-help vim-session">\n')
         self.fh.write('  Controls: \n')
         self.fh.write('    space  - play / pause\n')
         self.fh.write('    .      - step through a recording one frame at a time (when paused)\n')
