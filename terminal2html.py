@@ -164,7 +164,7 @@ class HtmlDocumentCreator:
   <style type="text/css">
     /* *** Layout *** */ 
 
-    h3 { text-align: right;  padding-right: 3em; }
+    h3 { text-align: right;  padding-right: 3em; max-width: 1024px; }
     
     .cmd-row { display: flex; }
     .cmd-num { min-width: 1.5em; padding-right: 25px; text-align: right; }
