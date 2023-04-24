@@ -86,7 +86,7 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         vimsession = vimrecording.to_string()
         acbase64 = base64.b64encode(vimsession.encode("utf-8"))
         self.fh.write('          <div>\n')
-        self.fh.write('            <asciinema-player idle-time-limit="3" ')
+        self.fh.write('            <asciinema-player idle-time-limit="3" speed="1.5" poster="' + self.get_poster(vimrecording) + '" ')
         self.fh.write(                              'cols="{:d}" rows="{:d}" '.format(vimrecording.asciinfo['width'], vimrecording.asciinfo['height']))
         self.fh.write(                              'src="data:application/json;base64,' + acbase64.decode("ascii") + '" />\n')
         self.fh.write('          </div>\n')
@@ -120,10 +120,21 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         self.fh.write('          <script>\n')
         self.fh.write("            AsciinemaPlayer.create('data:text/plain;base64," + acbase64.decode("ascii") + "', \n")
         self.fh.write("                                   document.getElementById('vimsess_" + session_id + "'), {\n")
-        self.fh.write("                                      cols: {:d} , rows: {:d}, fit: false, idleTimeLimit: 3 \n"
+        self.fh.write("                                      cols: {:d} , rows: {:d}, fit: false,\n"
                       .format(vimrecording.asciinfo['width'], vimrecording.asciinfo['height']))
+        self.fh.write("                                      idleTimeLimit: 3, speed: 1.5, poster: '{:s}'\n"
+                      .format(self.get_poster(vimrecording)))
         self.fh.write("                                   });\n")
         self.fh.write('          </script>\n')
+
+
+    def get_poster(self, vimrecording):
+        ts = vimrecording.get_end_time()
+        if ts > 2.0:
+            ts = ts - 1.0
+        else:
+            ts = ts - 0.4
+        return "npt:" + str(ts)
 
 
     def dump_vim_sessions(self, path):
@@ -187,6 +198,9 @@ class VimRecording:
         LOG.debug("VimRecording:: Add frames at ts %s - %s", frames[0][0], frames[-1][0])
         for f in frames:
             self.frames.append([self.frame_time(f[0]), f[1], f[2]])
+
+    def get_end_time(self):
+        return self.frames[-1][0]
 
     def to_string(self):
         return '\n'.join(json.dumps(f) for f in self.frames)
