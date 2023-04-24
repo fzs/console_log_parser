@@ -222,10 +222,7 @@ class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Par
                 # If so, we end the capturing here without this and following frames,
                 # so that our session replay doesn't close the vim secondary screen buffer.
                 # Otherwise we include this frame in our session recording.
-                match = self.re_vim_end_1.search(termline, re.MULTILINE)
-                if not match:
-                    match = self.re_vim_end_2.search(termline, re.MULTILINE)
-                if match:
+                if self.vim_ends_in_frame_line(termline):
                     self.capturing_vim = False
                 else:
                     self.vimrecording.add(frame)
@@ -255,6 +252,10 @@ class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Par
             height = -1
 
         self.vimrecording.start(self.framebuffer[0][0], height)
+        # Check if the last frame includes the vim ending, since it also just triggered the session start
+        if self.vim_ends_in_frame(self.framebuffer[-1]):
+            self.framebuffer.pop()
+            self.capturing_vim = False
         self.vimrecording.addall(self.framebuffer)
 
 
@@ -262,6 +263,17 @@ class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Par
         self.in_vim = False
         self.capturing_vim = False  # Just in case
         self.document.vim_session(self.vimrecording)
+
+
+    def vim_ends_in_frame(self, frame):
+        frameline = frame[2].encode('utf-8')
+        return self.vim_ends_in_frame_line(frameline)
+
+    def vim_ends_in_frame_line(self, frameline):
+        match = self.re_vim_end_1.search(frameline, re.MULTILINE)
+        if not match:
+            match = self.re_vim_end_2.search(frameline, re.MULTILINE)
+        return False if not match else True
 
 
 
