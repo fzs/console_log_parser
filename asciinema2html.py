@@ -35,7 +35,13 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
     .vimsession-dropdown > summary { cursor:pointer; color: #e6e6ff; }
     .vimsession-player-wrapper { display: flex; flex-wrap: wrap; margin-left: 1em; margin-top: 18px; }
     .controls-help { white-space: pre-wrap; }
-    .vimsession-dump { display: none }
+    pre.vimsession-dump { display: none }
+
+
+    /* *** review mode: switch to display asciinema dump *** */
+    input:checked~pre.vimsession-dump {  display: block;  }
+    input.vimsession-dump { display: none }
+    label.vimsession-dump { cursor:pointer; color: #13141a; }
   </style>
 """
 
@@ -47,13 +53,14 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
 """
 
 
-    def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}, cmd_filter=[], hopto=None):
+    def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}, cmd_filter=[], hopto=None, review=False):
         super().HEAD_ELEMS['asciinema'] = [self.STYLE_DROPDOWN,
                                            self.STYLE_ASCIINEMA.format(acpdir=ACP_DIR, acpver=ACP_VER),
                                            self.SCRIPT_ASCIINEMA.format(acpdir=ACP_DIR, acpver=ACP_VER) ]
         super().__init__(out_fh, palette, dark_bg, title, chapters, cmd_filter, hopto)
         self.ddcount = 0
         self.vimsessions = {}
+        self.review_mode = review
 
 
     def vim_session(self, vimrecording=None):
@@ -97,9 +104,12 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         self.fh.write('    ← / →       - rewind / fast-forward 5 seconds\n')
         self.fh.write('    0, 1, ... 9 - jump to 0%, 10%, ... 90%\n')
         self.fh.write('          </div>\n')
-        self.fh.write('          <pre class="vimsession-dump">\n')
-        self.fh.write(vimsession + '\n')
-        self.fh.write('          </pre>\n')
+        if self.review_mode:
+            self.fh.write('          <input class="vimsession-dump" id="ddcheck'  + str(self.ddcount) + '" type="checkbox" name="asciinema"/>\n')
+            self.fh.write('          <label class="vimsession-dump" for="ddcheck' + str(self.ddcount) + '">Show Vim editor session dump</label>\n')
+            self.fh.write('          <pre class="vimsession-dump">\n')
+            self.fh.write(vimsession + '\n')
+            self.fh.write('          </pre>\n')
 
     def insert_vim_session_player_v3(self, vimrecording, session_id):
         vimsession = vimrecording.to_string()
@@ -114,6 +124,9 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         self.fh.write('    Shift + ← / Shift + → - rewind by 10% / fast-forward by 10%\n')
         self.fh.write('    0, 1, 2 ... 9         - jump to 0%, 10%, 20% ... 90%\n')
         self.fh.write('          </div>\n')
+        if self.review_mode:
+            self.fh.write('      <input class="vimsession-dump" id="ddcheck'  + str(self.ddcount) + '" type="checkbox" name="asciinema"/>\n')
+            self.fh.write('      <label class="vimsession-dump" for="ddcheck' + str(self.ddcount) + '">Show Vim editor session dump</label>\n')
         self.fh.write('          <pre  class="vimsession-dump" id="vimsess_' + session_id + '_dump">[\n')
         self.fh.write(vimsession.replace('\n', ',\n') + '\n')
         self.fh.write(']         </pre>\n')
@@ -291,7 +304,7 @@ class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Par
 
 
 
-def parse(logfile, destfile=None, palette='MyDracula', title=None, chapters={}, cmd_filter=[], hopto=None):
+def parse(logfile, destfile=None, palette='MyDracula', title=None, chapters={}, cmd_filter=[], hopto=None, review=False):
     """Read the input file byte by byte and output as HTML, either to a file or to stdout."""
 
     line = logfile.readline()
@@ -300,7 +313,7 @@ def parse(logfile, destfile=None, palette='MyDracula', title=None, chapters={}, 
         print("Asciinema file is not a version 2 recording. Cannot parse this file.")
         exit()
 
-    html = HtmlDocumentCreator(destfile, palette=palette, title=title, chapters=chapters, cmd_filter=cmd_filter, hopto=hopto)
+    html = HtmlDocumentCreator(destfile, palette=palette, title=title, chapters=chapters, cmd_filter=cmd_filter, hopto=hopto, review=review)
     parser = TermLogParser()
     reader = Asciinema2Html(asciinfo, parser, html)
 

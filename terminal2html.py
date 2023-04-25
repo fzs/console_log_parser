@@ -154,6 +154,7 @@ class HtmlDocumentCreator:
 
     .cmd-num { color: #579957; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif; }
     .cmd-count { color: %(cb9)s; }
+    .cmd-count-review { color: lightblue; }
 
     .cmd-hop { font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif;  }
     .cmd-hop > a { color: #cdcdaf;  text-decoration: none; font-size: smaller; }
@@ -196,7 +197,7 @@ class HtmlDocumentCreator:
 </html>
 """
 
-    def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}, cmd_filter=[], hopto=None):
+    def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}, cmd_filter=[], hopto=None, review=False):
         self.fh = out_fh if out_fh is not None else sys.stdout
         self.palette = palette if palette is not None else 'MyDracula'
         self.dark_bg = dark_bg
@@ -206,6 +207,7 @@ class HtmlDocumentCreator:
         self.filter = cmd_filter
         self.hopto = hopto if hopto else {'hops':[-1]}
         self.curr_hop = 0
+        self.review_mode = review
 
         sdict = self.SCHEMES[self.palette].copy()
         sdict['fw'] = self.SCHEMES['BoldAsBright'][self.bold_as_bright]['fw']
@@ -395,9 +397,9 @@ class HtmlDocumentCreator:
             self.fh.write('<h3{}>{}</h3>'.format(anchor_id, self.chapters[idx]))
             anchor_id = ''
         self.cmd_number += 1
-        self.fh.write('  <div class="cmd-row"{}>\n    <div class="cmd-num"><span class="cmd-count">{}</span><br/>'
-                      '{}</div>\n    <div class="cmd-wrapper">\n'
-                      .format(anchor_id, self.cmd_count, self.cmd_number))
+        self.fh.write('  <div class="cmd-row"{}>\n    <div class="cmd-num"><span class="cmd-count{review}">{count}</span><br/>'
+                      '{num}</div>\n    <div class="cmd-wrapper">\n'
+                      .format(anchor_id, count=self.cmd_count, num=self.cmd_number, review=" cmd-count-review" if self.review_mode else ""))
         self.start_cmd_block()
 
     def vim_session(self):
@@ -666,9 +668,9 @@ class VT2Html(VT500Parser.DefaultTerminalOutputHandler, VT500Parser.DefaultContr
         self.document.vim_session()
 
 
-def parse(logfile, destfile=None, palette='MyDracula', title=None, chapters={}, cmd_filter=[], hopto=None):
+def parse(logfile, destfile=None, palette='MyDracula', title=None, chapters={}, cmd_filter=[], hopto=None, review=False):
     """Read the input file byte by byte and output as HTML, either to a file or to stdout."""
-    html = HtmlDocumentCreator(destfile, palette=palette, title=title, chapters=chapters, cmd_filter=cmd_filter, hopto=hopto)
+    html = HtmlDocumentCreator(destfile, palette=palette, title=title, chapters=chapters, cmd_filter=cmd_filter, hopto=hopto, review=review)
     parser = TermLogParser()
     output_processor = VT2Html(html)
     parser.terminal_output_handler = output_processor

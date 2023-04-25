@@ -19,6 +19,7 @@ class TodoArgs:
         self.format = 'terminal'
         self.outfile = args.outfile
         self.palette = args.palette
+        self.review_mode = args.review_mode
         self.title = None
         self.chapters = {}
         self.filter = []
@@ -26,12 +27,12 @@ class TodoArgs:
 
 def parse_to_html(args, logfile, destfile):
     if args.format == 'asciinema':
-        asciinema_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter, hopto=args.hopto)
+        asciinema_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter, hopto=args.hopto, review=args.review_mode)
         if args.outfile:
             copy_asciinema_files(dirname(args.outfile))
 
     else:
-        html_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter, hopto=args.hopto)
+        html_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter, hopto=args.hopto, review=args.review_mode)
 
 def parse_file(args):
     with open(args.infile, 'rb') as logfile:
@@ -103,6 +104,8 @@ def process_file_list(args, file_list_file):
                     my_args.palette = file['palette']
                 if 'title' in file and file['title']:
                     my_args.title = file['title']
+                if 'review' in file:
+                    my_args.review_mode = file['review']
 
                 if 'id' in file and file['id']:
                     chapters = file['id'] + '-chapters'
@@ -152,6 +155,8 @@ def main():
                            help="Use color palette Tango Dark")
     argparser.add_argument('--list', '-l', action='store_true', dest='filelist',
                            help="The input file is a JSON todo list with files to convert and their options")
+    argparser.add_argument('--review', '-w', action='store_true', dest='review_mode',
+                           help="In review mode some hidden elements are shown in the HTML")
     args = argparser.parse_args()
 
     if args.filelist:
