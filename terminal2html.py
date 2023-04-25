@@ -94,81 +94,102 @@ class HtmlDocumentCreator:
     }
 
     HTML_INTRO = """
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>%(title)s</title>
-<style type="text/css">
-h1 { text-align: center; color: #e0e0c0; }
-h3 { text-align: right; color: #e0e0c0; font-family: sans-serif; padding-right: 3em; }
-pre { white-space: pre-wrap; }
-.ef0,.f0 { color: %(PC00)s; } .eb0,.b0 { background-color: %(PC00)s; }
-.ef1,.f1 { color: %(PC01)s; } .eb1,.b1 { background-color: %(PC01)s; }
-.ef2,.f2 { color: %(PC02)s; } .eb2,.b2 { background-color: %(PC02)s; }
-.ef3,.f3 { color: %(PC03)s; } .eb3,.b3 { background-color: %(PC03)s; }
-.ef4,.f4 { color: %(PC04)s; } .eb4,.b4 { background-color: %(PC04)s; }
-.ef5,.f5 { color: %(PC05)s; } .eb5,.b5 { background-color: %(PC05)s; }
-.ef6,.f6 { color: %(PC06)s; } .eb6,.b6 { background-color: %(PC06)s; }
-.ef7,.f7 { color: %(PC07)s; } .eb7,.b7 { background-color: %(PC07)s; }
-.ef8, .f0 > .bold,.bold > .f0 { color: %(PC08)s; font-weight: %(fw)s; }
-.ef9, .f1 > .bold,.bold > .f1 { color: %(PC09)s; font-weight: %(fw)s; }
-.ef10,.f2 > .bold,.bold > .f2 { color: %(PC10)s; font-weight: %(fw)s; }
-.ef11,.f3 > .bold,.bold > .f3 { color: %(PC11)s; font-weight: %(fw)s; }
-.ef12,.f4 > .bold,.bold > .f4 { color: %(PC12)s; font-weight: %(fw)s; }
-.ef13,.f5 > .bold,.bold > .f5 { color: %(PC13)s; font-weight: %(fw)s; }
-.ef14,.f6 > .bold,.bold > .f6 { color: %(PC14)s; font-weight: %(fw)s; }
-.ef15,.f7 > .bold,.bold > .f7 { color: %(PC15)s; font-weight: %(fw)s; }
-.eb8  { background-color: %(PC08)s; }
-.eb9  { background-color: %(PC09)s; }
-.eb10 { background-color: %(PC10)s; }
-.eb11 { background-color: %(PC11)s; }
-.eb12 { background-color: %(PC12)s; }
-.eb13 { background-color: %(PC13)s; }
-.eb14 { background-color: %(PC14)s; }
-.eb15 { background-color: %(PC15)s; }
-.f9 { color: %(cf9)s; }
-.b9 { background-color: %(cb9)s; }
-.f9 > .bold,.bold > .f9, body.f9 > pre > .bold {
-  /* Bold is heavy black on white, or bright white
-     depending on the default background */
-  color: %(bf9)s;
-  font-weight: bold /*%(fw)s Just use bold. The bright white is not different enough*/;
-}
-.reverse {
-  /* CSS does not support swapping fg and bg colours unfortunately,
-     so just hardcode something that will look OK on all backgrounds. */
-  color: %(PC00)s; background-color: %(PC07)s;
-}
-.underline { text-decoration: underline; }
-.line-through { text-decoration: line-through; }
-.blink { text-decoration: blink; }
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta charset="utf-8"/>
+  <title>%(title)s</title>
 
-.vim-session { color: #9696cc; }
+  <style type="text/css">
+    /* *** Text styling *** */
 
-.cmd-num { float: left; width: 3em; color: #447744; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif; }
-.cmd-count { color: %(cb9)s; }
-.cmd { float: left; }
-/* Clear floats after the columns */
-.cmd-row:after { content: ""; display: table; clear: both; }
-.cmd-hop { font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif;  }
-a.cmd-hop { color: #cdcdaf;  text-decoration: none; font-size: smaller; }
-a.cmd-hop:hover { color: orchid; text-decoration: underline; font-size: smaller;}
-a.cmd-hop:visited { color: #9f9f86;  text-decoration: none; font-size: smaller; }
+    h1 { color: #e0e0c0; text-align: center; }
+    h3 { color: #e0e0c0; font-family: sans-serif; }
+    pre { white-space: pre-wrap; }
 
+    .ef0,.f0 { color: %(PC00)s; } .eb0,.b0 { background-color: %(PC00)s; }
+    .ef1,.f1 { color: %(PC01)s; } .eb1,.b1 { background-color: %(PC01)s; }
+    .ef2,.f2 { color: %(PC02)s; } .eb2,.b2 { background-color: %(PC02)s; }
+    .ef3,.f3 { color: %(PC03)s; } .eb3,.b3 { background-color: %(PC03)s; }
+    .ef4,.f4 { color: %(PC04)s; } .eb4,.b4 { background-color: %(PC04)s; }
+    .ef5,.f5 { color: %(PC05)s; } .eb5,.b5 { background-color: %(PC05)s; }
+    .ef6,.f6 { color: %(PC06)s; } .eb6,.b6 { background-color: %(PC06)s; }
+    .ef7,.f7 { color: %(PC07)s; } .eb7,.b7 { background-color: %(PC07)s; }
+    .ef8, .f0 > .bold,.bold > .f0 { color: %(PC08)s; font-weight: %(fw)s; }
+    .ef9, .f1 > .bold,.bold > .f1 { color: %(PC09)s; font-weight: %(fw)s; }
+    .ef10,.f2 > .bold,.bold > .f2 { color: %(PC10)s; font-weight: %(fw)s; }
+    .ef11,.f3 > .bold,.bold > .f3 { color: %(PC11)s; font-weight: %(fw)s; }
+    .ef12,.f4 > .bold,.bold > .f4 { color: %(PC12)s; font-weight: %(fw)s; }
+    .ef13,.f5 > .bold,.bold > .f5 { color: %(PC13)s; font-weight: %(fw)s; }
+    .ef14,.f6 > .bold,.bold > .f6 { color: %(PC14)s; font-weight: %(fw)s; }
+    .ef15,.f7 > .bold,.bold > .f7 { color: %(PC15)s; font-weight: %(fw)s; }
+    .eb8  { background-color: %(PC08)s; }
+    .eb9  { background-color: %(PC09)s; }
+    .eb10 { background-color: %(PC10)s; }
+    .eb11 { background-color: %(PC11)s; }
+    .eb12 { background-color: %(PC12)s; }
+    .eb13 { background-color: %(PC13)s; }
+    .eb14 { background-color: %(PC14)s; }
+    .eb15 { background-color: %(PC15)s; }
+    .f9 { color: %(cf9)s; }
+    .b9 { background-color: %(cb9)s; }
+    .f9 > .bold,.bold > .f9, body.f9 > pre > .bold {
+      /* Bold is heavy black on white, or bright white
+         depending on the default background */
+      color: %(bf9)s;
+      font-weight: bold /*%(fw)s Just use bold. The bright white is not different enough*/;
+    }
 
-</style>
+    .reverse {
+      /* CSS does not support swapping fg and bg colours unfortunately,
+           so just hardcode something that will look OK on all backgrounds. */
+      color: %(PC00)s; background-color: %(PC07)s;
+    }
+    .underline { text-decoration: underline; }
+    .line-through { text-decoration: line-through; }
+    .blink { text-decoration: blink; }
+
+    .vim-session { color: #9696cc; }
+
+    .cmd-num { color: #579957; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif; }
+    .cmd-count { color: %(cb9)s; }
+
+    .cmd-hop { font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif;  }
+    .cmd-hop > a { color: #cdcdaf;  text-decoration: none; font-size: smaller; }
+    .cmd-hop > a:hover { color: orchid; text-decoration: underline; font-size: smaller;}
+    .cmd-hop > a:visited { color: #9f9f86;  text-decoration: none; font-size: smaller; }
+  </style>
+
+  <style type="text/css">
+    /* *** Layout *** */ 
+
+    h3 { text-align: right;  padding-right: 3em; }
+    
+    .cmd-row { display: flex; }
+    .cmd-num { min-width: 1.5em; padding-right: 25px; text-align: right; }
+    .cmd-hop { margin-bottom: 15px; padding-left: 5px; }
+  </style>
+"""
+
+    HEAD_ELEMS = []
+
+    BODY_INTRO = """
 </head>
 
 <body class="f9 b9">
-<h1>%(title)s</h1>
 
-<div class="cmd-row">
-  <div class="cmd-num">No.</div>
-  <pre class="cmd">
-"""
+  <h1>%(title)s</h1>
+
+  <div class="cmd-row">
+    <div class="cmd-num">No.</div>
+    <div class="cmd-wrapper">
+      <pre class="cmd">"""
+
     HTML_OUTRO = """
-</pre>
-</div>
+      </pre>
+    </div>
+  </div>
 </body>
 </html>
 """
@@ -192,7 +213,7 @@ a.cmd-hop:visited { color: #9f9f86;  text-decoration: none; font-size: smaller; 
         sdict['bf9'] = self.SCHEMES[self.palette][bf9]
         sdict['title'] = self.title
 
-        self.html_intro = self.HTML_INTRO % sdict
+        self.html_intro = (self.HTML_INTRO + ''.join(self.HEAD_ELEMS) + self.BODY_INTRO) % sdict
         self.html_body_string = ""
         self.html_outro = self.HTML_OUTRO
         self.html_span_stack = []
@@ -327,14 +348,16 @@ a.cmd-hop:visited { color: #9f9f86;  text-decoration: none; font-size: smaller; 
     def new_cmd_block(self, count):
         """ Begin a new block of a prompt, command and command output. """
         self.close_all_spans()
-        self.fh.write("\n  </pre>\n</div>\n")
+        self.fh.write("\n      </pre>\n    </div>\n  </div>\n\n")
 
         if self.hopto['hops'][self.curr_hop] == self.cmd_count:
             target_cmd = str(self.hopto['hops'][self.curr_hop+1])
             target = self.hopto['target'].get_target(target_cmd)
             target_cmd =  self.hopto['target'].get_target_cmd(int(target_cmd))
-            self.fh.write('<a class="cmd-hop" href="{}">{} jump to {} command {} {}</a><br/><br/>\n\n'
+            self.fh.write('\n  <div class="cmd-hop">\n')
+            self.fh.write('    <a class="cmd-hop" href="{}">{} jump to {} command {} {}</a>\n'
                           .format(target, html.escape(self.hopto['pre']),  html.escape(self.hopto['to']),  target_cmd, html.escape(self.hopto['post'])))
+            self.fh.write('  </div>\n\n')
             if self.curr_hop +2 < len(self.hopto['hops']) -1:
                 self.curr_hop += 2
             else:
@@ -353,13 +376,13 @@ a.cmd-hop:visited { color: #9f9f86;  text-decoration: none; font-size: smaller; 
             self.fh.write('<h3{}>{}</h3>'.format(anchor_id, self.chapters[idx]))
             anchor_id = ''
         self.cmd_number += 1
-        self.fh.write('<div class="cmd-row"{}>\n  <div class="cmd-num"><span class="cmd-count">{}</span><br/>'
-                      '{}</div>\n  <pre class="cmd">'.format(anchor_id, self.cmd_count, self.cmd_number))
+        self.fh.write('  <div class="cmd-row"{}>\n    <div class="cmd-num"><span class="cmd-count">{}</span><br/>'
+                      '{}</div>\n    <div class="cmd-wrapper">\n      <pre class="cmd">'.format(anchor_id, self.cmd_count, self.cmd_number))
 
     def vim_session(self):
         if self.output_suppressed:
             return
-        self.fh.write('<span class="vim-session">     [==-- Vim editor session --==]</span>\n')
+        self.fh.write('      <span class="vim-session">[==-- Vim editor session --==]</span>\n')
 
     def finish(self):
         """ Finish output. Writing it out or closing a file or something. """
