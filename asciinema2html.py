@@ -48,9 +48,9 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
 
 
     def __init__(self, out_fh=sys.stdout, palette="MyDracula", dark_bg=True, title=None, chapters={}, cmd_filter=[], hopto=None):
-        super().HEAD_ELEMS.extend([self.STYLE_DROPDOWN,
-                                   self.STYLE_ASCIINEMA.format(acpdir=ACP_DIR, acpver=ACP_VER),
-                                   self.SCRIPT_ASCIINEMA.format(acpdir=ACP_DIR, acpver=ACP_VER) ])
+        super().HEAD_ELEMS['asciinema'] = [self.STYLE_DROPDOWN,
+                                           self.STYLE_ASCIINEMA.format(acpdir=ACP_DIR, acpver=ACP_VER),
+                                           self.SCRIPT_ASCIINEMA.format(acpdir=ACP_DIR, acpver=ACP_VER) ]
         super().__init__(out_fh, palette, dark_bg, title, chapters, cmd_filter, hopto)
         self.ddcount = 0
         self.vimsessions = {}

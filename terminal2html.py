@@ -174,7 +174,7 @@ class HtmlDocumentCreator:
   </style>
 """
 
-    HEAD_ELEMS = []
+    HEAD_ELEMS = {}
 
     BODY_INTRO = """
 </head>
@@ -215,7 +215,7 @@ class HtmlDocumentCreator:
         sdict['bf9'] = self.SCHEMES[self.palette][bf9]
         sdict['title'] = self.title
 
-        self.html_intro = (self.HTML_INTRO + ''.join(self.HEAD_ELEMS) + self.BODY_INTRO) % sdict
+        self.html_intro = (self.HTML_INTRO + ''.join(self.gather_head_elems()) + self.BODY_INTRO) % sdict
         self.html_body_string = ""
         self.html_outro = self.HTML_OUTRO
         self.html_span_stack = []
@@ -224,6 +224,14 @@ class HtmlDocumentCreator:
 
         self.output_suppressed = False
         self.fh.write(self.html_intro)
+
+
+    def gather_head_elems(self):
+        elems = []
+        for es in self.HEAD_ELEMS.values():
+            elems.extend(es)
+        return elems
+
 
     def write(self, char):
         if self.output_suppressed:
