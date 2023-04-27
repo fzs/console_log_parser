@@ -93,7 +93,7 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         vimsession = vimrecording.to_string()
         acbase64 = base64.b64encode(vimsession.encode("utf-8"))
         self.fh.write('          <div>\n')
-        self.fh.write('            <asciinema-player idle-time-limit="3" speed="1.5" poster="' + self.get_poster(vimrecording) + '" ')
+        self.fh.write('            <asciinema-player idle-time-limit="3" speed="1.75" poster="' + self.get_poster(vimrecording) + '" ')
         self.fh.write(                              'cols="{:d}" rows="{:d}" '.format(vimrecording.asciinfo['width'], vimrecording.asciinfo['height']))
         self.fh.write(                              'src="data:application/json;base64,' + acbase64.decode("ascii") + '" />\n')
         self.fh.write('          </div>\n')
@@ -135,7 +135,7 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         self.fh.write("                                   document.getElementById('vimsess_" + session_id + "'), {\n")
         self.fh.write("                                      cols: {:d} , rows: {:d}, fit: false,\n"
                       .format(vimrecording.asciinfo['width'], vimrecording.asciinfo['height']))
-        self.fh.write("                                      idleTimeLimit: 3, speed: 1.5, poster: '{:s}'\n"
+        self.fh.write("                                      idleTimeLimit: 3, speed: 1.75, poster: '{:s}'\n"
                       .format(self.get_poster(vimrecording)))
         self.fh.write("                                   });\n")
         self.fh.write('          </script>\n')
