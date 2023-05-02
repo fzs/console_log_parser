@@ -208,6 +208,8 @@ class HtmlDocumentCreator:
         self.hopto = hopto if hopto else {'hops':[-1]}
         self.curr_hop = 0
         self.review_mode = review
+        if not 'hops' in self.hopto:
+            self.hopto['hops'] = [-1]
 
         sdict = self.SCHEMES[self.palette].copy()
         sdict['fw'] = self.SCHEMES['BoldAsBright'][self.bold_as_bright]['fw']
@@ -366,11 +368,12 @@ class HtmlDocumentCreator:
         self.close_all_spans()
         self.fh.write("\n      </pre>\n")
 
-    def new_cmd_row(self, count):
-        """ Begin a new command row, with command number and command, maybe a hop target link.  """
+    def end_cmd_row(self):
+        """ End current command row """
         self.end_cmd_block()
         self.fh.write("    </div>\n  </div>\n\n")
 
+    def add_hopto_link(self):
         if self.hopto['hops'][self.curr_hop] == self.cmd_count:
             target_cmd = str(self.hopto['hops'][self.curr_hop+1])
             target = self.hopto['target'].get_target(target_cmd)
@@ -384,6 +387,7 @@ class HtmlDocumentCreator:
             else:
                 self.curr_hop = -1
 
+    def start_new_cmd_row(self):
         self.cmd_count += 1
         if self.cmd_count in self.filter:
             self.output_suppressed = True
@@ -401,6 +405,16 @@ class HtmlDocumentCreator:
                       '{num}</div>\n    <div class="cmd-wrapper">\n'
                       .format(anchor_id, count=self.cmd_count, num=self.cmd_number, review=" cmd-count-review" if self.review_mode else ""))
         self.start_cmd_block()
+
+
+    def new_cmd_row(self, count):
+        """ Begin a new command row, with command number and command, maybe a hop target link.  """
+        self.end_cmd_row()
+
+        self.add_hop_to_link()
+
+        self.start_new_cmd_row()
+
 
     def vim_session(self):
         if self.output_suppressed:

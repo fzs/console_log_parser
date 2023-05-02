@@ -42,6 +42,9 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
     input:checked~pre.vimsession-dump {  display: block;  }
     input.vimsession-dump { display: none }
     label.vimsession-dump { cursor:pointer; color: #13141a; }
+    .review-frame-ts { color: cadetblue;   font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif; }
+    .review-cmd-hop  { color: navajowhite; font-size: smaller; font-family: Orbitron, "PT Mono", Menlo, Bahnschrift, Consolas, sans-serif; }
+    .review-cmd-hop  { margin-bottom: 5ex; }
   </style>
 """
 
@@ -61,6 +64,42 @@ class HtmlDocumentCreator(VT2HtmlDocCreator):
         self.ddcount = 0
         self.vimsessions = {}
         self.review_mode = review
+        self.frame_ts = 0.0
+        if review:
+            self.current_rev_hop = 0
+            if not 'rev_hops' in self.hopto:
+                self.hopto['rev_hops'] = [(float('inf'), float('inf'))]
+            else:
+                self.hopto['rev_hops'].append((float('inf'), float('inf')))
+
+
+    def new_cmd_row(self, count):
+        """ Begin a new command row, with command number and command, maybe a hop target link.  """
+        self.end_cmd_row()
+
+        LOG.debug("Beginning a new command row with frame ts at %f", self.frame_ts)
+
+        if self.review_mode:
+            self.add_review_hopto()
+
+        self.add_hopto_link()
+
+        if self.review_mode:
+            # Add the frame number so we can match with the hop links during review
+            self.fh.write('  <div class="review-frame-ts">{:f}</div>\n'.format(self.frame_ts))
+
+        self.start_new_cmd_row()
+
+
+    def add_review_hopto(self):
+        if self.hopto['rev_hops'][self.current_rev_hop][0] <= self.frame_ts:
+            LOG.debug("At ts %f detected previous jump from %f to %f", self.frame_ts, self.hopto['rev_hops'][self.current_rev_hop][0], self.hopto['rev_hops'][self.current_rev_hop][1])
+            self.fh.write('\n  <div class="review-cmd-hop">\n')
+            self.fh.write('    before TS {} detected jump to {}\n'
+                          .format(self.frame_ts, self.hopto['rev_hops'][self.current_rev_hop][1]))
+            self.fh.write('  </div>\n\n')
+            self.current_rev_hop += 1
+
 
 
     def vim_session(self, vimrecording=None):
@@ -242,6 +281,7 @@ class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Par
     def parse(self, line):
         frame = json.loads(line)
         termline = frame[2].encode('utf-8')
+        self.document.frame_ts = frame[0]
 
         if self.in_vim:
             if self.capturing_vim:
@@ -268,6 +308,18 @@ class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Par
                 self.framebuffer.clear()
 
 
+    def vim_ends_in_frame(self, frame):
+        frameline = frame[2].encode('utf-8')
+        return self.vim_ends_in_frame_line(frameline)
+
+    def vim_ends_in_frame_line(self, frameline):
+        match = self.re_vim_end_1.search(frameline, re.MULTILINE)
+        if not match:
+            match = self.re_vim_end_2.search(frameline, re.MULTILINE)
+        return False if not match else True
+
+
+    # Event handler methods
     def vim_start(self, ev_props):
         self.in_vim = True
         # Start a new vim session as asciinema recording
@@ -290,17 +342,6 @@ class Asciinema2Html(VT2Html, VT500Parser.DefaultTerminalOutputHandler, VT500Par
         self.in_vim = False
         self.capturing_vim = False  # Just in case
         self.document.vim_session(self.vimrecording)
-
-
-    def vim_ends_in_frame(self, frame):
-        frameline = frame[2].encode('utf-8')
-        return self.vim_ends_in_frame_line(frameline)
-
-    def vim_ends_in_frame_line(self, frameline):
-        match = self.re_vim_end_1.search(frameline, re.MULTILINE)
-        if not match:
-            match = self.re_vim_end_2.search(frameline, re.MULTILINE)
-        return False if not match else True
 
 
 

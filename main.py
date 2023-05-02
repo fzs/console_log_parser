@@ -6,6 +6,7 @@ from os import makedirs
 import sys
 from terminal2html import parse as html_parse, HopTarget
 from asciinema2html import parse as asciinema_parse, copy_asciinema_files
+from twebber import parse as parse_hops
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -45,16 +46,23 @@ def parse_file(args):
         else:
             parse_to_html(args, logfile, None)
 
+def parse_file_hops(fromfile, tofile):
+    with open(fromfile, 'rb') as leftfile, open(tofile, 'rb') as rightfile:
+        LOG.info("Parsing file hops from %s to %s", fromfile, tofile)
+        return parse_hops(leftfile, rightfile)
 
 # def join(path, file):
 #     """ Redefined join since even under windows we work in a Linux shell """
 #     return path + '/' + file
 
-def outfiles_by_id(file_list):
+def files_by_id(file_list, dir=''):
     filedict = {}
     for file in file_list:
         if 'id' in file and file['id']:
-            filedict[file['id']] = file['out']
+            if dir:
+                filedict[file['id']] = file[dir]
+            else:
+                filedict[file['id']] = (file['in'], file['out'])
 
     return filedict
 
@@ -80,7 +88,7 @@ def process_file_list(args, file_list_file):
                 base_dir_out = join(base_dir_out, dir)
 
         if data['files']:
-            outfiles = outfiles_by_id(data['files'])
+            files = files_by_id(data['files'])
             for file in data['files']:
                 in_file = join(base_dir_in, file['in'])
                 if 'out' in file and file['out']:
@@ -125,8 +133,16 @@ def process_file_list(args, file_list_file):
                             tfilter = data[tfilterid]
                         else:
                             tfilter = tuple()
-                        my_args.hopto['target'] = HopTarget(ofid, outfiles[ofid], tfilter)
+                        my_args.hopto['target'] = HopTarget(ofid, files[ofid][1], tfilter)
                         print(len(tfilter))
+
+                    if my_args.review_mode and 'ahopto' in file and file['ahopto']:
+                        to_file = join(base_dir_in, files[file['ahopto']][0])
+                        ahops = parse_file_hops(in_file, to_file)
+                        if not my_args.hopto:
+                            my_args.hopto = {}
+                        my_args.hopto['rev_hops'] = ahops.hops_from_left
+
 
                 print("Process")
                 print(f"    {my_args.infile}")
