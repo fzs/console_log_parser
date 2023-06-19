@@ -26,6 +26,109 @@ class TodoArgs:
         self.filter = []
         self.hopto = None
 
+class Index:
+    HTML_INTRO = """
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta charset="utf-8"/>
+  <title>%(title)s</title>
+
+  <style type="text/css">
+    /* *** Text styling *** */
+
+    h1 { color: #D1C3CB; } 
+    h2 { color: #e0e0c0; }
+    section { color: #e0e0c0; font-family: sans-serif; }
+
+    h2 > a { color: #e0e0c0;  text-decoration: none; }
+    h2 > a:hover { color: #FFFFEE; text-decoration: underline; }
+    h2 > a:visited { color: #BEBE90;  text-decoration: none; }
+
+    section > a { color: #e0e0c0;  text-decoration: none; }
+    section > a:hover { color: #FFFFEE; text-decoration: underline; }
+    section > a:visited { color: #BEBE90;  text-decoration: none; }
+
+    .f9 { color: %(cf9)s; }
+    .b9 { background-color: %(cb9)s; }
+  </style>
+
+  <style type="text/css">
+    /* *** Layout *** */
+    h1 { text-align: center; }
+    h2 { padding-left: 1em; }
+    section { padding-left: 4em; }
+
+  </style>
+"""
+
+    BODY_INTRO = """
+</head>
+
+<body class="f9 b9">
+
+  <h1>%(title)s</h1>
+"""
+
+    HTML_OUTRO = """
+</body>
+</html>
+"""
+
+    def __init__(self, title=None, dark_bg=True):
+        self.dark_bg = dark_bg
+        self.title = title
+        self.files = {}
+
+        sdict = {
+            'title' : self.title,
+            'cf9' : "#f8f8f2",
+            'cb9' : "#21222c"
+        }
+
+
+        self.html_intro = (self.HTML_INTRO + self.BODY_INTRO) % sdict
+        self.html_body_string = ""
+        self.html_outro = self.HTML_OUTRO
+
+
+    def add_file(self, outfile, title=None):
+        if outfile in self.files:
+            LOG.error("The file %s already exists in the index, cannot add again.", outfile)
+            return
+
+        if not title:
+            title = splitext(outfile)
+
+        self.files[outfile] = {'title' : title}
+
+    def add_chapters(self, outfile, chapters):
+        if not outfile in self.files:
+            self.add_file(outfile)
+
+        self.files[outfile]['chapters'] = chapters
+
+    def build_body(self):
+        body_string = self.html_body_string
+        for filename in self.files:
+            file = self.files[filename]
+            body_string += '\n  <h2><a href="' + filename + '">' + file['title'] + '</a></h2>\n'
+
+            if 'chapters' in file:
+                chapters = file['chapters']
+                for id in chapters:
+                    if id:
+                        body_string += '    <section><a href="' + filename + '#c' + id + '">' + chapters[id] + '</a></section>\n'
+        return body_string
+
+
+    def get_html_page(self):
+
+        return self.html_intro + self.build_body() + self.html_outro
+
+
+
 def parse_to_html(args, logfile, destfile):
     if args.format == 'asciinema':
         asciinema_parse(logfile, destfile, palette=args.palette, title=args.title, chapters=args.chapters, cmd_filter=args.filter, hopto=args.hopto, review=args.review_mode)
@@ -87,15 +190,25 @@ def process_file_list(args, file_list_file):
             else:
                 base_dir_out = join(base_dir_out, dir)
 
+
+        if 'title' in data and data['title']:
+            index_title = data['title']
+        else:
+            index_title = "Git Training"
+
+        index = Index(index_title)
+
         if data['files']:
             files = files_by_id(data['files'])
             for file in data['files']:
                 in_file = join(base_dir_in, file['in'])
                 if 'out' in file and file['out']:
-                    out_file = join(base_dir_out, file['out'])
+                    out_file_name = file['out']
                 else:
                     base, ext = splitext(file['in'])
-                    out_file = join(base_dir_out, base + '.html')
+                    out_file_name = base + '.html'
+                out_file = join(base_dir_out, out_file_name)
+
                 if 'format' in file and file['format']:
                     log_format = file['format']
                     if log_format != 'terminal' and log_format != 'asciinema':
@@ -103,6 +216,12 @@ def process_file_list(args, file_list_file):
                         return
                 else:
                     log_format = 'terminal'
+
+                if 'title' in file and file['title']:
+                    index.add_file(out_file_name, file['title'])
+                else:
+                    index.add_file(out_file_name)
+
 
                 my_args = TodoArgs(args)
                 my_args.infile = in_file
@@ -118,6 +237,7 @@ def process_file_list(args, file_list_file):
                 if 'id' in file and file['id']:
                     chapters = file['id'] + '-chapters'
                     if chapters in data:
+                        index.add_chapters(out_file_name, data[chapters])
                         my_args.chapters = data[chapters]
 
                     filter = file['id'] + '-suppress'
@@ -152,6 +272,18 @@ def process_file_list(args, file_list_file):
                 sys.stdout.flush()
 
                 parse_file(my_args)
+
+
+    print("Generating index file")
+    generate_index(base_dir_out, index)
+
+
+def generate_index(base_dir_out, index : Index):
+    index_file = join(base_dir_out, "index.html")
+    if not exists(dirname(index_file)):
+        makedirs(dirname(index_file))
+    with open(index_file, encoding="utf-8", mode='w') as indexfile:
+        indexfile.write(index.get_html_page())
 
 
 def main():
