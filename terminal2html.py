@@ -398,7 +398,7 @@ class HtmlDocumentCreator:
         idx = str(self.cmd_count)
         anchor_id = f' id="c{self.cmd_count}"'
         if idx in self.chapters:
-            self.fh.write('<h3{}>{}</h3>'.format(anchor_id, self.chapters[idx]))
+            self.fh.write('  <h3{}>{}</h3>\n\n'.format(anchor_id, self.chapters[idx]))
             anchor_id = ''
         self.cmd_number += 1
         self.fh.write('  <div class="cmd-row"{}>\n    <div class="cmd-num"><span class="cmd-count{review}">{count}</span><br/>'
